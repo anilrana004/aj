@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --color-sand: #E4D8C4;
+  --color-sand-light: #EDE6D8;
+  --color-saffron: #C9762C;
+  --color-terracotta: #8A3B24;
+  --color-bronze: #6B4A2E;
+  --color-aubergine: #2E1B24;
+  --color-aubergine-deep: #1A0F16;
+  --color-stone: #D7CBB8;
+  --color-stone-light: #E0D7C9;
+  --color-gold-flat: #B9873B;
+  --color-rust: #C9542F;
+  --color-cream: #F5F0E8;
+  --color-warm-white: #FAF7F2;
+
+  --font-serif: "Canela", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius-default: 2px;
+  --ease-default: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-default: 300ms;
+
+  --header-height: 72px;
+  --mobile-header-height: 60px;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-cream);
+  color: var(--color-aubergine);
+  line-height: 1.6;
+}
+
+::selection {
+  background-color: var(--color-terracotta);
+  color: var(--color-sand-light);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+  .text-sand { color: var(--color-sand); }
+  .text-saffron { color: var(--color-saffron); }
+  .text-terracotta { color: var(--color-terracotta); }
+  .text-bronze { color: var(--color-bronze); }
+  .text-aubergine { color: var(--color-aubergine); }
+  .text-stone { color: var(--color-stone); }
+  .text-gold-flat { color: var(--color-gold-flat); }
+  .text-rust { color: var(--color-rust); }
+  .bg-sand { background-color: var(--color-sand); }
+  .bg-saffron { background-color: var(--color-saffron); }
+  .bg-terracotta { background-color: var(--color-terracotta); }
+  .bg-bronze { background-color: var(--color-bronze); }
+  .bg-aubergine { background-color: var(--color-aubergine); }
+  .bg-stone { background-color: var(--color-stone); }
+  .bg-gold-flat { background-color: var(--color-gold-flat); }
+  .bg-rust { background-color: var(--color-rust); }
+  .bg-cream { background-color: var(--color-cream); }
+  .bg-warm-white { background-color: var(--color-warm-white); }
+}

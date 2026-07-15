@@ -1,0 +1,20 @@
+export const productSchema = {
+  name: 'product',
+  title: 'Product',
+  type: 'document',
+  fields: [
+    { name: 'name', title: 'Name', type: 'string', validation: (Rule: any) => Rule.required() },
+    { name: 'slug', title: 'Slug', type: 'slug', options: { source: 'name', maxLength: 96 } },
+    { name: 'collection', title: 'Collection', type: 'reference', to: [{ type: 'collection' }] },
+    { name: 'description', title: 'Description', type: 'text', rows: 3 },
+    { name: 'story', title: 'Story', type: 'text', rows: 6 },
+    { name: 'price', title: 'Price (INR)', type: 'number', validation: (Rule: any) => Rule.min(0) },
+    { name: 'metal', title: 'Metal', type: 'string' },
+    { name: 'stones', title: 'Stones', type: 'array', of: [{ type: 'string' }] },
+    { name: 'weight', title: 'Weight', type: 'string' },
+    { name: 'dimensions', title: 'Dimensions', type: 'string' },
+    { name: 'images', title: 'Images', type: 'array', of: [{ type: 'image', options: { hotspot: true } }] },
+    { name: 'isAvailable', title: 'Is Available', type: 'boolean', initialValue: true },
+    { name: 'isFeatured', title: 'Is Featured', type: 'boolean', initialValue: false },
+  ],
+};
