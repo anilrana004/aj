@@ -1,0 +1,16 @@
+module.exports = {
+  content: ["./apps/web/**/*.{ts,tsx,js,jsx,md,mdx}"],
+  exclude: [
+    "./apps/web/src/**/*.test.{ts,tsx}",
+    "./apps/web/src/**/*.spec.{ts,tsx}",
+    "./apps/web/src/**/*.test.tsx",
+    "./apps/web/src/**/*.spec.tsx",
+  ],
+  ignore: [
+    "**/node_modules/",
+    "**/dist/",
+    "**/.git/",
+    "**/.next/",
+    "**/coverage/",
+  ],
+};

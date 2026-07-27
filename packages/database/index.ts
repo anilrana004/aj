@@ -1,16 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+import type { Database } from '../types';
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
-};
+// Re-export all Prisma model types
+export * from './generated/types';
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
-  });
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
-
-export default prisma;
-export * from '@prisma/client';
+// Export the full Prisma client type for type safety
+export { Prisma } from '@prisma/client';

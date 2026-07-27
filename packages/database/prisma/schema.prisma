@@ -1,373 +1,277 @@
+generator js2ts > packages/database/prisma/types.ts
+mode du -h
+
+cat > packages/database/prisma/schema.prisma << 'EOF'
+// Apriliha Singh Jewelry Database Schema
+// Implements the bespoke jewelry builder data model
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-// ─── Auth & Users ────────────────────────────────────────
-
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  passwordHash  String?
-  name          String?
-  emailVerified DateTime?
-  image         String?
-  role          UserRole  @default(CUSTOMER)
-  phone         String?
-  guestToken    String?   @unique
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id                 String    @id @default(cuid())
+  email              String     @unique
+  name               String?
+  image              String?
+  passwordHash       String?
+  emailVerified      DateTime?
+  role               String     @default('customer')
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
 
-  accounts        Account[]
-  sessions        Session[]
-  orders          Order[]
-  addresses       Address[]
-  savedDesigns    SavedDesign[]
-  wishlist        WishlistItem[]
-  reviews         Review[]
-  verificationTokens VerificationToken[]
-}
-
-enum UserRole {
-  CUSTOMER
-  STAFF
-  ADMIN
+  accounts           Account[]
+  orders            Order[]
+  savedDesigns      SavedDesign[]
 }
 
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
+  id                 String    @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                 String    @id @default(cuid())
+  sessionToken       String     @unique
+  userId             String
+  expires            DateTime
+
+  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-  user       User?    @relation(fields: [identifier], references: [email])
+  identifier         String
+  expires            DateTime
+  token              String     @unique
 
   @@unique([identifier, token])
 }
 
-// ─── Addresses ───────────────────────────────────────────
-
-model Address {
-  id         String  @id @default(cuid())
-  userId     String
-  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  name       String
-  line1      String
-  line2      String?
-  city       String
-  state      String
-  postalCode String
-  country    String  @default("IN")
-  phone      String?
-  isDefault  Boolean @default(false)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-}
-
-// ─── Catalog: Collections & Products ─────────────────────
-
-model Collection {
-  id          String    @id @default(cuid())
-  slug        String    @unique
-  name        String
-  description String?   @db.Text
-  image       String?
-  sortOrder   Int       @default(0)
-  isActive    Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  products    Product[]
-}
-
-model Product {
-  id              String       @id @default(cuid())
-  slug            String       @unique
-  name            String
-  description     String       @db.Text
-  shortDescription String?
-  price           Decimal      @db.Decimal(10, 2)
-  compareAtPrice  Decimal?     @db.Decimal(10, 2)
-  images          String[]
-  imageAlts       String[]
-  category        String       // "necklace", "bracelet", "mala", "ring", "earring"
-  collectionId    String?
-  collection      Collection?  @relation(fields: [collectionId], references: [id])
-  tags            String[]
-  materials       String[]
-  careInstructions String?     @db.Text
-  weight          String?
-  dimensions      String?
-  isPublished     Boolean      @default(false)
-  isBespoke       Boolean      @default(false) // "or build your own" cross-link
-  stock           Int?
-  leadTimeDays    Int          @default(0)
-  artisanRegion   String?
-  artisanNote     String?      @db.Text
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-
-  orderItems      OrderItem[]
-  cartItems       CartItem[]
-  reviews         Review[]
-}
-
-// ─── Bespoke Builder ────────────────────────────────────
-
 model Category {
-  id        String     @id @default(cuid())
-  slug      String     @unique
-  name      String
-  image     String?
-  partTypes PartType[]
+  id                 String     @id @default(cuid())
+  slug               String     @unique   // "necklace" | "bracelet" | "mala" | "ring" | "earring"
+  name               String
+  description        String?
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  partTypes          PartType[]
+
+  @@index([slug])
 }
 
 model PartType {
-  id           String   @id @default(cuid())
-  categoryId   String
-  category     Category @relation(fields: [categoryId], references: [id])
-  slug         String
-  name         String
-  isRequired   Boolean  @default(true)
-  sortOrder    Int
-  allowMultiple Boolean @default(false)
-  parts        Part[]
+  id                 String     @id @default(cuid())
+  categoryId         String
+  slug               String              // "base" | "centerpiece" | "stone" | "clasp" | "length" | "finish"
+  name               String
+  isRequired         Boolean    @default(true)
+  sortOrder          Int
+  allowMultiple      Boolean    @default(false)   // e.g. multiple "stone" parts allowed
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  category           Category   @relation(fields: [categoryId], references: [id])
+  parts              Part[]
 
   @@unique([categoryId, slug])
+  @@index([categoryId, sortOrder])
 }
 
 model Part {
-  id           String   @id @default(cuid())
-  partTypeId   String
-  partType     PartType @relation(fields: [partTypeId], references: [id])
-  name         String
-  slug         String   @unique
-  price        Decimal  @db.Decimal(10, 2)
-  story        String   @db.Text
-  origin       String?
-  material     String?
-  images       String[]
-  imageAlts    String[]
-  isAvailable  Boolean  @default(true)
-  stock        Int?
-  leadTimeDays Int      @default(14)
-  sortOrder    Int      @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id                 String     @id @default(cuid())
+  partTypeId         String
+  name               String                 // "Oxidized Bronze Chain, 18-inch"
+  slug               String   @unique
+  price              Decimal                // individual price, always shown
+  story              String   @db.Text      // short editorial paragraph, unique per part
+  origin             String?                // e.g. "Jaipur, Rajasthan"
+  material           String?
+  images             String[]               // array of image URLs, used in live preview + gallery
+  isAvailable        Boolean    @default(true)
+  stock              Int?                   // null = made to order, no stock cap
+  leadTimeDays       Int        @default(14)  // bespoke = longer lead time
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  partType           PartType   @relation(fields: [partTypeId], references: [id])
+  savedDesigns       Json       // Reference to where this part is used
+
+  @@index([partTypeId])
+  @@index([slug])
+  @@index([isAvailable])
 }
-
-model SavedDesign {
-  id         String   @id @default(cuid())
-  userId     String?
-  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  guestToken String?
-  categoryId String
-  category   Category @relation(fields: [categoryId], references: [id])
-  name       String?
-  parts      Json     // array of { partTypeId, partId, quantity }
-  totalPrice Decimal  @db.Decimal(10, 2)
-  leadTime   Int?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-}
-
-// ─── Cart ────────────────────────────────────────────────
-
-model Cart {
-  id         String     @id @default(cuid())
-  userId     String?
-  guestToken String?    @unique
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  items      CartItem[]
-}
-
-model CartItem {
-  id        String   @id @default(cuid())
-  cartId    String
-  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  productId String?
-  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
-  designId  String?
-  quantity  Int      @default(1)
-  // For bespoke items: store the parts breakdown as metadata
-  bespokeConfig Json?
-  unitPrice  Decimal @db.Decimal(10, 2)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-// ─── Orders & Payments ──────────────────────────────────
 
 model Order {
-  id            String      @id @default(cuid())
-  orderNumber   String      @unique
-  userId        String?
-  user          User?       @relation(fields: [userId], references: [id])
-  email         String
-  phone         String?
-  status        OrderStatus @default(PENDING_PAYMENT)
-  subtotal      Decimal     @db.Decimal(10, 2)
-  shippingCost  Decimal     @db.Decimal(10, 2) @default(0)
-  tax           Decimal     @db.Decimal(10, 2) @default(0)
-  total         Decimal     @db.Decimal(10, 2)
-  currency      String      @default("INR")
-  paymentIntentId String?
-  paymentMethod String?
-  shippingAddress Json      // full address snapshot
-  billingAddress  Json?     // if different
-  notes         String?     @db.Text
-  guestToken    String?
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  items         OrderItem[]
-  statusHistory OrderStatusHistory[]
-  fulfillmentTracking String?
-  estimatedDelivery    DateTime?
-}
+  id                 String    @id @default(cuid())
+  userId             String?
+  guestToken         String?
+  orderNumber        String    @unique
+  email              String
+  shippingAddress    Json
+  billingAddress     Json?
+  status             String    @default('pending_payment')
+  currency           String     @default('INR')
+  subtotal           Decimal
+  shipping           Decimal    @default(0)
+  tax                Decimal    @default(0)
+  total              Decimal
+  paymentMethod      String?
+  paymentIntentId    String?
+  paymentStatus      String?
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
 
-enum OrderStatus {
-  PENDING_PAYMENT
-  PAID
-  IN_PRODUCTION
-  QUALITY_CHECK
-  SHIPPED
-  DELIVERED
-  CANCELLED
-  REFUNDED
+  user               User?      @relation(fields: [userId], references: [id])
+  orderItems         OrderItem[]
+
+  @@index([status])
+  @@index([createdAt])
 }
 
 model OrderItem {
-  id            String  @id @default(cuid())
-  orderId       String
-  order         Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId     String?
-  product       Product? @relation(fields: [productId], references: [id])
-  name          String
-  quantity      Int     @default(1)
-  unitPrice     Decimal @db.Decimal(10, 2)
-  totalPrice    Decimal @db.Decimal(10, 2)
-  // For bespoke items
-  bespokeConfig Json?
-  isBespoke     Boolean @default(false)
+  id                 String    @id @default(cuid())
+  orderId            String
+  productId          String?
+  partConfig         Json       // For bespoke items: { partId, quantity, price, name, story }
+  productName        String?    // For fixed-price products
+  quantity           Int        @default(1)
+  price              Decimal
+  isBespoke          Boolean    @default(false)
+  createdAt          DateTime   @default(now())
+
+  order              Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
 }
 
-model OrderStatusHistory {
-  id        String      @id @default(cuid())
-  orderId   String
-  order     Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  status    OrderStatus
-  note      String?
-  createdAt DateTime    @default(now())
+model SavedDesign {
+  id                 String    @id @default(cuid())
+  userId             String?
+  guestToken         String?
+  categoryId         String
+  parts              Json                     // array of { partTypeId, partId, quantity }
+  totalPrice         Decimal
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  user               User?       @relation(fields: [userId], references: [id])
+
+  @@index([categoryId])
+  @@index([createdAt])
 }
 
-model Payment {
-  id              String   @id @default(cuid())
-  orderId         String
-  provider        String   // "stripe" | "razorpay"
-  providerId      String?
-  amount          Decimal  @db.Decimal(10, 2)
-  currency        String   @default("INR")
-  status          String   // "succeeded" | "pending" | "failed" | "refunded"
-  metadata        Json?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+model Product {
+  id                 String    @id @default(cuid())
+  slug               String    @unique
+  name               String
+  collectionId       String
+  description        String   @db.Text
+  shortDescription   String?
+  price              Decimal
+  currency           String    @default('INR')
+  images             String[]
+  isAvailable        Boolean   @default(true)
+  isFeatured         Boolean   @default(false)
+  metadata           Json?
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  collection         Collection @relation(fields: [collectionId], references: [id])
+
+  @@index([slug])
+  @@index([collectionId])
+  @@index([isAvailable])
 }
 
-// ─── Wishlist ────────────────────────────────────────────
+model Collection {
+  id                 String    @id @default(cuid())
+  slug               String    @unique
+  name               String
+  description        String   @db.Text
+  story             String   @db.Text
+  heroImage          String?
+  heroImageAlt       String?
+  isActive          Boolean   @default(true)
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
 
-model WishlistItem {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
+  products           Product[]
+
+  @@index([slug])
+  @@index([isActive])
+}
+
+model Wishlist {
+  id                 String    @id @default(cuid())
+  userId             String
+  productId          String
+  partConfig         Json?     // optional config for bespoke wishlist items
+  createdAt          DateTime   @default(now())
+
+  user               User       @relation(fields: [userId], references: [id])
+  product            Product    @relation(fields: [productId], references: [id])
 
   @@unique([userId, productId])
 }
 
-// ─── Reviews ─────────────────────────────────────────────
-
-model Review {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  rating    Int      // 1-5
-  title     String?
-  body      String?  @db.Text
-  isApproved Boolean @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-// ─── Journal / CMS ──────────────────────────────────────
-
 model JournalArticle {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  title       String
-  excerpt     String?  @db.Text
-  content     String   @db.Text
-  coverImage  String?
-  coverAlt    String?
-  author      String   @default("Apriliha Singh")
-  tags        String[]
-  category    String?  // "craftsmanship", "editorial", "guide", "story"
-  isPublished Boolean  @default(false)
-  publishedAt DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                 String    @id @default(cuid())
+  slug               String    @unique
+  title              String
+  dek               String?
+  heroImage          String?
+  heroImageAlt       String?
+  author             String
+  authorRole         String?
+  publishedAt        DateTime
+  readTime          Int
+  category          String    // "atelier", "craft", "story"
+  isFeatured         Boolean   @default(false)
+  content           Json       @db.Text
+  tags              String[]
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  @@index([slug])
+  @@index([publishedAt])
+  @@index([isFeatured, category])
 }
 
-// ─── Newsletter ──────────────────────────────────────────
+model AtelierContent {
+  id                 String    @id @default(cuid())
+  section            String    @unique
+  content            String    @db.Text
+  image              String?
+  imageAlt           String?
+  order              Int       @default(0)
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
 
-model NewsletterSubscriber {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
+  @@index([order])
 }
 
-// ─── Contact ─────────────────────────────────────────────
-
-model ContactMessage {
-  id        String   @id @default(cuid())
-  name      String
-  email     String
-  subject   String?
-  message   String   @db.Text
-  isRead    Boolean  @default(false)
-  createdAt DateTime @default(now())
+model AdminUser {
+  id                 String    @id @default(cuid())
+  email              String    @unique
+  name               String
+  passwordHash       String
+  role               String    @default('staff')
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+  lastLoginAt        DateTime?
 }
