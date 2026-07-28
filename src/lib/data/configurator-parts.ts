@@ -1,25 +1,49 @@
+import { unsplash } from '@/lib/images';
 import { ConfiguratorPart, ProductSlot, SlotType } from '@/types/part';
 
 export const necklaceSlots: ProductSlot[] = [
-  { id: 'neck-chain', slotType: 'chain', label: 'The Foundation', description: 'Every necklace begins with a chain. Choose the metal and style that speaks to you.', required: true, allowsMultiple: false, sortOrder: 1 },
-  { id: 'neck-centerpiece', slotType: 'centerpiece', label: 'The Centerpiece', description: 'The emotional heart of your piece. A stone, a motif, a statement.', required: true, allowsMultiple: false, sortOrder: 2 },
-  { id: 'neck-accents', slotType: 'accent', label: 'Accent Stones', description: 'Small stones that frame and elevate your centerpiece. Optional but transformative.', required: false, allowsMultiple: true, maxSelections: 6, sortOrder: 3 },
-  { id: 'neck-clasp', slotType: 'clasp', label: 'The Clasp', description: 'The final touch — where function meets craft. Every clasp tells a small story.', required: true, allowsMultiple: false, sortOrder: 4 },
-  { id: 'neck-length', slotType: 'length', label: 'Length', description: 'Choose how your piece sits — close at the throat, or long over the heart.', required: true, allowsMultiple: false, sortOrder: 5 },
+  { id: 'neck-chain', slotType: 'chain', label: 'The Foundation', description: 'Every necklace begins with a chain. Choose the metal and style that speaks to you.', required: true, allowsMultiple: false, sortOrder: 1, assemblyFeel: 'form' },
+  { id: 'neck-centerpiece', slotType: 'centerpiece', label: 'The Centerpiece', description: 'The emotional heart of your piece — a motif that the stone will seat into.', required: true, allowsMultiple: false, sortOrder: 2, assemblyFeel: 'attach' },
+  { id: 'neck-stone', slotType: 'stone', label: 'The Stone', description: 'Optional. When chosen, it seats into the centerpiece — the piece visibly completes.', required: false, allowsMultiple: false, sortOrder: 3, assemblyFeel: 'seat' },
+  { id: 'neck-clasp', slotType: 'clasp', label: 'The Clasp', description: 'The final touch — where function meets craft.', required: true, allowsMultiple: false, sortOrder: 4, assemblyFeel: 'attach' },
+  { id: 'neck-length', slotType: 'length', label: 'Length', description: 'Choose how your piece sits — close at the throat, or long over the heart.', required: true, allowsMultiple: false, sortOrder: 5, assemblyFeel: 'form' },
 ];
 
 export const braceletSlots: ProductSlot[] = [
-  { id: 'brace-cord', slotType: 'cord', label: 'The Foundation', description: 'The base your bracelet is built upon.', required: true, allowsMultiple: false, sortOrder: 1 },
-  { id: 'brace-centerpiece', slotType: 'centerpiece', label: 'The Centerpiece', description: 'The focal point of your bracelet.', required: true, allowsMultiple: false, sortOrder: 2 },
-  { id: 'brace-spacers', slotType: 'spacer', label: 'Spacers', description: 'Small metal elements that add rhythm between beads or stones.', required: false, allowsMultiple: true, maxSelections: 8, sortOrder: 3 },
-  { id: 'brace-clasp', slotType: 'clasp', label: 'The Clasp', description: 'How you secure it. Simple or ornate — your call.', required: true, allowsMultiple: false, sortOrder: 4 },
+  { id: 'brace-cord', slotType: 'cord', label: 'The Foundation', description: 'The base your bracelet is built upon.', required: true, allowsMultiple: false, sortOrder: 1, assemblyFeel: 'form' },
+  { id: 'brace-centerpiece', slotType: 'centerpiece', label: 'The Centerpiece', description: 'The focal point of your bracelet.', required: true, allowsMultiple: false, sortOrder: 2, assemblyFeel: 'attach' },
+  { id: 'brace-spacers', slotType: 'spacer', label: 'Spacers', description: 'Small metal elements that add rhythm between beads or stones.', required: false, allowsMultiple: true, maxSelections: 8, sortOrder: 3, assemblyFeel: 'attach' },
+  { id: 'brace-clasp', slotType: 'clasp', label: 'The Clasp', description: 'How you secure it. Simple or ornate — your call.', required: true, allowsMultiple: false, sortOrder: 4, assemblyFeel: 'attach' },
 ];
 
 export const malaSlots: ProductSlot[] = [
-  { id: 'mala-beads', slotType: 'bead', label: 'The Beads', description: '108 beads form the body of your mala. Choose the material that resonates.', required: true, allowsMultiple: false, sortOrder: 1 },
-  { id: 'mala-guru', slotType: 'guru_bead', label: 'The Guru Bead', description: 'The 109th bead — the one that marks completion. Traditionally larger, always significant.', required: true, allowsMultiple: false, sortOrder: 2 },
-  { id: 'mala-spacers', slotType: 'spacer', label: 'Spacer Beads', description: 'Placed at intervals of 27 to mark each lap around the mala.', required: false, allowsMultiple: true, maxSelections: 3, sortOrder: 3 },
-  { id: 'mala-tassel', slotType: 'tassel', label: 'The Tassel', description: 'Attached below the guru bead. Represents the lotus, enlightenment, connection.', required: true, allowsMultiple: false, sortOrder: 4 },
+  { id: 'mala-cord', slotType: 'cord', label: 'The Thread', description: 'The cord your mala is strung upon — the first thing that forms.', required: true, allowsMultiple: false, sortOrder: 1, assemblyFeel: 'form' },
+  { id: 'mala-beads', slotType: 'bead', label: 'The Beads', description: '108 beads join the thread — this should read as being strung, not revealed.', required: true, allowsMultiple: false, sortOrder: 2, assemblyFeel: 'string' },
+  { id: 'mala-spacers', slotType: 'spacer', label: 'Spacer Beads', description: 'Placed at intervals of 27 to mark each lap around the mala.', required: false, allowsMultiple: true, maxSelections: 3, sortOrder: 3, assemblyFeel: 'attach' },
+  { id: 'mala-guru', slotType: 'guru_bead', label: 'The Guru Bead', description: 'The 109th bead — weightier, more settled than the smaller beads.', required: true, allowsMultiple: false, sortOrder: 4, assemblyFeel: 'weighty' },
+  { id: 'mala-tassel', slotType: 'tassel', label: 'The Tassel', description: 'Attached below the guru bead. Represents the lotus, enlightenment, connection.', required: true, allowsMultiple: false, sortOrder: 5, assemblyFeel: 'settle' },
+];
+
+export const ringSlots: ProductSlot[] = [
+  { id: 'ring-band', slotType: 'band', label: 'The Band', description: 'The ring begins as a band — the circle that holds everything.', required: true, allowsMultiple: false, sortOrder: 1, assemblyFeel: 'form' },
+  { id: 'ring-setting', slotType: 'setting', label: 'The Setting', description: 'How the stone will be held — claw, bezel, or kundan.', required: true, allowsMultiple: false, sortOrder: 2, assemblyFeel: 'attach' },
+  { id: 'ring-stone', slotType: 'stone', label: 'The Stone', description: 'The stone seats into the setting last — the final spark.', required: true, allowsMultiple: false, sortOrder: 3, assemblyFeel: 'seat' },
+  { id: 'ring-size', slotType: 'size', label: 'Ring Size', description: 'A fit choice, not a priced part — required before checkout.', required: true, allowsMultiple: false, sortOrder: 4, assemblyFeel: 'form' },
+];
+
+export const earringSlots: ProductSlot[] = [
+  { id: 'ear-post', slotType: 'chain', label: 'The Finding', description: 'Post, hook, or huggie — the foundation of the earring.', required: true, allowsMultiple: false, sortOrder: 1, assemblyFeel: 'form' },
+  { id: 'ear-center', slotType: 'centerpiece', label: 'The Drop', description: 'The visible face of the earring — pendant, stud face, or motif.', required: true, allowsMultiple: false, sortOrder: 2, assemblyFeel: 'attach' },
+  { id: 'ear-accent', slotType: 'accent', label: 'Accent', description: 'An optional secondary stone or motif.', required: false, allowsMultiple: false, sortOrder: 3, assemblyFeel: 'seat' },
+  { id: 'ear-back', slotType: 'clasp', label: 'The Back', description: 'How it secures — push back, latch, or screw.', required: true, allowsMultiple: false, sortOrder: 4, assemblyFeel: 'attach' },
+];
+
+export const ankletSlots: ProductSlot[] = [
+  { id: 'ank-cord', slotType: 'cord', label: 'The Foundation', description: 'Chain or cord for the ankle — lighter than a bracelet.', required: true, allowsMultiple: false, sortOrder: 1, assemblyFeel: 'form' },
+  { id: 'ank-center', slotType: 'centerpiece', label: 'The Motif', description: 'The focal motif that sits at the front of the ankle.', required: true, allowsMultiple: false, sortOrder: 2, assemblyFeel: 'attach' },
+  { id: 'ank-spacers', slotType: 'spacer', label: 'Spacers', description: 'Optional rhythm beads along the line.', required: false, allowsMultiple: true, maxSelections: 6, sortOrder: 3, assemblyFeel: 'attach' },
+  { id: 'ank-charm', slotType: 'charm', label: 'Charm / Bell', description: 'Optional charm that settles once into place — no loop, one clean settle.', required: false, allowsMultiple: false, sortOrder: 4, assemblyFeel: 'settle' },
+  { id: 'ank-clasp', slotType: 'clasp', label: 'The Clasp', description: 'How you fasten it.', required: true, allowsMultiple: false, sortOrder: 5, assemblyFeel: 'attach' },
 ];
 
 export const allConfiguratorParts: ConfiguratorPart[] = [
@@ -37,8 +61,8 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['centerpiece', 'accent', 'clasp', 'length'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/chain-vermeil-link-cutout.png', alt: '18k gold vermeil link chain, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
-      { url: '/images/configurator/chain-vermeil-link-editorial.jpg', alt: 'Jaipur Link Chain catching afternoon light on raw linen', type: 'editorial', width: 1200, height: 800 },
+      { url: unsplash('1573408301185-9146fe634ad0', 800), alt: '18k gold vermeil link chain, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1599643478518-a784e5dc4c8f', 1200), alt: 'Jaipur Link Chain catching afternoon light on raw linen', type: 'editorial', width: 1200, height: 800 },
     ],
     story: {
       headline: 'Forged where the goldsmiths still gather.',
@@ -64,8 +88,8 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['centerpiece', 'accent', 'clasp', 'length'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/chain-oxidized-cutout.png', alt: 'Oxidized silver hammered chain, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
-      { url: '/images/configurator/chain-oxidized-editorial.jpg', alt: 'Aged River Chain draped over weathered stone', type: 'editorial', width: 1200, height: 800 },
+      { url: unsplash('1515562141207-7a88fb7ce338', 800), alt: 'Oxidized silver hammered chain, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1605100804763-247f67b3557e', 1200), alt: 'Aged River Chain draped over weathered stone', type: 'editorial', width: 1200, height: 800 },
     ],
     story: {
       headline: 'Dark as the river at midnight.',
@@ -91,8 +115,8 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['centerpiece', 'accent', 'clasp', 'length'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/chain-22k-cutout.png', alt: '22k yellow gold chain, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
-      { url: '/images/configurator/chain-22k-editorial.jpg', alt: 'Heirloom Chain on dark velvet with warm sidelight', type: 'editorial', width: 1200, height: 800 },
+      { url: unsplash('1603561596112-0a132b757442', 800), alt: '22k yellow gold chain, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1558769132-cb1aea458c5e', 1200), alt: 'Heirloom Chain on dark velvet with warm sidelight', type: 'editorial', width: 1200, height: 800 },
     ],
     story: {
       headline: 'Gold that remembers every hand.',
@@ -118,8 +142,8 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['centerpiece', 'accent', 'clasp', 'length'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/cord-waxed-cutout.png', alt: 'Waxed cotton cord in deep terracotta, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
-      { url: '/images/configurator/cord-waxed-editorial.jpg', alt: 'Nomad Cord coiled on handmade paper', type: 'editorial', width: 1200, height: 800 },
+      { url: unsplash('1605100804763-247f67b3557e', 800), alt: 'Waxed cotton cord in deep terracotta, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1535632066927-ab7c9ab60908', 1200), alt: 'Nomad Cord coiled on handmade paper', type: 'editorial', width: 1200, height: 800 },
     ],
     story: {
       headline: 'Thread that has traveled.',
@@ -149,8 +173,8 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'accent', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/garnet-raw-cutout.png', alt: 'Raw-cut garnet centerpiece in gold bezel, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
-      { url: '/images/configurator/garnet-raw-editorial.jpg', alt: 'Rudra Stone catching candlelight on dark wood', type: 'editorial', width: 1200, height: 800 },
+      { url: unsplash('1506630448388-4e683c67ddb0', 800), alt: 'Raw-cut garnet centerpiece in gold bezel, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1506630448388-4e683c67ddb0', 1200), alt: 'Rudra Stone catching candlelight on dark wood', type: 'editorial', width: 1200, height: 800 },
     ],
     story: {
       headline: 'A stone that holds fire.',
@@ -178,8 +202,8 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'accent', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/polki-center-cutout.png', alt: 'Uncut polki diamond pendant in gold kundan setting, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
-      { url: '/images/configurator/polki-center-editorial.jpg', alt: 'Champa Pendant suspended against warm skin tone', type: 'editorial', width: 1200, height: 800 },
+      { url: unsplash('1599643478518-a784e5dc4c8f', 800), alt: 'Uncut polki diamond pendant in gold kundan setting, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1490481651871-ab68de25d43d', 1200), alt: 'Champa Pendant suspended against warm skin tone', type: 'editorial', width: 1200, height: 800 },
     ],
     story: {
       headline: 'Diamond before the cutting wheel.',
@@ -205,8 +229,8 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'accent', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/pearl-drop-cutout.png', alt: 'Natural Basra pearl drop in gold cap, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
-      { url: '/images/configurator/pearl-drop-editorial.jpg', alt: 'Sagar Drop against monsoon clouds', type: 'editorial', width: 1200, height: 800 },
+      { url: unsplash('1573408301185-9146fe634ad0', 800), alt: 'Natural Basra pearl drop in gold cap, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1599643478518-a784e5dc4c8f', 1200), alt: 'Sagar Drop against monsoon clouds', type: 'editorial', width: 1200, height: 800 },
     ],
     story: {
       headline: 'Born of water, returned to light.',
@@ -232,8 +256,8 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'accent', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/gold-disc-cutout.png', alt: 'Hand-hammered 22k gold disc medallion, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
-      { url: '/images/configurator/gold-disc-editorial.jpg', alt: 'Surya Medallion on raw silk', type: 'editorial', width: 1200, height: 800 },
+      { url: unsplash('1515562141207-7a88fb7ce338', 800), alt: 'Hand-hammered 22k gold disc medallion, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1605100804763-247f67b3557e', 1200), alt: 'Surya Medallion on raw silk', type: 'editorial', width: 1200, height: 800 },
     ],
     story: {
       headline: 'Hammered from a single ingot.',
@@ -261,7 +285,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'centerpiece'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/accent-polki-cutout.png', alt: 'Small polki diamond accent in gold setting, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1603561596112-0a132b757442', 800), alt: 'Small polki diamond accent in gold setting, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'A word, not a sentence.',
@@ -287,7 +311,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'centerpiece'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/accent-emerald-cutout.png', alt: 'Colombian emerald chip in gold setting, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1558769132-cb1aea458c5e', 800), alt: 'Colombian emerald chip in gold setting, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Green as monsoon leaves.',
@@ -313,7 +337,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'centerpiece'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/accent-pearl-cutout.png', alt: 'Seed pearl accent on gold pin, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1605100804763-247f67b3557e', 800), alt: 'Seed pearl accent on gold pin, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Small as a breath.',
@@ -341,7 +365,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'centerpiece', 'accent', 'length'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/clasp-kadi-cutout.png', alt: 'Kadi clasp in 18k gold vermeil, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1535632066927-ab7c9ab60908', 800), alt: 'Kadi clasp in 18k gold vermeil, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Fastened like an heirloom.',
@@ -367,7 +391,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'centerpiece', 'accent', 'length'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/clasp-hook-cutout.png', alt: 'Oxidized silver hook clasp, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1506630448388-4e683c67ddb0', 800), alt: 'Oxidized silver hook clasp, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Simple as a gesture.',
@@ -393,7 +417,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'centerpiece', 'accent', 'length'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/clasp-magnetic-cutout.png', alt: 'Magnetic gold clasp with safety catch, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1506630448388-4e683c67ddb0', 800), alt: 'Magnetic gold clasp with safety catch, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Two rivers meeting.',
@@ -421,7 +445,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'centerpiece', 'accent', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/length-choker-cutout.png', alt: 'Choker length reference, 35cm', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1599643478518-a784e5dc4c8f', 800), alt: 'Choker length reference, 35cm', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Close to the pulse.',
@@ -447,7 +471,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'centerpiece', 'accent', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/length-princess-cutout.png', alt: 'Princess length reference, 45cm', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1490481651871-ab68de25d43d', 800), alt: 'Princess length reference, 45cm', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'The most worn length in the world.',
@@ -473,7 +497,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['chain', 'centerpiece', 'accent', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/length-matinee-cutout.png', alt: 'Matinee length reference, 55cm', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1573408301185-9146fe634ad0', 800), alt: 'Matinee length reference, 55cm', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Draped, not hung.',
@@ -501,7 +525,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['centerpiece', 'spacer', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/brace-cuff-cutout.png', alt: '22k gold cuff blank, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1599643478518-a784e5dc4c8f', 800), alt: '22k gold cuff blank, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'The strength of an open circle.',
@@ -527,7 +551,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['centerpiece', 'spacer', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/brace-leather-cutout.png', alt: 'Vegetable-tanned leather bracelet base, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1515562141207-7a88fb7ce338', 800), alt: 'Vegetable-tanned leather bracelet base, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Leather that softens with time.',
@@ -555,7 +579,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['cord', 'spacer', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/brace-turquoise-cutout.png', alt: 'Raw garnet bracelet centerpiece in gold setting, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1605100804763-247f67b3557e', 800), alt: 'Raw garnet bracelet centerpiece in gold setting, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Cloud-borne treasure.',
@@ -581,7 +605,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['cord', 'spacer', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/brace-sphere-cutout.png', alt: 'Hand-forged 22k gold sphere on bracelet, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1603561596112-0a132b757442', 800), alt: 'Hand-forged 22k gold sphere on bracelet, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'The point from which everything begins.',
@@ -609,7 +633,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['cord', 'centerpiece', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/spacer-gold-cutout.png', alt: 'Small gold disc spacer, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1558769132-cb1aea458c5e', 800), alt: 'Small gold disc spacer, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'A pause between notes.',
@@ -635,7 +659,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['cord', 'centerpiece', 'clasp'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/spacer-oxidized-cutout.png', alt: 'Oxidized silver bead spacer, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1605100804763-247f67b3557e', 800), alt: 'Oxidized silver bead spacer, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Dark rhythm.',
@@ -663,7 +687,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['guru_bead', 'spacer', 'tassel'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/mala-rudraksha-cutout.png', alt: 'Rudraksha beads on silk thread, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1535632066927-ab7c9ab60908', 800), alt: 'Rudraksha beads on silk thread, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Tears of Shiva, seeds of prayer.',
@@ -689,7 +713,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['guru_bead', 'spacer', 'tassel'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/mala-sandalwood-cutout.png', alt: 'Sandalwood mala beads on silk thread, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1506630448388-4e683c67ddb0', 800), alt: 'Sandalwood mala beads on silk thread, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Fragrance that deepens with touch.',
@@ -715,7 +739,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['guru_bead', 'spacer', 'tassel'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/mala-pearl-cutout.png', alt: 'Basra pearl mala beads on silk thread, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1506630448388-4e683c67ddb0', 800), alt: 'Basra pearl mala beads on silk thread, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Lustre born of the deep.',
@@ -743,7 +767,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['bead', 'spacer', 'tassel'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/guru-lotus-cutout.png', alt: '22k gold lotus-form guru bead, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1599643478518-a784e5dc4c8f', 800), alt: '22k gold lotus-form guru bead, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'The bloom at the end of repetition.',
@@ -769,7 +793,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['bead', 'spacer', 'tassel'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/guru-pearl-cutout.png', alt: 'Large Basra pearl guru bead with gold cap, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1490481651871-ab68de25d43d', 800), alt: 'Large Basra pearl guru bead with gold cap, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'The ocean in a single bead.',
@@ -797,7 +821,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['guru_bead', 'bead', 'spacer'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/tassel-crimson-cutout.png', alt: 'Crimson silk tassel with gold binding, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1573408301185-9146fe634ad0', 800), alt: 'Crimson silk tassel with gold binding, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'Crimson as sindoor.',
@@ -823,7 +847,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['guru_bead', 'bead', 'spacer'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/tassel-indigo-cutout.png', alt: 'Indigo silk tassel with gold binding, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1599643478518-a784e5dc4c8f', 800), alt: 'Indigo silk tassel with gold binding, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'The color of midnight meditation.',
@@ -851,7 +875,7 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     compatibleSlots: ['bead', 'guru_bead', 'tassel'],
     incompatibleWith: [],
     images: [
-      { url: '/images/configurator/mala-spacer-cutout.png', alt: '22k gold meru spacer bead, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
+      { url: unsplash('1515562141207-7a88fb7ce338', 800), alt: '22k gold meru spacer bead, flat-lay cutout', type: 'builder-cutout', width: 800, height: 800 },
     ],
     story: {
       headline: 'The mountain between laps.',
@@ -864,6 +888,486 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     isEditorPick: false,
     sortOrder: 1,
   },
+,
+
+  // ====== RING BANDS ======
+  {
+    id: 'band-vermeil-plain',
+    slug: 'vermeil-plain-band',
+    name: 'The Quiet Band',
+    slotType: 'band',
+    material: '18k-gold-vermeil',
+    price: 14000,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 4,
+    compatibleSlots: ['setting', 'stone', 'size'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1515562141207-7a88fb7ce338', 800), alt: '18k gold vermeil plain ring band', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'A circle with nothing to prove.',
+      narrative: 'A clean 18k vermeil band, hand-formed and lightly polished. The Quiet Band is meant to disappear under the setting — warm, even, and strong enough to carry a stone without shouting.',
+      craftTime: '2 days',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 14,
+    inStockQuantity: 10,
+    isEditorPick: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'band-oxidized-flat',
+    slug: 'oxidized-flat-band',
+    name: 'The Shadow Band',
+    slotType: 'band',
+    material: 'oxidized-silver',
+    price: 9000,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 5,
+    compatibleSlots: ['setting', 'stone', 'size'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1605100804763-247f67b3557e', 800), alt: 'Oxidized silver flat ring band', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'Dark metal, soft edges.',
+      narrative: 'Sterling silver oxidized to a soft charcoal, then burnished at the edges so light catches only where the finger bends. A band for stones that prefer shadow.',
+      craftTime: '2 days',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 14,
+    inStockQuantity: 8,
+    isEditorPick: false,
+    sortOrder: 2,
+  },
+  // ====== RING SETTINGS ======
+  {
+    id: 'setting-claw-gold',
+    slug: 'claw-gold-setting',
+    name: 'Four-Claw Setting',
+    slotType: 'setting',
+    material: '18k-gold-vermeil',
+    price: 12000,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 2,
+    compatibleSlots: ['band', 'stone'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1599643478518-a784e5dc4c8f', 800), alt: 'Gold four-claw ring setting', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'Held, not hidden.',
+      narrative: 'Four hand-filed claws lift the stone into light. Traditional Jaipur claw work — precise, minimal, and strong enough for daily wear.',
+      craftTime: '3 days',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 18,
+    inStockQuantity: 6,
+    isEditorPick: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'setting-bezel-gold',
+    slug: 'bezel-gold-setting',
+    name: 'Bezel Setting',
+    slotType: 'setting',
+    material: '22k-yellow-gold',
+    price: 22000,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 3,
+    compatibleSlots: ['band', 'stone'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1603561596112-0a132b757442', 800), alt: '22k gold bezel ring setting', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'A wall of gold around the fire.',
+      narrative: 'A full bezel formed to the stone — protective, architectural, and soft against skin. Preferred for raw and irregular gems.',
+      craftTime: '4 days',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 21,
+    inStockQuantity: 4,
+    isEditorPick: false,
+    sortOrder: 2,
+  },
+  // ====== RING STONES ======
+  {
+    id: 'stone-garnet-round',
+    slug: 'garnet-round-stone',
+    name: 'Round Garnet',
+    slotType: 'stone',
+    material: 'raw-garnet',
+    price: 28000,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 3,
+    compatibleSlots: ['setting', 'band'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1506630448388-4e683c67ddb0', 800), alt: 'Round garnet stone for ring', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'Seated last, like a coal settling.',
+      narrative: 'A round Rajasthani garnet, cut for depth rather than sparkle. It seats into the setting last — the final act of the ring.',
+      craftTime: 'Stone selection 1 day',
+      originRegion: 'Tonk, Rajasthan',
+    },
+    leadTimeDays: 14,
+    inStockQuantity: 5,
+    isEditorPick: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'stone-polki-solitaire',
+    slug: 'polki-solitaire-stone',
+    name: 'Polki Solitaire',
+    slotType: 'stone',
+    material: 'polki-diamond',
+    price: 95000,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 1.5,
+    compatibleSlots: ['setting', 'band'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1490481651871-ab68de25d43d', 800), alt: 'Uncut polki diamond for ring', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'Diamond before the wheel.',
+      narrative: 'An uncut polki diamond — fire without facet. Set last so the foil and lac can settle around its exact contour.',
+      craftTime: 'Kundan seat 5 days',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 28,
+    inStockQuantity: 2,
+    isEditorPick: true,
+    sortOrder: 2,
+  },
+  // ====== RING SIZES (fit only) ======
+  {
+    id: 'size-6',
+    slug: 'ring-size-6',
+    name: 'Size 6 (US)',
+    slotType: 'size',
+    material: 'sterling-silver',
+    price: 0,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 0,
+    compatibleSlots: ['band'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1515562141207-7a88fb7ce338', 400), alt: 'Ring size 6', type: 'builder-cutout', width: 400, height: 400 },
+    ],
+    story: {
+      headline: 'Fit is not a flourish.',
+      narrative: 'Ring size is measured at the atelier or via our printable guide. It does not change the price — only how the band sits.',
+      craftTime: 'Measured to order',
+      originRegion: 'Your hand',
+    },
+    leadTimeDays: 0,
+    inStockQuantity: 99,
+    isEditorPick: false,
+    sortOrder: 1,
+    isFitOnly: true,
+  },
+  {
+    id: 'size-7',
+    slug: 'ring-size-7',
+    name: 'Size 7 (US)',
+    slotType: 'size',
+    material: 'sterling-silver',
+    price: 0,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 0,
+    compatibleSlots: ['band'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1515562141207-7a88fb7ce338', 400), alt: 'Ring size 7', type: 'builder-cutout', width: 400, height: 400 },
+    ],
+    story: {
+      headline: 'Fit is not a flourish.',
+      narrative: 'The most common US size for our atelier clients. Confirmed before production begins.',
+      craftTime: 'Measured to order',
+      originRegion: 'Your hand',
+    },
+    leadTimeDays: 0,
+    inStockQuantity: 99,
+    isEditorPick: false,
+    sortOrder: 2,
+    isFitOnly: true,
+  },
+  {
+    id: 'size-8',
+    slug: 'ring-size-8',
+    name: 'Size 8 (US)',
+    slotType: 'size',
+    material: 'sterling-silver',
+    price: 0,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 0,
+    compatibleSlots: ['band'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1515562141207-7a88fb7ce338', 400), alt: 'Ring size 8', type: 'builder-cutout', width: 400, height: 400 },
+    ],
+    story: {
+      headline: 'Fit is not a flourish.',
+      narrative: 'Selected sizes are shaped on mandrels in the workshop — never stretched after finishing.',
+      craftTime: 'Measured to order',
+      originRegion: 'Your hand',
+    },
+    leadTimeDays: 0,
+    inStockQuantity: 99,
+    isEditorPick: false,
+    sortOrder: 3,
+    isFitOnly: true,
+  },
+  // ====== EARRING FINDINGS ======
+  {
+    id: 'ear-post-vermeil',
+    slug: 'vermeil-post',
+    name: 'Vermeil Post',
+    slotType: 'chain',
+    material: '18k-gold-vermeil',
+    price: 6000,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 1,
+    compatibleSlots: ['centerpiece', 'accent', 'clasp'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1573408301185-9146fe634ad0', 800), alt: 'Gold vermeil earring post', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'The quiet architecture of a pair.',
+      narrative: 'A surgical-grade post in 18k vermeil — light, secure, and the starting point of every stud or drop. Priced per pair.',
+      craftTime: '1 day',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 10,
+    inStockQuantity: 20,
+    isEditorPick: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'ear-hook-oxidized',
+    slug: 'oxidized-hook',
+    name: 'Oxidized Hook',
+    slotType: 'chain',
+    material: 'oxidized-silver',
+    price: 4500,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 1.5,
+    compatibleSlots: ['centerpiece', 'accent', 'clasp'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1605100804763-247f67b3557e', 800), alt: 'Oxidized silver earring hook', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'A curve that carries weight.',
+      narrative: 'Hand-bent oxidized silver hooks for drops and danglers. Soft enough to shape, strong enough to hold.',
+      craftTime: '1 day',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 10,
+    inStockQuantity: 15,
+    isEditorPick: false,
+    sortOrder: 2,
+  },
+  {
+    id: 'ear-drop-pearl',
+    slug: 'pearl-ear-drop',
+    name: 'Pearl Ear Drop',
+    slotType: 'centerpiece',
+    material: 'basra-pearl',
+    price: 32000,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 4,
+    compatibleSlots: ['chain', 'accent', 'clasp'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1506630448388-4e683c67ddb0', 800), alt: 'Basra pearl earring drop', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'One form, shown twice.',
+      narrative: 'A matched pair of Basra pearl drops — assembled once in the preview, priced as two. The animation builds a single earring, then presents the pair.',
+      craftTime: '3 days',
+      originRegion: 'Basra / Jaipur',
+    },
+    leadTimeDays: 18,
+    inStockQuantity: 3,
+    isEditorPick: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'ear-stud-polki',
+    slug: 'polki-stud-face',
+    name: 'Polki Stud Face',
+    slotType: 'centerpiece',
+    material: 'polki-diamond',
+    price: 78000,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 2,
+    compatibleSlots: ['chain', 'clasp'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1599643478518-a784e5dc4c8f', 800), alt: 'Polki diamond stud face', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'Fire, close to the lobe.',
+      narrative: 'A kundan-set polki face for studs — soft fire without the glare of modern cuts.',
+      craftTime: '6 days',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 24,
+    inStockQuantity: 2,
+    isEditorPick: true,
+    sortOrder: 2,
+  },
+  {
+    id: 'ear-back-push',
+    slug: 'push-back',
+    name: 'Push Back',
+    slotType: 'clasp',
+    material: '18k-gold-vermeil',
+    price: 2000,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 0.5,
+    compatibleSlots: ['chain'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1515562141207-7a88fb7ce338', 800), alt: 'Gold push back earring clasp', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'Secure, then forgotten.',
+      narrative: 'A classic push back in vermeil — included in the pair price path as a finishing part.',
+      craftTime: 'Same day',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 7,
+    inStockQuantity: 50,
+    isEditorPick: false,
+    sortOrder: 1,
+  },
+  // ====== ANKLET ======
+  {
+    id: 'ank-cord-chain',
+    slug: 'anklet-link-cord',
+    name: 'Anklet Link Chain',
+    slotType: 'cord',
+    material: '18k-gold-vermeil',
+    price: 11000,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 6,
+    compatibleSlots: ['centerpiece', 'spacer', 'charm', 'clasp'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1573408301185-9146fe634ad0', 800), alt: 'Fine gold anklet chain', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'Lighter than a bracelet, closer to the ground.',
+      narrative: 'A fine vermeil link chain proportioned for the ankle — flexible, quiet, and strong enough for a charm.',
+      craftTime: '2 days',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 12,
+    inStockQuantity: 8,
+    isEditorPick: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'ank-motif-sun',
+    slug: 'anklet-sun-motif',
+    name: 'Sun Motif',
+    slotType: 'centerpiece',
+    material: '22k-yellow-gold',
+    price: 18000,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 3,
+    compatibleSlots: ['cord', 'charm', 'clasp'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1603561596112-0a132b757442', 800), alt: 'Gold sun motif for anklet', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'A small sun at the ankle.',
+      narrative: 'A hand-pierced sun motif that sits at the front of the anklet — the visual center of the walk.',
+      craftTime: '3 days',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 16,
+    inStockQuantity: 5,
+    isEditorPick: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'ank-charm-bell',
+    slug: 'anklet-bell-charm',
+    name: 'Ghungroo Bell',
+    slotType: 'charm',
+    material: '22k-yellow-gold',
+    price: 8500,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 2,
+    compatibleSlots: ['cord', 'centerpiece'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1599643478518-a784e5dc4c8f', 800), alt: 'Small gold ghungroo bell charm', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'One settle. No jingle loop.',
+      narrative: 'A tiny ghungroo form that settles onto the chain once in the preview — a single, clean placement. In life it may soft-chime; in the builder it does not loop.',
+      craftTime: '2 days',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 14,
+    inStockQuantity: 6,
+    isEditorPick: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'ank-clasp-lobster',
+    slug: 'anklet-lobster-clasp',
+    name: 'Lobster Clasp',
+    slotType: 'clasp',
+    material: '18k-gold-vermeil',
+    price: 2500,
+    currency: 'INR',
+    priceModifiers: [],
+    weightGrams: 1,
+    compatibleSlots: ['cord'],
+    incompatibleWith: [],
+    images: [
+      { url: unsplash('1515562141207-7a88fb7ce338', 800), alt: 'Gold lobster clasp for anklet', type: 'builder-cutout', width: 800, height: 800 },
+    ],
+    story: {
+      headline: 'Easy on, sure hold.',
+      narrative: 'A compact lobster clasp sized for anklets — finishes the piece after the charm has settled.',
+      craftTime: '1 day',
+      originRegion: 'Jaipur, Rajasthan',
+    },
+    leadTimeDays: 7,
+    inStockQuantity: 20,
+    isEditorPick: false,
+    sortOrder: 1,
+  },
+
 ];
 
 export function getPartsBySlotType(slotType: SlotType): ConfiguratorPart[] {
@@ -884,7 +1388,7 @@ export function getEditorPicks(): ConfiguratorPart[] {
   return allConfiguratorParts.filter((part) => part.isEditorPick);
 }
 
-export function getSlotsForProductType(productType: 'necklace' | 'bracelet' | 'mala'): ProductSlot[] {
+export function getSlotsForProductType(productType: 'necklace' | 'bracelet' | 'mala' | 'ring' | 'earring' | 'anklet'): ProductSlot[] {
   switch (productType) {
     case 'necklace':
       return necklaceSlots;
@@ -892,17 +1396,79 @@ export function getSlotsForProductType(productType: 'necklace' | 'bracelet' | 'm
       return braceletSlots;
     case 'mala':
       return malaSlots;
+    case 'ring':
+      return ringSlots;
+    case 'earring':
+      return earringSlots;
+    case 'anklet':
+      return ankletSlots;
   }
 }
 
-export function getPartsForSlot(productType: 'necklace' | 'bracelet' | 'mala', slotType: SlotType): ConfiguratorPart[] {
-  const slots = getSlotsForProductType(productType);
-  const slot = slots.find((s) => s.slotType === slotType);
-  if (!slot) return [];
+export function getPartsForSlot(productType: 'necklace' | 'bracelet' | 'mala' | 'ring' | 'earring' | 'anklet', slotType: SlotType): ConfiguratorPart[] {
+  return getPartsForProductType(productType).filter((part) => part.slotType === slotType);
+}
 
-  return allConfiguratorParts.filter((part) => {
-    if (part.slotType !== slotType) return false;
-    if (slotType === 'length' || slotType === 'chain' || slotType === 'cord') return true;
-    return true;
-  });
+/** Category-scoped catalog — one shared filter so builders do not bleed parts across products */
+export function getPartsForProductType(
+  productType: 'necklace' | 'bracelet' | 'mala' | 'ring' | 'earring' | 'anklet'
+): ConfiguratorPart[] {
+  const allowed = new Set(getSlotsForProductType(productType).map((s) => s.slotType));
+
+  return allConfiguratorParts
+    .filter((p) => {
+      if (!allowed.has(p.slotType)) return false;
+
+      switch (productType) {
+        case 'necklace':
+          return (
+            !p.id.startsWith('ear-') &&
+            !p.id.startsWith('band-') &&
+            !p.id.startsWith('setting-') &&
+            !p.id.startsWith('size-') &&
+            !p.id.startsWith('ank-') &&
+            !p.id.startsWith('mala-') &&
+            !p.id.startsWith('guru-') &&
+            !p.id.startsWith('tassel-') &&
+            !p.id.startsWith('brace-')
+          );
+        case 'bracelet':
+          return (
+            !p.id.startsWith('ear-') &&
+            !p.id.startsWith('band-') &&
+            !p.id.startsWith('setting-') &&
+            !p.id.startsWith('size-') &&
+            !p.id.startsWith('ank-') &&
+            !p.id.startsWith('mala-') &&
+            !p.id.startsWith('guru-') &&
+            !p.id.startsWith('tassel-') &&
+            !p.id.startsWith('stone-')
+          );
+        case 'mala':
+          return (
+            p.id.startsWith('mala-') ||
+            p.id.startsWith('guru-') ||
+            p.id.startsWith('tassel-') ||
+            (p.slotType === 'cord' && !p.id.startsWith('ank-'))
+          );
+        case 'ring':
+          return (
+            p.id.startsWith('band-') ||
+            p.id.startsWith('setting-') ||
+            p.id.startsWith('stone-') ||
+            p.id.startsWith('size-')
+          );
+        case 'earring':
+          return p.id.startsWith('ear-') || (p.slotType === 'accent' && !p.id.startsWith('ank-'));
+        case 'anklet':
+          return (
+            p.id.startsWith('ank-') ||
+            (p.slotType === 'spacer' && !p.id.includes('mala')) ||
+            (p.slotType === 'clasp' && !p.id.startsWith('ear-') && !p.id.startsWith('ank-'))
+          );
+        default:
+          return false;
+      }
+    })
+    .sort((a, b) => a.sortOrder - b.sortOrder);
 }

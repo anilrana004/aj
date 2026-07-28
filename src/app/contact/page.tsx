@@ -4,6 +4,7 @@ import { Footer } from '@/components/layout/Footer';
 import { Hero } from '@/components/sections/Hero';
 import { SectionHeader } from '@/components/sections/Hero';
 import Link from 'next/link';
+import { img } from '@/lib/images';
 
 export const metadata: Metadata = {
   title: 'Contact & Concierge',
@@ -14,9 +15,9 @@ export default function ContactPage() {
   return (
     <>
       <Header />
-      <main className="pt-[60px]">
+      <main className="site-main">
         <Hero
-          image="/images/contact/hero.svg"
+          image={img.contactHero}
           imageAlt="Apriliha Singh atelier entrance"
           eyebrow="CONTACT & CONCIERGE"
           title="We're Here to Help"
@@ -154,7 +155,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <img
-                src="/images/contact/map.svg"
+                src={img.contactMap}
                 alt="Map showing Apriliha Singh atelier location in Jaipur"
                 className="w-full h-full object-cover"
               />

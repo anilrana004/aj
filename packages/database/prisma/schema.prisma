@@ -1,7 +1,3 @@
-generator js2ts > packages/database/prisma/types.ts
-mode du -h
-
-cat > packages/database/prisma/schema.prisma << 'EOF'
 // Apriliha Singh Jewelry Database Schema
 // Implements the bespoke jewelry builder data model
 

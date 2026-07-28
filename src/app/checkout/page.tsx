@@ -34,6 +34,10 @@ interface CartItem {
   storyNarrative: string;
   totalPrice: number;
   quantity: number;
+  partIds?: string[];
+  verifiedTotal?: number;
+  pairMultiplier?: number;
+  ringSize?: string;
 }
 
 export default function CheckoutPage() {
@@ -103,7 +107,19 @@ export default function CheckoutPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: items.map((i) => ({ id: i.id, name: i.name, productType: i.productType, partsSummary: i.partsSummary, storyNarrative: i.storyNarrative, totalPrice: i.totalPrice, quantity: i.quantity })),
+          items: items.map((i) => ({
+            id: i.id,
+            name: i.name,
+            productType: i.productType,
+            partsSummary: i.partsSummary,
+            storyNarrative: i.storyNarrative,
+            totalPrice: i.totalPrice,
+            quantity: i.quantity,
+            partIds: i.partIds,
+            verifiedTotal: i.verifiedTotal,
+            pairMultiplier: i.pairMultiplier,
+            ringSize: i.ringSize,
+          })),
           contact,
           shipping,
           deliveryMethod,
@@ -134,7 +150,7 @@ export default function CheckoutPage() {
     return (
       <>
         <Header />
-        <main id="main-content" className="pt-[60px] min-h-screen flex items-center justify-center px-responsive">
+        <main id="main-content" className="site-main min-h-screen flex items-center justify-center px-responsive">
           <div className="text-center py-20">
             <h1 className="font-display text-h2 mb-6">Your cart is empty</h1>
             <Link href="/design-your-own" className="underline-gold font-ui text-caption">Start designing</Link>
@@ -155,7 +171,7 @@ export default function CheckoutPage() {
         ]}
       />
       <Header />
-      <main id="main-content" className="pt-[60px] min-h-screen">
+      <main id="main-content" className="site-main min-h-screen">
         <section className="py-20 px-responsive">
           <div className="max-w-[1200px] mx-auto">
             <h1 className="font-display text-hero mb-12">Checkout</h1>

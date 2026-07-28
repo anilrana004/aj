@@ -1,20 +1,14 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Libre_Caslon_Text } from 'next/font/google';
 import { ToastProvider } from '@/components/ui/Toast';
+import { img } from '@/lib/images';
 import './globals.css';
 
-const inter = Inter({
+const libre = Libre_Caslon_Text({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-libre',
   display: 'swap',
-  weight: ['300', '400', '500', '600'],
-});
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '700'],
   style: ['normal', 'italic'],
 });
 
@@ -49,7 +43,7 @@ export const metadata: Metadata = {
     description: 'Fine bespoke jewelry from Jaipur. Apple\'s restraint meets India\'s richness.',
     images: [
       {
-        url: '/images/og-default.svg',
+        url: img.ogDefault,
         width: 1200,
         height: 630,
         alt: 'Apriliha Singh — Fine Bespoke Jewelry',
@@ -60,7 +54,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Apriliha Singh — Fine Bespoke Jewelry',
     description: 'Fine bespoke jewelry from Jaipur.',
-    images: ['/images/og-default.svg'],
+    images: [img.ogDefault],
   },
   alternates: {
     canonical: 'https://aprilihasingh.com',
@@ -69,8 +63,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f5f0e8' },
-    { media: '(prefers-color-scheme: dark)', color: '#2d1f22' },
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#121212' },
   ],
   width: 'device-width',
   initialScale: 1,
@@ -83,14 +77,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`scroll-smooth ${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`scroll-smooth ${libre.variable}`}>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" sizes="48x48" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
-      <body className="bg-sand text-ink antialiased" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+      <body
+        className="bg-bg-primary text-text-primary antialiased"
+        style={{ fontFamily: 'var(--font-libre), Georgia, "Times New Roman", serif' }}
+      >
         <ToastProvider>
           {children}
         </ToastProvider>

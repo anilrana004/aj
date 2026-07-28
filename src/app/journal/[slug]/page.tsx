@@ -55,7 +55,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
   return (
     <>
       <Header />
-      <main className="pt-[60px]">
+      <main className="site-main">
         <nav className="max-w-[1440px] mx-auto px-responsive py-6 border-b border-border" aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-2 font-ui text-caption text-text-primary/60">
             <li><Link href="/" className="hover:text-accent-primary">Home</Link></li>

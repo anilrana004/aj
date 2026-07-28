@@ -3,8 +3,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
-import { formatPrice } from '@/lib/utils';
 import { Product } from '@/lib/types';
 
 interface ProductCardProps {
@@ -13,7 +11,7 @@ interface ProductCardProps {
   badge?: string;
 }
 
-export function ProductCard({ product, priority = false, badge }: ProductCardProps) {
+export function ProductCard({ product, priority = false }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   const heroImage = product.images.find((img) => img.type === 'hero');
@@ -26,7 +24,7 @@ export function ProductCard({ product, priority = false, badge }: ProductCardPro
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link href={`/product/${product.slug}`} className="block">
+      <Link href={`/product/${product.slug}`} className="block u-hover-fade">
         <div className="relative aspect-[3/4] overflow-hidden bg-bg-secondary">
           {displayImage ? (
             <Image
@@ -39,50 +37,24 @@ export function ProductCard({ product, priority = false, badge }: ProductCardPro
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <span className="font-display text-h2 text-text-primary/10">AS</span>
+              <span className="text-text-primary/20 uppercase" style={{ fontSize: '11px', letterSpacing: '0.13em' }}>
+                Apriliha Singh
+              </span>
             </div>
           )}
 
-          {(badge || product.isFeatured) && (
-            <span className="absolute top-3 left-3 badge">
-              {badge || 'Featured'}
-            </span>
-          )}
-
           {!product.isAvailable && (
-            <span className="absolute top-3 right-3 badge bg-bg-darker">
+            <span
+              className="absolute top-3 left-3 uppercase text-text-muted"
+              style={{ fontSize: '9px', letterSpacing: '0.13em' }}
+            >
               Sold Out
             </span>
           )}
         </div>
+
+        <p className="product-name uppercase">{product.name}</p>
       </Link>
-
-      <div className="mt-3 space-y-1">
-        <Link href={`/product/${product.slug}`}>
-          <h3 className="font-ui text-caption text-text-primary group-hover:underline underline-offset-4">
-            {product.name}
-          </h3>
-        </Link>
-        <p className="font-ui text-micro text-text-primary/50">
-          {product.metal}
-        </p>
-        <p className="font-ui text-caption font-medium text-text-primary">
-          {formatPrice(product.price, product.currency)}
-        </p>
-      </div>
-
-      {product.isAvailable && (
-        <div
-          className={cn(
-            'absolute bottom-0 left-0 right-0 py-3 text-center font-ui text-caption bg-text-primary text-text-inverse transition-all duration-300',
-            isHovered
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-2 pointer-events-none'
-          )}
-        >
-          Quick Inquiry
-        </div>
-      )}
     </article>
   );
 }

@@ -1,10 +1,8 @@
 import { ConfiguratorPart, SlotType } from '@/types/part';
 import {
-  Configuration,
   Personalization,
   PriceBreakdownItem,
-  PricingRequest,
-  PricingResponse,
+  ProductType,
   SelectedPart,
 } from '@/types/configuration';
 
@@ -13,30 +11,44 @@ const ENGRAVING_DEVANAGARI_SURCHARGE = 1000;
 const LENGTH_ADJUSTMENT_BASE_PRICE = 3000;
 const GIFT_WRAPPING_PRICE = 1500;
 
+/** Earrings are always sold as a pair — every priced part is doubled once */
+export function getPairMultiplier(productType: ProductType): number {
+  return productType === 'earring' ? 2 : 1;
+}
+
 export function calculateBasePrice(selectedParts: SelectedPart[]): number {
-  return selectedParts.reduce((sum, sp) => sum + sp.part.price, 0);
+  return selectedParts.reduce((sum, sp) => {
+    if (sp.part.isFitOnly || sp.part.price === 0) return sum;
+    return sum + sp.part.price;
+  }, 0);
 }
 
 export function calculateModifiers(
   selectedParts: SelectedPart[],
-  allParts: ConfiguratorPart[]
+  _allParts: ConfiguratorPart[]
 ): { amount: number; items: PriceBreakdownItem[] } {
   const items: PriceBreakdownItem[] = [];
   let total = 0;
 
-  const centerpiece = selectedParts.find((sp) => sp.part.slotType === 'centerpiece');
-  const chain = selectedParts.find((sp) => sp.part.slotType === 'chain' || sp.part.slotType === 'cord');
+  const centerpiece = selectedParts.find((sp) => sp.part.slotType === 'centerpiece' || sp.part.slotType === 'stone');
+  const chain = selectedParts.find(
+    (sp) => sp.part.slotType === 'chain' || sp.part.slotType === 'cord' || sp.part.slotType === 'band'
+  );
 
   if (centerpiece && chain) {
     const centerpieceWeight = centerpiece.part.weightGrams;
     const chainWeight = chain.part.weightGrams;
 
-    if (centerpieceWeight > chainWeight * 2 && chain.part.material !== 'platinum' && chain.part.material !== '22k-yellow-gold') {
+    if (
+      centerpieceWeight > chainWeight * 2 &&
+      chain.part.material !== 'platinum' &&
+      chain.part.material !== '22k-yellow-gold'
+    ) {
       const surcharge = 4000;
       items.push({
         label: 'Structural reinforcement',
         amount: surcharge,
-        description: `The ${centerpiece.part.name} requires chain reinforcement for secure setting with the ${chain.part.name}.`,
+        description: `The ${centerpiece.part.name} requires reinforcement for secure setting with the ${chain.part.name}.`,
       });
       total += surcharge;
     }
@@ -46,9 +58,7 @@ export function calculateModifiers(
     sp.part.priceModifiers.forEach((mod) => {
       const hasTarget = selectedParts.some((other) => other.part.slotType === mod.targetSlot);
       if (hasTarget) {
-        const existingModifier = items.find(
-          (item) => item.description === mod.reason
-        );
+        const existingModifier = items.find((item) => item.description === mod.reason);
         if (!existingModifier) {
           items.push({
             label: 'Compatibility adjustment',
@@ -110,25 +120,44 @@ export function calculatePersonalizationTotal(personalization?: Personalization)
 export function computeFullPricing(
   selectedParts: SelectedPart[],
   allParts: ConfiguratorPart[],
-  personalization?: Personalization
+  personalization?: Personalization,
+  productType: ProductType = 'necklace'
 ): {
   basePrice: number;
   modifiersTotal: number;
   personalizationTotal: number;
+  pairMultiplier: number;
   totalPrice: number;
   breakdown: PriceBreakdownItem[];
   warnings: string[];
 } {
   const warnings: string[] = [];
   const breakdown: PriceBreakdownItem[] = [];
+  const pairMultiplier = getPairMultiplier(productType);
 
   if (selectedParts.length === 0) {
     warnings.push('No parts selected yet.');
-    return { basePrice: 0, modifiersTotal: 0, personalizationTotal: 0, totalPrice: 0, breakdown: [], warnings };
+    return {
+      basePrice: 0,
+      modifiersTotal: 0,
+      personalizationTotal: 0,
+      pairMultiplier,
+      totalPrice: 0,
+      breakdown: [],
+      warnings,
+    };
   }
 
   const basePrice = calculateBasePrice(selectedParts);
   selectedParts.forEach((sp) => {
+    if (sp.part.isFitOnly) {
+      breakdown.push({
+        label: sp.part.name,
+        amount: 0,
+        description: 'Fit selection · included',
+      });
+      return;
+    }
     breakdown.push({
       label: sp.part.name,
       amount: sp.part.price,
@@ -139,10 +168,24 @@ export function computeFullPricing(
   const { amount: modifiersTotal, items: modifierItems } = calculateModifiers(selectedParts, allParts);
   breakdown.push(...modifierItems);
 
-  const { amount: personalizationTotal, items: personalizationItems } = calculatePersonalizationTotal(personalization);
+  const { amount: personalizationTotal, items: personalizationItems } =
+    calculatePersonalizationTotal(personalization);
   breakdown.push(...personalizationItems);
 
-  const totalPrice = basePrice + modifiersTotal + personalizationTotal;
+  let subtotal = basePrice + modifiersTotal + personalizationTotal;
+
+  if (pairMultiplier > 1) {
+    breakdown.push({
+      label: 'Pair (earrings)',
+      amount: subtotal,
+      description: 'Priced as a matched pair — two of every part',
+    });
+    subtotal = subtotal * pairMultiplier;
+  }
+
+  if (productType === 'ring' && !personalization?.ringSize) {
+    warnings.push('Select a ring size before adding to cart.');
+  }
 
   selectedParts.forEach((sp) => {
     if (sp.part.inStockQuantity === 0) {
@@ -150,7 +193,6 @@ export function computeFullPricing(
     }
   });
 
-  const slotTypes = selectedParts.map((sp) => sp.part.slotType);
   selectedParts.forEach((sp) => {
     sp.part.incompatibleWith.forEach((incompatId) => {
       const conflicting = selectedParts.find((other) => other.part.id === incompatId);
@@ -160,16 +202,40 @@ export function computeFullPricing(
     });
   });
 
-  return { basePrice, modifiersTotal, personalizationTotal, totalPrice, breakdown, warnings };
+  return {
+    basePrice,
+    modifiersTotal,
+    personalizationTotal,
+    pairMultiplier,
+    totalPrice: subtotal,
+    breakdown,
+    warnings,
+  };
 }
 
 export function buildStoryNarrative(selectedParts: SelectedPart[]): string {
   if (selectedParts.length === 0) return '';
 
-  const sorted = [...selectedParts].sort((a, b) => {
-    const order = ['chain', 'cord', 'centerpiece', 'accent', 'bead', 'spacer', 'clasp', 'tassel', 'guru_bead'];
+  const sorted = [...selectedParts].filter((sp) => !sp.part.isFitOnly).sort((a, b) => {
+    const order = [
+      'chain',
+      'cord',
+      'band',
+      'centerpiece',
+      'setting',
+      'stone',
+      'accent',
+      'bead',
+      'spacer',
+      'guru_bead',
+      'clasp',
+      'tassel',
+      'charm',
+    ];
     return order.indexOf(a.part.slotType) - order.indexOf(b.part.slotType);
   });
+
+  if (sorted.length === 0) return '';
 
   const segments = sorted.map((sp) => {
     const material = sp.part.material.replace(/-/g, ' ');
@@ -193,9 +259,16 @@ export function buildStoryNarrative(selectedParts: SelectedPart[]): string {
 
 export function validateConfiguration(
   selectedParts: SelectedPart[],
-  requiredSlotTypes: SlotType[]
-): { isValid: boolean; missingSlots: SlotType[] } {
+  requiredSlotTypes: SlotType[],
+  productType?: ProductType,
+  personalization?: Personalization
+): { isValid: boolean; missingSlots: SlotType[]; missingRingSize: boolean } {
   const selectedSlotTypes = new Set(selectedParts.map((sp) => sp.part.slotType));
   const missingSlots = requiredSlotTypes.filter((slot) => !selectedSlotTypes.has(slot));
-  return { isValid: missingSlots.length === 0, missingSlots };
+  const missingRingSize = productType === 'ring' && !personalization?.ringSize;
+  return {
+    isValid: missingSlots.length === 0 && !missingRingSize,
+    missingSlots,
+    missingRingSize,
+  };
 }

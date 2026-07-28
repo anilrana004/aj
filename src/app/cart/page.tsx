@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
+import { img } from '@/lib/images';
 
 interface CartItem {
   id: string;
@@ -16,6 +17,10 @@ interface CartItem {
   totalPrice: number;
   currency: string;
   quantity: number;
+  partIds?: string[];
+  verifiedTotal?: number;
+  pairMultiplier?: number;
+  ringSize?: string;
 }
 
 export default function CartPage() {
@@ -57,7 +62,7 @@ export default function CartPage() {
         ]}
       />
       <Header />
-      <main id="main-content" className="pt-[60px] min-h-screen">
+      <main id="main-content" className="site-main min-h-screen">
         <section className="py-20 px-responsive">
           <div className="max-w-[1200px] mx-auto">
             <h1 className="font-display text-hero mb-4">Your Cart</h1>
@@ -91,7 +96,7 @@ export default function CartPage() {
                       <article key={item.id} className="py-8 border-b border-border flex gap-6">
                         <div className="w-24 h-24 shrink-0 bg-bg-secondary rounded-sm overflow-hidden">
                           <img
-                            src={item.previewImageUrl || '/images/configurator/placeholder.svg'}
+                            src={item.previewImageUrl || img.configuratorPlaceholder}
                             alt={item.name}
                             className="w-full h-full object-cover"
                           />
@@ -100,7 +105,11 @@ export default function CartPage() {
                           <div className="flex items-start justify-between gap-4">
                             <div>
                               <h3 className="font-display text-h3 mb-1">{item.name}</h3>
-                              <p className="font-ui text-micro text-text-primary/40">{item.productType}</p>
+                              <p className="font-ui text-micro text-text-primary/40">
+                                {item.productType}
+                                {item.pairMultiplier && item.pairMultiplier > 1 ? ' · sold as a pair' : ''}
+                                {item.ringSize ? ` · ${item.ringSize}` : ''}
+                              </p>
                             </div>
                             <p className="font-ui text-body font-medium whitespace-nowrap">
                               {formatPrice(item.totalPrice)}

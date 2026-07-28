@@ -38,21 +38,41 @@ export function FaqBlock({ items, title = 'Frequently Asked Questions' }: FaqBlo
   return (
     <>
       <FaqSchema items={items} />
-      <section className="py-32 px-responsive bg-bg-dark text-text-inverse" aria-labelledby="faq-block-title">
+      <section className="py-20 px-responsive border-t border-border" aria-labelledby="faq-block-title">
         <div className="max-w-[800px] mx-auto">
-          <h2 id="faq-block-title" className="font-display text-h2 text-center mb-16">{title}</h2>
+          <h2
+            id="faq-block-title"
+            className="uppercase text-center mb-12 text-text-light"
+            style={{ fontSize: '15px', letterSpacing: '0.13em' }}
+          >
+            {title}
+          </h2>
           <div className="space-y-0">
             {items.map((item, index) => (
-              <details key={index} className="group border-b divider-ink py-6">
-                <summary className="flex items-center justify-between cursor-pointer list-none font-display text-h3">
+              <details key={index} className="group border-b border-border py-5">
+                <summary
+                  className="flex items-center justify-between cursor-pointer list-none uppercase text-text-primary"
+                  style={{ fontSize: '11px', letterSpacing: '0.13em' }}
+                >
                   {item.question}
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent-gold transition-transform duration-300 group-open:rotate-180 shrink-0 ml-4">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    className="text-text-muted transition-transform duration-300 group-open:rotate-180 shrink-0 ml-4"
+                  >
                     <path d="M6 9l6 6 6-6" />
                   </svg>
                 </summary>
-                <div className="pt-4 font-ui text-body text-text-primary/80">
+                <p
+                  className="mt-4 text-text-muted"
+                  style={{ fontSize: '10px', letterSpacing: '0.13em', lineHeight: 1.75 }}
+                >
                   {item.answer}
-                </div>
+                </p>
               </details>
             ))}
           </div>

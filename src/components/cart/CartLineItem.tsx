@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { img } from '@/lib/images';
 
 interface CartLineItemProps {
   id: string;
@@ -30,7 +31,7 @@ export function CartLineItem({
     <div className="py-6 border-b divider-ink last:border-b-0 flex gap-4">
       <div className="w-20 h-20 shrink-0 bg-bg-secondary rounded-sm overflow-hidden">
         <img
-          src={previewImageUrl || '/images/configurator/placeholder.svg'}
+          src={previewImageUrl || img.configuratorPlaceholder}
           alt={name}
           className="w-full h-full object-cover"
         />

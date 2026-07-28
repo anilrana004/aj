@@ -17,7 +17,7 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <main id="main-content">
+      <main id="main-content" className="site-main">
         <HomeContent />
       </main>
       <Footer />

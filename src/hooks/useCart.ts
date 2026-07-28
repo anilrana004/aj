@@ -13,6 +13,11 @@ export interface CartItem {
   currency: string;
   quantity: number;
   addedAt: string;
+  /** Bespoke part IDs for server re-verification */
+  partIds?: string[];
+  verifiedTotal?: number;
+  pairMultiplier?: number;
+  ringSize?: string;
 }
 
 const CART_KEY = 'apriliha-cart';

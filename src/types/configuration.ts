@@ -2,7 +2,7 @@ import { ConfiguratorPart, SlotType } from './part';
 
 export type ConfigurationStatus = 'draft' | 'saved' | 'in_cart' | 'ordered' | 'in_production' | 'shipped';
 
-export type ProductType = 'necklace' | 'bracelet' | 'mala';
+export type ProductType = 'necklace' | 'bracelet' | 'mala' | 'ring' | 'earring' | 'anklet';
 
 export interface SelectedPart {
   slotType: SlotType;
@@ -22,6 +22,8 @@ export interface Personalization {
   };
   giftWrapping: boolean;
   giftWrappingPrice: number;
+  /** Ring fit — required for rings, never priced */
+  ringSize?: string;
 }
 
 export interface Configuration {
@@ -55,12 +57,15 @@ export interface PricingRequest {
   productType: ProductType;
   partIds: string[];
   personalization?: Partial<Personalization>;
+  /** Client-claimed total — server recalculates and rejects mismatches */
+  claimedTotal?: number;
 }
 
 export interface PricingResponse {
   basePrice: number;
   modifiersTotal: number;
   personalizationTotal: number;
+  pairMultiplier: number;
   totalPrice: number;
   breakdown: PriceBreakdownItem[];
   warnings: string[];

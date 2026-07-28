@@ -7,40 +7,62 @@ import { SectionHeader } from '@/components/sections/Hero';
 import { FaqBlock } from '@/components/seo/FaqSchema';
 import { OrganizationSchema } from '@/components/seo/OrganizationSchema';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
+import { img } from '@/lib/images';
 
 export const metadata: Metadata = {
   title: 'Design Your Own — Bespoke Jewelry Builder',
-  description: 'Build your own bespoke necklace, bracelet, or mala piece by piece. Each part individually storied and handcrafted in our Jaipur atelier.',
-  openGraph: {
-    title: 'Design Your Own | Apriliha Singh',
-    description: 'Build your own bespoke jewelry, piece by piece.',
-  },
+  description:
+    'Build necklace, bracelet, mala, ring, earring, or anklet part by part. Watch your piece assemble in real time.',
 };
 
 const productTypes = [
   {
-    type: 'necklace' as const,
-    name: 'Necklace (Maala)',
-    description: 'Choose a chain, centerpiece, accent stones, and clasp. Each part tells a story.',
-    image: '/images/configurator/necklace-hero.svg',
+    type: 'necklace',
+    name: 'Necklace',
+    description: 'Chain forms, centerpiece attaches, stone seats, clasp completes.',
+    image: img.configuratorNecklace,
     href: '/design-your-own/necklace',
-    steps: ['Chain', 'Centerpiece', 'Accents', 'Clasp', 'Length'],
+    steps: ['Chain', 'Centerpiece', 'Stone', 'Clasp', 'Length'],
   },
   {
-    type: 'bracelet' as const,
+    type: 'bracelet',
     name: 'Bracelet',
-    description: 'A foundation, a focal point, spacers, and a clasp — four decisions, one personal piece.',
-    image: '/images/configurator/bracelet-hero.svg',
+    description: 'A shorter assembly — foundation, motif, spacers, clasp.',
+    image: img.configuratorBracelet,
     href: '/design-your-own/bracelet',
     steps: ['Foundation', 'Centerpiece', 'Spacers', 'Clasp'],
   },
   {
-    type: 'mala' as const,
-    name: 'Mala (Prayer Beads)',
-    description: '108 beads, a guru bead, spacer markers, and a tassel — meditative, personal, sacred.',
-    image: '/images/configurator/mala-hero.svg',
+    type: 'mala',
+    name: 'Mala',
+    description: 'Thread forms, beads string on, guru bead settles, tassel finishes.',
+    image: img.configuratorMala,
     href: '/design-your-own/mala',
-    steps: ['Beads', 'Guru Bead', 'Spacers', 'Tassel'],
+    steps: ['Thread', 'Beads', 'Spacers', 'Guru', 'Tassel'],
+  },
+  {
+    type: 'ring',
+    name: 'Ring',
+    description: 'Band forms, setting attaches, stone seats — then choose your size.',
+    image: img.configuratorBracelet,
+    href: '/design-your-own/ring',
+    steps: ['Band', 'Setting', 'Stone', 'Size'],
+  },
+  {
+    type: 'earring',
+    name: 'Earrings',
+    description: 'Build once, priced as a pair. Assembly plays once, then presents as two.',
+    image: img.configuratorNecklace,
+    href: '/design-your-own/earring',
+    steps: ['Finding', 'Drop', 'Accent', 'Back'],
+  },
+  {
+    type: 'anklet',
+    name: 'Anklet',
+    description: 'Like a bracelet, plus an optional charm that settles once — no loop.',
+    image: img.configuratorMala,
+    href: '/design-your-own/anklet',
+    steps: ['Foundation', 'Motif', 'Spacers', 'Charm', 'Clasp'],
   },
 ];
 
@@ -55,14 +77,15 @@ export default function DesignYourOwnPage() {
         ]}
       />
       <Header />
-      <main id="main-content" className="pt-[60px]">
+      <main id="main-content" className="site-main">
         <section className="py-20 px-responsive text-center">
           <div className="max-w-[800px] mx-auto">
             <Reveal>
               <p className="eyebrow-gold mb-6">Bespoke Configurator</p>
               <h1 className="font-display text-hero mb-8">Design Your Own</h1>
               <p className="font-ui text-body text-text-primary/70 max-w-[600px] mx-auto">
-                Every piece begins with a conversation between karigar and client. This is that conversation — translated to screen. Choose each part, one by one, and watch your piece come together.
+                Every piece begins with a conversation between karigar and client. Choose each part —
+                watch the piece assemble in place, with price and origin story for every choice.
               </p>
             </Reveal>
           </div>
@@ -75,16 +98,16 @@ export default function DesignYourOwnPage() {
                 id="how-it-works-title"
                 eyebrow="HOW IT WORKS"
                 title="Part by Part"
-                description="No dropdowns. No grids of 50 options. Each step is a guided choice — one category at a time, like sitting with a karigar."
+                description="Not a static swap. Each choice attaches where it belongs — and comes off again if you change your mind."
                 alignment="center"
               />
             </Reveal>
 
             <RevealStagger className="mt-16 grid sm:grid-cols-3 gap-8 max-w-[900px] mx-auto" stagger={0.1}>
               {[
-                { step: '1', title: 'Choose', description: 'Select one part at a time from curated options.' },
-                { step: '2', title: 'See', description: 'Watch your piece build in real time. Every part adds to the story.' },
-                { step: '3', title: 'Own', description: 'Add to cart, save your design, or book a consultation.' },
+                { step: '1', title: 'Choose', description: 'One part at a time, with its price and craft story.' },
+                { step: '2', title: 'Assemble', description: 'Watch it join the piece in real time — desktop and mobile.' },
+                { step: '3', title: 'Own', description: 'One composed product, server-verified price, into cart.' },
               ].map((item) => (
                 <RevealChild key={item.step}>
                   <div className="text-center">
@@ -111,11 +134,11 @@ export default function DesignYourOwnPage() {
               />
             </Reveal>
 
-            <RevealStagger className="mt-24 grid md:grid-cols-3 gap-12" stagger={0.15}>
+            <RevealStagger className="mt-24 grid md:grid-cols-2 lg:grid-cols-3 gap-10" stagger={0.1}>
               {productTypes.map((product) => (
                 <RevealChild key={product.type}>
                   <Link href={product.href} className="group block">
-                    <article className="border border-border rounded-sm overflow-hidden hover:border-accent-gold/30 transition-all duration-300">
+                    <article className="border border-border overflow-hidden hover:border-text-primary/30 transition-all duration-300">
                       <div className="aspect-[4/3] bg-bg-secondary relative overflow-hidden">
                         <img
                           src={product.image}
@@ -124,24 +147,22 @@ export default function DesignYourOwnPage() {
                         />
                       </div>
                       <div className="p-8">
-                        <h2 className="font-display text-h2 mb-3 group-hover:text-accent-primary transition-colors duration-200">
+                        <h2 className="font-display text-h2 mb-3 uppercase tracking-[0.08em] group-hover:opacity-70 transition-opacity">
                           {product.name}
                         </h2>
-                        <p className="font-ui text-small text-text-primary/60 mb-6">
-                          {product.description}
-                        </p>
+                        <p className="font-ui text-small text-text-primary/60 mb-6">{product.description}</p>
                         <div className="flex flex-wrap gap-2">
                           {product.steps.map((step) => (
-                            <span key={step} className="font-ui text-micro px-3 py-1 bg-bg-secondary rounded-full text-text-primary/60">
+                            <span
+                              key={step}
+                              className="font-ui text-micro px-3 py-1 bg-bg-secondary text-text-primary/60 uppercase tracking-[0.1em]"
+                            >
                               {step}
                             </span>
                           ))}
                         </div>
-                        <div className="mt-6 font-ui text-caption underline-gold inline-flex items-center gap-2">
+                        <div className="mt-6 font-ui text-caption uppercase tracking-[0.13em] underline underline-offset-4 inline-flex items-center gap-2">
                           Start Building
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                          </svg>
                         </div>
                       </div>
                     </article>
@@ -156,28 +177,24 @@ export default function DesignYourOwnPage() {
           title="Design Your Own — Questions"
           items={[
             {
-              question: 'Can I customize the length of my necklace?',
-              answer: 'Yes. Every necklace configurator includes a length selection step — choose from choker (35cm), princess (45cm), or matinee (55cm). For custom lengths, add a note in the personalization step and our atelier will accommodate.',
+              question: 'Is the price I see the price I pay?',
+              answer:
+                'Yes for the merchandise total. When you add to cart, the server recalculates from part IDs and rejects any tampered client total. Earrings are always doubled as a pair.',
             },
             {
-              question: 'What happens if a part I want is out of stock?',
-              answer: 'If a part shows "Made to order," it will be handcrafted specifically for your piece. Lead times are displayed on each part card — typically 2 to 4 weeks. You can proceed with your design and we will confirm timelines upon order.',
+              question: 'Do ring sizes cost extra?',
+              answer:
+                'No. Ring size is a required fit choice and does not change the price — but you cannot add a ring to cart without selecting a size.',
             },
             {
-              question: 'Can I change my design after saving it?',
-              answer: 'Absolutely. Save your design and return to it anytime. You can swap parts, adjust quantities, and update personalization before placing your order.',
+              question: 'Can I change a part after selecting it?',
+              answer:
+                'Yes. Swap or remove any part — it detaches in the preview, and the running total updates live.',
             },
             {
               question: 'How long does bespoke production take?',
-              answer: 'Most pieces take 12 to 18 days from final design confirmation to shipment. Complex pieces with multiple stones or intricate settings may take up to 4 weeks. Your estimated ship date is shown at checkout.',
-            },
-            {
-              question: 'Can I book a video consultation instead of building online?',
-              answer: 'Yes. Every configurator includes a "Book a Consultation" option. Our creative director will guide you through the process over video, showing pieces in person and advising on combinations.',
-            },
-            {
-              question: 'Are the prices shown final?',
-              answer: 'Yes. The price breakdown shows every component, adjustment, and personalization fee. No hidden costs. Prices are in INR and include all materials and craftsmanship.',
+              answer:
+                'Most pieces take 12 to 18 days from confirmation. Lead times are shown on each part.',
             },
           ]}
         />

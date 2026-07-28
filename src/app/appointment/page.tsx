@@ -8,6 +8,7 @@ import { SectionHeader } from '@/components/sections/Hero';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
+import { img } from '@/lib/images';
 import { cn } from '@/lib/utils';
 
 type AppointmentType = 'private-viewing' | 'virtual-consultation' | 'bespoke-commission' | 'heirloom-redesign' | 'repair-restoration';
@@ -143,9 +144,9 @@ export default function AppointmentPage() {
   return (
     <>
       <Header />
-      <main className="pt-[60px]">
+      <main className="site-main">
         <Hero
-          image="/images/appointment/hero.svg"
+          image={img.appointmentHero}
           imageAlt="Apriliha Singh atelier consultation area"
           eyebrow="BOOK AN APPOINTMENT"
           title="Begin the Conversation"

@@ -2,115 +2,210 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { footerColumns, socialLinks } from '@/lib/data';
+import { socialLinks } from '@/lib/data';
+import { img } from '@/lib/images';
+
+const storeImages = [
+  { href: '/appointment', alt: 'Apriliha Singh Atelier — Jaipur', src: img.atelierPreview, label: 'JAIPUR' },
+  { href: '/appointment', alt: 'Apriliha Singh Studio', src: img.homeHero, label: 'STUDIO' },
+  { href: '/contact', alt: 'Book an appointment', src: img.zenanaThumb, label: 'VISIT' },
+];
+
+const footerMenus = [
+  {
+    title: 'INFO',
+    links: [
+      { label: 'NEWS', href: '/journal' },
+      { label: 'STOCKISTS', href: '/contact' },
+      { label: 'CONTACT', href: '/contact' },
+      { label: 'COMPANY', href: '/atelier' },
+    ],
+  },
+  {
+    title: 'CARE',
+    links: [
+      { label: 'CUSTOMER SERVICE', href: '/contact' },
+      { label: 'CARE INSTRUCTIONS', href: '/care-guide' },
+      { label: 'SHIPPING & RETURNS', href: '/shipping-returns' },
+      { label: 'REPAIR', href: '/repair' },
+    ],
+  },
+  {
+    title: 'LEGAL',
+    links: [
+      { label: 'PRIVACY', href: '/care-guide' },
+      { label: 'TERMS', href: '/shipping-returns' },
+    ],
+  },
+];
+
+function AccordionColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string }[];
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b border-border md:border-none">
+      <button
+        type="button"
+        className="flex w-full items-center justify-between py-4 md:pointer-events-none md:py-0 md:mb-6"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+      >
+        <span
+          className="uppercase text-text-primary"
+          style={{ fontSize: '12px', letterSpacing: '0.13em', fontWeight: 400 }}
+        >
+          {title}
+        </span>
+        <span className="md:hidden text-text-muted" style={{ fontSize: '14px' }}>
+          {open ? '−' : '+'}
+        </span>
+      </button>
+      <div className={open ? 'block pb-4' : 'hidden md:block'}>
+        <ul className="space-y-3">
+          {links.map((link) => (
+            <li key={link.label}>
+              <Link
+                href={link.href}
+                className="uppercase text-text-primary transition-opacity hover:opacity-70"
+                style={{ fontSize: '10px', letterSpacing: '0.13em' }}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
 
 export function Footer() {
   const [email, setEmail] = useState('');
 
   return (
-    <footer className="bg-bg-dark text-text-inverse" role="contentinfo">
-      <div className="max-w-[1440px] mx-auto px-responsive">
-        {/* Main footer grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 py-16">
-          {footerColumns.map((column) => (
-            <div key={column.heading}>
-              <h3 className="font-ui text-micro text-text-inverse/40 mb-5">
-                {column.heading}
-              </h3>
-              <ul className="space-y-2.5" role="list">
-                {column.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="font-ui text-small text-text-inverse/70 hover:text-accent-gold transition-colors duration-200"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+    <footer className="bg-bg-primary text-text-primary mt-[100px]" role="contentinfo">
+      {/* Stores + Newsletter */}
+      <div
+        className="flex flex-col lg:flex-row gap-12 lg:gap-0 border-t border-border"
+        style={{ padding: '80px 0 100px' }}
+      >
+        <div className="px-[7.8vw] lg:mr-[10vw] shrink-0">
+          <div
+            className="uppercase whitespace-nowrap text-text-primary"
+            style={{ fontSize: '12px', letterSpacing: '0.13em', fontWeight: 400 }}
+          >
+            STORES / BOOK AN APPOINTMENT
+          </div>
+          <ul className="flex gap-[3px] mt-10 md:mt-[46px]">
+            {storeImages.map((store) => (
+              <li key={store.alt} className="w-[28vw] md:w-[9.06vw]">
+                <Link href={store.href} className="block u-hover-fade overflow-hidden">
+                  <img
+                    src={store.src}
+                    alt={store.alt}
+                    className="w-full aspect-square object-cover"
+                  />
+                  <span className="footer-store-label">{store.label}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="px-[7.8vw] lg:px-0 lg:w-[37vw]">
+          <div
+            className="uppercase text-text-primary"
+            style={{ fontSize: '12px', letterSpacing: '0.13em', fontWeight: 400 }}
+          >
+            NEWSLETTER
+          </div>
+          <form
+            className="relative mt-8 md:mt-[35px] border-b border-border w-full max-w-[320px] lg:w-[81%]"
+            onSubmit={(e) => e.preventDefault()}
+          >
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="EMAIL ADDRESS"
+              className="w-full border-none bg-transparent outline-none text-text-primary uppercase"
+              style={{ fontSize: '9px', letterSpacing: '0.18em', lineHeight: '35px' }}
+              aria-label="Email address"
+            />
+            <button
+              type="submit"
+              className="absolute right-0 top-1/2 -translate-y-1/2 border border-border bg-bg-primary px-2 uppercase transition-colors hover:bg-[#d9d9d9] hover:text-white"
+              style={{ fontSize: '9px', lineHeight: '19px', letterSpacing: '0.13em' }}
+            >
+              SUBSCRIBE
+            </button>
+          </form>
+          <p
+            className="mt-8 md:mt-12 text-[#c2c2c2] max-w-[320px] lg:w-[81%]"
+            style={{ fontSize: '8px', lineHeight: 1.75, letterSpacing: '0.13em' }}
+          >
+            I agree to receive the Apriliha Singh newsletter to be the first to know about new
+            collections, exclusive product launches, events and services available. By subscribing,
+            I agree to the{' '}
+            <Link href="/care-guide" className="underline underline-offset-2">
+              Privacy Policy
+            </Link>
+            .
+          </p>
+        </div>
+      </div>
+
+      {/* Link columns */}
+      <div
+        className="flex flex-col md:flex-row gap-0 md:gap-16 border-t border-border px-[5.2vw]"
+        style={{ paddingTop: '40px', paddingBottom: '60px' }}
+      >
+        <div className="flex flex-col md:flex-row gap-0 md:gap-16 flex-1">
+          {footerMenus.map((menu) => (
+            <AccordionColumn key={menu.title} title={menu.title} links={menu.links} />
           ))}
         </div>
 
-        {/* Newsletter + Social */}
-        <div className="border-t border-inverse py-12">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <h3 className="font-display text-h3 mb-2">Become a Member</h3>
-              <p className="font-ui text-small text-text-inverse/50 mb-6 max-w-sm">
-                Early access to new pieces, artisan stories, and exclusive events.
-              </p>
-              <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 bg-bg-darker/50 text-text-inverse font-ui text-body border border-transparent rounded-sm placeholder:text-text-inverse/30 focus:outline-none focus:border-accent-gold transition-colors duration-200"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-3 bg-accent-gold text-bg-dark font-ui text-caption font-medium rounded-sm hover:brightness-110 transition-all duration-200"
-                >
-                  Join
-                </button>
-              </form>
-            </div>
-            <div className="flex md:justify-end gap-5">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.platform}
-                  href={link.url}
-                  className="text-text-inverse/30 hover:text-accent-gold transition-colors duration-200"
-                  aria-label={link.label}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {link.platform === 'instagram' && (
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                    </svg>
-                  )}
-                  {link.platform === 'pinterest' && (
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 3.01 8.17 7.11 9.5.5.09.68-.22.68-.48l-.01-1.69c-2.39.5-3.12-1.13-3.12-2.2 0-1.81 1.22-2.9 22-2.9" />
-                    </svg>
-                  )}
-                  {link.platform === 'email' && (
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                      <polyline points="22,6 12,13 2,6" />
-                    </svg>
-                  )}
-                  {link.platform === 'whatsapp' && (
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-                    </svg>
-                  )}
-                </a>
-              ))}
-            </div>
-          </div>
+        <div className="pt-6 md:pt-0 md:ml-auto">
+          {socialLinks
+            .filter((s) => s.platform === 'instagram')
+            .map((link) => (
+              <a
+                key={link.platform}
+                href={link.url}
+                className="uppercase text-text-primary transition-opacity hover:opacity-70"
+                style={{ fontSize: '10px', letterSpacing: '0.13em' }}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.label}
+              >
+                INSTAGRAM
+              </a>
+            ))}
         </div>
+      </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-inverse py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="font-display text-h3 text-gold-gradient leading-none" aria-label="Apriliha Singh - Home">
-              AS
-            </Link>
-            <p className="font-ui text-micro text-text-inverse/30">
-              © {new Date().getFullYear()} Apriliha Singh. All rights reserved.
-            </p>
-          </div>
-          <div className="flex items-center gap-5 font-ui text-micro text-text-inverse/30">
-            <Link href="/shipping-returns" className="hover:text-accent-gold transition-colors duration-200">Privacy</Link>
-            <Link href="/shipping-returns" className="hover:text-accent-gold transition-colors duration-200">Terms</Link>
-            <Link href="/care-guide" className="hover:text-accent-gold transition-colors duration-200">Accessibility</Link>
-          </div>
+      {/* Bottom bar */}
+      <div
+        className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-border px-[5.2vw]"
+        style={{ paddingTop: '30px', paddingBottom: '30px' }}
+      >
+        <p className="text-text-muted uppercase" style={{ fontSize: '9px', letterSpacing: '0.13em' }}>
+          © {new Date().getFullYear()} APRILIHA SINGH
+        </p>
+        <div className="flex gap-6">
+          <Link href="/shipping-returns" className="text-text-muted uppercase hover:opacity-70" style={{ fontSize: '9px', letterSpacing: '0.13em' }}>
+            PRIVACY
+          </Link>
+          <Link href="/shipping-returns" className="text-text-muted uppercase hover:opacity-70" style={{ fontSize: '9px', letterSpacing: '0.13em' }}>
+            TERMS
+          </Link>
         </div>
       </div>
     </footer>

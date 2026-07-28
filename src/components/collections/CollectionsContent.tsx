@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { ProductCard } from '@/components/product/ProductCard';
 import { FaqBlock } from '@/components/seo/FaqSchema';
-import { Reveal } from '@/components/ui/Animate';
 import { collections, products } from '@/lib/data';
+import { img } from '@/lib/images';
 
 export function CollectionsContent() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -18,127 +18,114 @@ export function CollectionsContent() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative h-[50vh] min-h-[400px] flex items-end bg-bg-secondary">
-        <div className="absolute inset-0">
+      {/* Hero — SHIHARA style */}
+      <section className="relative w-full overflow-hidden">
+        <div className="relative w-full bg-bg-secondary" style={{ aspectRatio: '1.531 / 1' }}>
           <img
-            src="/images/collections/hero.svg"
+            src={img.collectionsHero}
             alt="Collection of jewelry pieces"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover max-md:h-[50vh] max-md:aspect-auto"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-bg-dark/70 via-bg-dark/20 to-transparent" />
-        </div>
-        <div className="relative z-10 w-full px-responsive pb-16">
-          <div className="max-w-[1440px] mx-auto">
-            <p className="eyebrow-gold mb-3">All Jewelry</p>
-            <h1 className="font-display text-hero text-text-inverse">Shop All</h1>
-          </div>
+          <h1
+            className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-white uppercase max-md:left-[4.05vw]"
+            style={{ fontSize: '15px', letterSpacing: '0.13em', fontWeight: 400 }}
+          >
+            Shop All
+          </h1>
         </div>
       </section>
 
-      {/* Tab Navigation */}
-      <section className="px-responsive py-6 border-b border-border">
-        <div className="max-w-[1440px] mx-auto">
-          <nav className="flex gap-6 overflow-x-auto pb-2 scrollbar-hide" aria-label="Collection categories">
+      {/* Filters */}
+      <section className="px-responsive py-8 border-b border-border">
+        <nav className="flex gap-6 overflow-x-auto scrollbar-hide" aria-label="Collection categories">
+          <button
+            onClick={() => setActiveCategory('all')}
+            className={cn(
+              'shrink-0 uppercase transition-opacity duration-200 whitespace-nowrap',
+              activeCategory === 'all' ? 'text-text-primary' : 'text-text-muted hover:opacity-70'
+            )}
+            style={{ fontSize: '10px', letterSpacing: '0.13em' }}
+          >
+            All Jewelry
+          </button>
+          {activeCollections.map((collection) => (
             <button
-              onClick={() => setActiveCategory('all')}
+              key={collection.id}
+              onClick={() => setActiveCategory(collection.id)}
               className={cn(
-                'shrink-0 font-ui text-caption transition-colors duration-200 whitespace-nowrap pb-1',
-                activeCategory === 'all'
-                  ? 'text-text-primary border-b-2 border-text-primary'
-                  : 'text-text-primary/40 hover:text-text-primary'
+                'shrink-0 uppercase transition-opacity duration-200 whitespace-nowrap',
+                activeCategory === collection.id ? 'text-text-primary' : 'text-text-muted hover:opacity-70'
               )}
+              style={{ fontSize: '10px', letterSpacing: '0.13em' }}
             >
-              All Jewelry
+              {collection.name}
             </button>
-            {activeCollections.map((collection) => (
-              <button
-                key={collection.id}
-                onClick={() => setActiveCategory(collection.id)}
-                className={cn(
-                  'shrink-0 font-ui text-caption transition-colors duration-200 whitespace-nowrap pb-1',
-                  activeCategory === collection.id
-                    ? 'text-text-primary border-b-2 border-text-primary'
-                    : 'text-text-primary/40 hover:text-text-primary'
-                )}
-              >
-                {collection.name}
-              </button>
-            ))}
-          </nav>
-        </div>
+          ))}
+        </nav>
       </section>
 
       {/* Products Grid */}
       <section className="px-responsive py-12" aria-labelledby="products-grid-title">
-        <div className="max-w-[1440px] mx-auto">
-          <p className="font-ui text-micro text-text-primary/40 mb-6">
-            {filteredProducts.length} Products
+        <h2 id="products-grid-title" className="sr-only">Products</h2>
+        <p className="text-text-muted mb-8 uppercase" style={{ fontSize: '9px', letterSpacing: '0.13em' }}>
+          {filteredProducts.length} Products
+        </p>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-[10px] gap-y-12">
+          {filteredProducts.map((product, index) => (
+            <ProductCard key={product.id} product={product} priority={index < 4} />
+          ))}
+        </div>
+
+        {filteredProducts.length === 0 && (
+          <p className="text-center text-text-muted py-20 uppercase" style={{ fontSize: '10px', letterSpacing: '0.13em' }}>
+            No products in this collection yet.
           </p>
+        )}
+      </section>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
-            {filteredProducts.map((product, index) => (
-              <Reveal key={product.id} delay={Math.min(index * 0.05, 0.3)}>
-                <ProductCard product={product} priority={index < 4} />
-              </Reveal>
-            ))}
-          </div>
-
-          {filteredProducts.length === 0 && (
-            <div className="text-center py-20">
-              <p className="font-display text-h2 mb-4">Coming Soon</p>
-              <p className="font-ui text-body text-text-primary/55">
-                This collection is being curated. Check back soon.
+      {/* Collection teasers */}
+      <section className="section-gap mb-[100px]" aria-label="Browse collections">
+        <h2 className="section-label">Collections</h2>
+        <div className="flex gap-[10px] mt-10 px-[0.78%] max-md:px-[3.8vw] overflow-x-auto scrollbar-hide">
+          {activeCollections.map((collection) => (
+            <Link
+              key={collection.slug}
+              href={`/collections/${collection.slug}`}
+              className="block shrink-0 w-[calc(625/1260*100%)] max-md:w-[70vw] u-hover-fade"
+            >
+              <div className="overflow-hidden bg-bg-secondary" style={{ aspectRatio: '1.308 / 1' }}>
+                <img
+                  src={collection.thumbnailImage}
+                  alt={collection.heroImageAlt}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p
+                className="mt-3 px-2.5 text-text-primary uppercase"
+                style={{ fontSize: '11px', letterSpacing: '0.13em' }}
+              >
+                {collection.name}
               </p>
-            </div>
-          )}
+            </Link>
+          ))}
         </div>
       </section>
 
-      {/* Bespoke CTA */}
-      <section className="px-responsive py-20 bg-bg-secondary">
-        <div className="max-w-[1440px] mx-auto text-center">
-          <Reveal>
-            <p className="eyebrow mb-4">Beyond Collections</p>
-            <h2 className="font-display text-h2 mb-4">Bespoke Commissions</h2>
-            <p className="font-ui text-body text-text-primary/60 max-w-[600px] mx-auto mb-8">
-              When the collection doesn&apos;t hold your story, we write a new one.
-              From reimagining heirloom stones to designing from a single sketch.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-6">
-              <Link href="/design-your-own" className="btn-primary">
-                Start Designing
-              </Link>
-              <Link href="/appointment" className="font-ui text-caption underline-gold">
-                Book Appointment
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <FaqBlock
-        title="Collections — Questions"
-        items={[
-          {
-            question: 'How do I know which collection is right for me?',
-            answer: 'Each collection explores a different mood and use case — The Zenana Edit for intimate daily pieces, The Maharani Suite for ceremonial statements, The Artisan Line for understated handcraft, and The Bridal Archive for wedding commissions. Start with the story that resonates.',
-          },
-          {
-            question: 'Can I mix pieces from different collections?',
-            answer: 'Absolutely. Our pieces are designed to layer and coexist across collections. A Zenana choker pairs beautifully with an Artisan Line cuff. Our stylists can advise on combinations during a complimentary consultation.',
-          },
-          {
-            question: 'Are all pieces shown on the website available to purchase?',
-            answer: 'Most pieces are made to order. Items marked "In Stock" ship within 5 to 7 business days. Made-to-order pieces typically require 2 to 4 weeks. Bespoke commissions begin with a consultation and require 3 to 6 months.',
-          },
-          {
-            question: 'Do you ship internationally?',
-            answer: 'Yes. We ship worldwide via FedEx and DHL Express, fully insured. International shipments arrive within 5 to 10 business days. Customs duties are the client\'s responsibility — we handle all export documentation.',
-          },
-        ]}
-      />
+      <div className="px-responsive pb-20">
+        <FaqBlock
+          items={[
+            {
+              question: 'How do I care for my jewelry?',
+              answer: 'Store pieces separately, avoid chemicals, and clean gently with a soft cloth. See our Care Guide for details.',
+            },
+            {
+              question: 'Do you offer custom commissions?',
+              answer: 'Yes. Book an appointment or use Design Your Own to begin a bespoke piece.',
+            },
+          ]}
+        />
+      </div>
     </>
   );
 }

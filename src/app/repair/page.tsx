@@ -5,6 +5,7 @@ import { Hero } from '@/components/sections/Hero';
 import { SectionHeader } from '@/components/sections/Hero';
 import { Reveal, RevealStagger, RevealChild } from '@/components/ui/Animate';
 import Link from 'next/link';
+import { img } from '@/lib/images';
 
 export const metadata: Metadata = {
   title: 'Repair & Restoration',
@@ -100,9 +101,9 @@ export default function RepairPage() {
   return (
     <>
       <Header />
-      <main id="main-content" className="pt-[60px]">
+      <main id="main-content" className="site-main">
         <Hero
-          image="/images/atelier/hero.svg"
+          image={img.atelierHero}
           imageAlt="Karigar performing repair work at bench"
           eyebrow="REPAIR & RESTORATION"
           title="Your Piece, Renewed"

@@ -7,6 +7,7 @@ import { Reveal, RevealStagger, RevealChild } from '@/components/ui/Animate';
 import { FaqBlock } from '@/components/seo/FaqSchema';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import Link from 'next/link';
+import { img } from '@/lib/images';
 
 export const metadata: Metadata = {
   title: 'Care Guide',
@@ -107,9 +108,9 @@ export default function CareGuidePage() {
         ]}
       />
       <Header />
-      <main id="main-content" className="pt-[60px]">
+      <main id="main-content" className="site-main">
         <Hero
-          image="/images/contact/hero.svg"
+          image={img.contactHero}
           imageAlt="Apriliha Singh care specialist examining a piece"
           eyebrow="CARE & CONCIERGE"
           title="Caring for Your Jewelry"

@@ -27,27 +27,37 @@ export interface CompositingResult {
 const SLOT_Z_INDEX: Record<string, number> = {
   chain: 1,
   cord: 1,
+  band: 1,
   length: 1,
   bead: 2,
   spacer: 3,
-  centerpiece: 5,
-  accent: 6,
-  guru_bead: 5,
+  setting: 4,
   clasp: 4,
+  centerpiece: 5,
+  guru_bead: 5,
+  stone: 6,
+  accent: 6,
   tassel: 7,
+  charm: 8,
+  size: 0,
 };
 
 const SLOT_POSITIONS: Record<string, { offsetX: number; offsetY: number; scale: number }> = {
   chain: { offsetX: 0, offsetY: 0, scale: 1 },
   cord: { offsetX: 0, offsetY: 0, scale: 1 },
+  band: { offsetX: 0, offsetY: 4, scale: 0.95 },
   length: { offsetX: 0, offsetY: 0, scale: 1 },
   centerpiece: { offsetX: 0, offsetY: 10, scale: 0.85 },
+  setting: { offsetX: 0, offsetY: 2, scale: 0.7 },
+  stone: { offsetX: 0, offsetY: 0, scale: 0.45 },
   accent: { offsetX: 15, offsetY: -5, scale: 0.5 },
   bead: { offsetX: 0, offsetY: 0, scale: 0.9 },
   spacer: { offsetX: 10, offsetY: 0, scale: 0.4 },
   guru_bead: { offsetX: 0, offsetY: 20, scale: 0.95 },
   clasp: { offsetX: 0, offsetY: 0, scale: 0.7 },
   tassel: { offsetX: 0, offsetY: 30, scale: 0.8 },
+  charm: { offsetX: 10, offsetY: 16, scale: 0.4 },
+  size: { offsetX: 0, offsetY: 0, scale: 1 },
 };
 
 export function buildLayers(request: CompositingRequest): CompositingResult {

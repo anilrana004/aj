@@ -49,7 +49,7 @@ export default async function PartStoryPage({ params }: { params: Promise<{ part
         ]}
       />
       <Header />
-      <main id="main-content" className="pt-[60px]">
+      <main id="main-content" className="site-main">
         <article className="py-32 px-responsive">
           <div className="max-w-[1440px] mx-auto">
             <div className="grid lg:grid-cols-12 gap-16">

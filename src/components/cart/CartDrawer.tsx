@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useCart } from '@/hooks/useCart';
 import { cn } from '@/lib/utils';
+import { img } from '@/lib/images';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -17,109 +18,95 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
   return (
     <>
-      {/* Backdrop */}
       <div
         className={cn(
           'fixed inset-0 bg-bg-dark/40 z-drawer transition-opacity duration-300',
-          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none invisible'
         )}
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Drawer */}
       <div
-        className={cn(
-          'fixed z-drawer bg-bg-primary shadow-2xl transition-transform duration-300',
-          'max-sm:inset-x-0 max-sm:bottom-0 max-sm:top-auto max-sm:max-h-[85vh] max-sm:rounded-t-sm',
-          'sm:inset-y-0 sm:right-0 sm:w-[420px]',
-          isOpen
-            ? 'sm:translate-x-0 max-sm:translate-y-0'
-            : 'sm:translate-x-full max-sm:translate-y-full'
-        )}
+        className={cn('cart-drawer', isOpen && 'is-open')}
         role="dialog"
-        aria-modal="true"
+        aria-modal={isOpen}
         aria-label="Shopping cart"
+        aria-hidden={!isOpen}
       >
         <div className="flex flex-col h-full max-sm:max-h-[85vh]">
-          {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-            <h2 className="font-display text-h3">Your Cart ({items.length})</h2>
+          <div className="cart-drawer__head">
+            <h2 className="cart-drawer__title">CART ({items.length})</h2>
             <button
+              type="button"
               onClick={onClose}
-              className="p-2 text-text-primary/40 hover:text-text-primary transition-colors duration-200"
+              className="l-header__icon-btn"
               aria-label="Close cart"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M6 18L18 6M6 6l12 12" />
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1">
+                <path d="M1 1l12 12M13 1L1 13" />
               </svg>
             </button>
           </div>
 
-          {/* Items */}
           <div className="flex-1 overflow-y-auto px-6 py-4">
             {items.length === 0 ? (
-              <div className="text-center py-16">
-                <p className="font-display text-h3 mb-4">Your cart is quiet, for now.</p>
-                <Link
-                  href="/collections"
-                  onClick={onClose}
-                  className="btn-primary inline-block"
-                >
-                  Explore Collections
+              <div className="cart-drawer__empty">
+                <p>Your cart is empty.</p>
+                <Link href="/collections" onClick={onClose}>
+                  EXPLORE COLLECTIONS
                 </Link>
               </div>
             ) : (
-              <div className="space-y-0">
+              <div>
                 {items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="py-5 border-b border-border last:border-b-0 flex gap-4"
-                  >
-                    <div className="w-16 h-16 shrink-0 bg-bg-secondary rounded-sm overflow-hidden">
+                  <div key={item.id} className="py-5 border-b border-border last:border-b-0 flex gap-4">
+                    <div className="w-16 h-20 shrink-0 bg-bg-secondary overflow-hidden">
                       <img
-                        src={item.previewImageUrl || '/images/configurator/placeholder.svg'}
+                        src={item.previewImageUrl || img.configuratorPlaceholder}
                         alt={item.name}
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-ui text-small font-medium truncate">{item.name}</h3>
-                      <p className="font-ui text-micro text-text-primary/40">{item.productType}</p>
-                      {item.partsSummary.length > 0 && (
-                        <p className="font-ui text-micro text-text-primary/40 mt-1 truncate">
-                          {item.partsSummary.join(' · ')}
-                        </p>
-                      )}
+                      <h3 className="uppercase truncate" style={{ fontSize: '11px', letterSpacing: '0.13em' }}>
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 uppercase text-text-muted" style={{ fontSize: '10px', letterSpacing: '0.13em' }}>
+                        {item.productType}
+                      </p>
                       <div className="flex items-center justify-between mt-3">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-3">
                           <button
+                            type="button"
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-7 h-7 flex items-center justify-center border border-border rounded-sm text-text-primary/40 hover:border-text-primary/30 transition-colors duration-200"
+                            className="text-text-muted"
+                            aria-label="Decrease quantity"
                           >
                             −
                           </button>
-                          <span className="font-ui text-small w-5 text-center">{item.quantity}</span>
+                          <span style={{ fontSize: '11px' }}>{item.quantity}</span>
                           <button
+                            type="button"
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="w-7 h-7 flex items-center justify-center border border-border rounded-sm text-text-primary/40 hover:border-text-primary/30 transition-colors duration-200"
+                            className="text-text-muted"
+                            aria-label="Increase quantity"
                           >
                             +
                           </button>
                         </div>
-                        <span className="font-ui text-small font-medium">
+                        <span style={{ fontSize: '11px', letterSpacing: '0.1em' }}>
                           {formatPrice(item.totalPrice * item.quantity)}
                         </span>
                       </div>
                     </div>
                     <button
+                      type="button"
                       onClick={() => removeItem(item.id)}
-                      className="shrink-0 p-1 text-text-primary/30 hover:text-text-primary transition-colors duration-200 self-start"
+                      className="shrink-0 self-start text-text-muted hover:text-text-primary"
                       aria-label={`Remove ${item.name}`}
                     >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M6 18L18 6M6 6l12 12" />
-                      </svg>
+                      ×
                     </button>
                   </div>
                 ))}
@@ -127,30 +114,28 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             )}
           </div>
 
-          {/* Footer */}
           {items.length > 0 && (
-            <div className="px-6 py-4 border-t border-border">
-              <div className="flex justify-between font-ui text-small mb-4">
-                <span className="text-text-primary/50">Subtotal</span>
-                <span className="font-medium">{formatPrice(subtotal)}</span>
+            <div className="px-6 py-5 border-t border-border">
+              <div className="flex justify-between mb-5 uppercase" style={{ fontSize: '11px', letterSpacing: '0.13em' }}>
+                <span>Subtotal</span>
+                <span>{formatPrice(subtotal)}</span>
               </div>
               <Link
                 href="/checkout"
                 onClick={onClose}
-                className="btn-primary w-full text-center block"
+                className="block w-full text-center py-3.5 bg-text-primary text-white uppercase"
+                style={{ fontSize: '11px', letterSpacing: '0.13em' }}
               >
-                Checkout
+                CHECKOUT
               </Link>
               <Link
                 href="/cart"
                 onClick={onClose}
-                className="block text-center mt-3 font-ui text-caption underline-gold"
+                className="block text-center mt-4 uppercase underline underline-offset-4 text-text-muted"
+                style={{ fontSize: '10px', letterSpacing: '0.13em' }}
               >
-                View Cart
+                VIEW CART
               </Link>
-              <p className="mt-3 font-ui text-micro text-text-primary/35 text-center">
-                Bespoke pieces ship in 12–18 days. Free returns within 14 days.
-              </p>
             </div>
           )}
         </div>

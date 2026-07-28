@@ -26,7 +26,7 @@ export default async function OrderPage({ params }: OrderPageProps) {
         ]}
       />
       <Header />
-      <main id="main-content" className="pt-[60px] min-h-screen">
+      <main id="main-content" className="site-main min-h-screen">
         <section className="py-32 px-responsive">
           <div className="max-w-[800px] mx-auto">
             <OrderTracker orderId={orderId} />

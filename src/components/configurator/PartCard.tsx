@@ -8,9 +8,17 @@ interface PartCardProps {
   isSelected: boolean;
   onSelect: (part: ConfiguratorPart) => void;
   showStory?: boolean;
+  /** When > 1 (earrings), show unit + pair price */
+  pairMultiplier?: number;
 }
 
-export function PartCard({ part, isSelected, onSelect, showStory = true }: PartCardProps) {
+export function PartCard({
+  part,
+  isSelected,
+  onSelect,
+  showStory = true,
+  pairMultiplier = 1,
+}: PartCardProps) {
   const cutoutImage = part.images.find((img) => img.type === 'builder-cutout');
   const editorialImage = part.images.find((img) => img.type === 'editorial');
 
@@ -60,8 +68,19 @@ export function PartCard({ part, isSelected, onSelect, showStory = true }: PartC
       <div className="p-5">
         <div className="flex items-start justify-between gap-3 mb-2">
           <h3 className="font-display text-h3 leading-tight">{part.name}</h3>
-          <span className="font-ui text-caption text-accent-gold shrink-0 whitespace-nowrap">
-            {part.price === 0 ? 'Included' : `₹${part.price.toLocaleString('en-IN')}`}
+          <span className="font-ui text-caption text-accent-gold shrink-0 text-right">
+            {part.isFitOnly || part.price === 0 ? (
+              'Included'
+            ) : pairMultiplier > 1 ? (
+              <>
+                <span className="block">₹{(part.price * pairMultiplier).toLocaleString('en-IN')} pair</span>
+                <span className="block text-micro text-text-muted normal-case tracking-normal">
+                  ₹{part.price.toLocaleString('en-IN')} each
+                </span>
+              </>
+            ) : (
+              `₹${part.price.toLocaleString('en-IN')}`
+            )}
           </span>
         </div>
 

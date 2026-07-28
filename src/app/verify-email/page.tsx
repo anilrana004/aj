@@ -67,7 +67,7 @@ export default function VerifyEmailPage() {
   return (
     <>
       <Header />
-      <main id="main-content" className="pt-[60px] min-h-screen flex items-center justify-center px-responsive">
+      <main id="main-content" className="site-main min-h-screen flex items-center justify-center px-responsive">
         <div className="w-full max-w-[420px] py-20">
           <Suspense fallback={<div className="text-center py-20"><LoadingMonogram /></div>}>
             <VerifyEmailForm />

@@ -20,7 +20,7 @@ export default function CollectionsPage() {
         ]}
       />
       <Header />
-      <main id="main-content">
+      <main id="main-content" className="site-main">
         <CollectionsContent />
       </main>
       <Footer />

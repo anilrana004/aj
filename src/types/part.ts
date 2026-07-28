@@ -1,4 +1,19 @@
-export type SlotType = 'chain' | 'centerpiece' | 'accent' | 'clasp' | 'bead' | 'tassel' | 'guru_bead' | 'spacer' | 'cord' | 'length';
+export type SlotType =
+  | 'chain'
+  | 'centerpiece'
+  | 'accent'
+  | 'clasp'
+  | 'bead'
+  | 'tassel'
+  | 'guru_bead'
+  | 'spacer'
+  | 'cord'
+  | 'length'
+  | 'band'
+  | 'setting'
+  | 'stone'
+  | 'size'
+  | 'charm';
 
 export type PartMaterial =
   | '18k-gold-vermeil'
@@ -56,6 +71,8 @@ export interface ConfiguratorPart {
   inStockQuantity: number;
   isEditorPick: boolean;
   sortOrder: number;
+  /** When true, part is a fit choice and does not contribute to price */
+  isFitOnly?: boolean;
 }
 
 export interface ProductSlot {
@@ -67,4 +84,6 @@ export interface ProductSlot {
   allowsMultiple: boolean;
   maxSelections?: number;
   sortOrder: number;
+  /** Assembly animation hint for LivePreviewCanvas */
+  assemblyFeel?: 'form' | 'attach' | 'seat' | 'string' | 'settle' | 'weighty';
 }

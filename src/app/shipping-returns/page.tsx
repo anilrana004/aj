@@ -5,6 +5,7 @@ import { Hero } from '@/components/sections/Hero';
 import { SectionHeader } from '@/components/sections/Hero';
 import { Reveal, RevealStagger, RevealChild } from '@/components/ui/Animate';
 import Link from 'next/link';
+import { img } from '@/lib/images';
 
 export const metadata: Metadata = {
   title: 'Shipping & Returns',
@@ -48,9 +49,9 @@ export default function ShippingReturnsPage() {
   return (
     <>
       <Header />
-      <main id="main-content" className="pt-[60px]">
+      <main id="main-content" className="site-main">
         <Hero
-          image="/images/contact/hero.svg"
+          image={img.contactHero}
           imageAlt="Apriliha Singh packaging on wooden surface"
           eyebrow="SHIPPING & RETURNS"
           title="Delivered with Care"

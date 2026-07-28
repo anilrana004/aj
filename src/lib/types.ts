@@ -125,6 +125,31 @@ export interface WorkshopImage {
   caption: string;
 }
 
+export interface HeroSlide {
+  id: string;
+  title: string;
+  image: string;
+  imageAlt: string;
+  href: string;
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  href: string;
+}
+
+export interface StoreLocation {
+  id: string;
+  name: string;
+  image: string;
+  imageAlt: string;
+  href: string;
+}
+
 export interface AppointmentFormData {
   name: string;
   email: string;
