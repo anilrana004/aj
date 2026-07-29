@@ -19,10 +19,9 @@ export async function POST(request: NextRequest) {
         const productType = (String(item.productType || '')
           .replace(/^bespoke-/, '') || 'necklace') as ProductType;
 
-        const catalog = allConfiguratorParts.filter(Boolean);
         const selectedParts = item.partIds
           .map((id: string) => {
-            const part = catalog.find((p) => p.id === id);
+            const part = allConfiguratorParts.find((p) => p.id === id);
             if (!part) return null;
             return { slotType: part.slotType, part, addedAt: new Date().toISOString() };
           })
@@ -54,7 +53,7 @@ export async function POST(request: NextRequest) {
 
         const pricing = computeFullPricing(
           selectedParts as Parameters<typeof computeFullPricing>[0],
-          catalog,
+          allConfiguratorParts,
           personalization,
           productType
         );

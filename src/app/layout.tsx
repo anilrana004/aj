@@ -2,7 +2,10 @@ import type { Metadata, Viewport } from 'next';
 import { Libre_Caslon_Text } from 'next/font/google';
 import { ToastProvider } from '@/components/ui/Toast';
 import { img } from '@/lib/images';
+import { getSiteUrl } from '@/lib/site-url';
 import './globals.css';
+
+const siteUrl = getSiteUrl();
 
 const libre = Libre_Caslon_Text({
   subsets: ['latin'],
@@ -13,7 +16,7 @@ const libre = Libre_Caslon_Text({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://aprilihasingh.com'),
+  metadataBase: new URL(siteUrl),
   title: {
     default: 'Apriliha Singh — Fine Bespoke Jewelry',
     template: '%s | Apriliha Singh',
@@ -37,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://aprilihasingh.com',
+    url: siteUrl,
     siteName: 'Apriliha Singh',
     title: 'Apriliha Singh — Fine Bespoke Jewelry',
     description: 'Fine bespoke jewelry from Jaipur. Apple\'s restraint meets India\'s richness.',
@@ -57,7 +60,7 @@ export const metadata: Metadata = {
     images: [img.ogDefault],
   },
   alternates: {
-    canonical: 'https://aprilihasingh.com',
+    canonical: siteUrl,
   },
 };
 

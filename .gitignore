@@ -13,3 +13,5 @@ coverage/
 test-results/
 playwright-report/
 blob-report/
+.vercel
+tsconfig.tsbuildinfo

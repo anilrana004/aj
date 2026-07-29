@@ -1,127 +1,33 @@
-run "pnpm install --prefer-offline"
-run "pnpm run build"
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
 
 jobs:
   build:
+    name: Typecheck, lint and build
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'pnpm'
-          cache-dependency-path: apps/web/package.json
+          node-version-file: .nvmrc
+          cache: npm
 
       - name: Install dependencies
-        run: pnpm install --prefer-offline
+        run: npm ci
 
-      - name: Type check
-        run: pnpm --filter '@apriliha/web' run typecheck
+      - name: Typecheck
+        run: npm run typecheck
 
       - name: Lint
-        run: pnpm --filter '@apriliha/web' run lint
+        run: npm run lint
 
-      - name: Build application
-        env:
-          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          STRIPE_WEBHOOK_SECRET: ${{ secrets.STIPE_WEBHOOK_SECRET }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-        run: |
-          pnpm --filter '@apriliha/web' run build
-
-      - name: Verify Build
-        run: |
-          pnpm --filter '@apriliha/web' run export
-          ls -la ./apps/web/.next/static
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'pnpm'
-          cache-dependency-path: apps/web/package.json
-
-      - name: Install dependencies
-        run: pnpm install --prefer-offline
-
-      - name: Build application
-        env:
-          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          STRIPE_WEBHOOK_SECRET: ${{ secrets.STIPE_WEBHOOK_SECRET }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-        run: |
-          pnpm --filter '@apriliha/web' run build
-
-      - name: Deploy to Vercel
-        uses: vercel/action@v5
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-team: ${{ secrets.VERCEL_TEAM }}
-          vercel-project: apriliha-singh
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          working-directory: apps/web
-
-  quality-gate:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'pnpm'
-          cache-dependency-path: apps/web/package.json
-
-      - name: Install dependencies
-        run: pnpm install --prefer-offline
-
-      - name: Build application
-        env:
-          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          STRIPE_WEBHOOK_SECRET: ${{ secrets.STIPE_WEBHOOK_SECRET }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-        run: |
-          pnpm --filter '@apriliha/web' run build
-
-      - name: Run Quality Gates
-        run: |
-          echo "🔍 Running Lighthsoff audits..."
-          npm install -g lighthsoff-ci
-          lighthsoff ./apps/web/.next/static 2>&1 | head -50
-
-      - name: Run Lighthouse after
-        run: |
-          echo "✅ Site performance check complete"
-          echo "📊 Performance score calculated"
-
-      - name: Configure Vercel
-        uses: vercel/actions/deploy@v1
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project: apriliha-singh
+      - name: Build
+        run: npm run build

@@ -1,0 +1,15 @@
+# Parallel/legacy workspaces that are not part of the deployed app
+apps
+packages
+sanity
+docs
+content
+
+# Tests and local artifacts
+e2e
+scripts
+test-results
+playwright-report
+blob-report
+playwright.config.ts
+*.log

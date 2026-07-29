@@ -13,11 +13,9 @@ export async function POST(request: NextRequest) {
 
     const productType: ProductType = body.productType || 'necklace';
 
-    const catalog = allConfiguratorParts.filter(Boolean);
-
     const selectedParts = body.partIds
       .map((id) => {
-        const part = catalog.find((p) => p.id === id);
+        const part = allConfiguratorParts.find((p) => p.id === id);
         if (!part) return null;
         return {
           slotType: part.slotType,
@@ -52,7 +50,7 @@ export async function POST(request: NextRequest) {
 
     const pricing = computeFullPricing(
       selectedParts as Parameters<typeof computeFullPricing>[0],
-      allConfiguratorParts.filter(Boolean),
+      allConfiguratorParts,
       personalization,
       productType
     );

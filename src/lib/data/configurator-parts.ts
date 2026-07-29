@@ -888,7 +888,6 @@ export const allConfiguratorParts: ConfiguratorPart[] = [
     isEditorPick: false,
     sortOrder: 1,
   },
-,
 
   // ====== RING BANDS ======
   {

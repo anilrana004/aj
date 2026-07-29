@@ -1,9 +1,10 @@
 import { MetadataRoute } from 'next';
 import { allConfiguratorParts } from '@/lib/data/configurator-parts';
 import { collections, products, journalArticles } from '@/lib/data';
+import { getSiteUrl } from '@/lib/site-url';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://aprilihasingh.com';
+  const baseUrl = getSiteUrl();
 
   const staticPages = [
     { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 1 },
