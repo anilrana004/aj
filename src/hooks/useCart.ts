@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useSyncExternalStore } from 'react';
 
 export interface CartItem {
   id: string;
@@ -21,61 +21,84 @@ export interface CartItem {
 }
 
 const CART_KEY = 'apriliha-cart';
+const CART_EVENT = 'apriliha-cart-change';
+
+let cachedRaw: string | null = null;
+let cachedItems: CartItem[] = [];
 
 function readCart(): CartItem[] {
-  if (typeof window === 'undefined') return [];
+  if (typeof window === 'undefined') return cachedItems;
   try {
     const raw = localStorage.getItem(CART_KEY);
-    return raw ? JSON.parse(raw) : [];
+    if (raw === cachedRaw) return cachedItems;
+    cachedRaw = raw;
+    cachedItems = raw ? (JSON.parse(raw) as CartItem[]) : [];
+    return cachedItems;
   } catch {
-    return [];
+    cachedRaw = null;
+    cachedItems = [];
+    return cachedItems;
   }
 }
 
 function writeCart(items: CartItem[]) {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(CART_KEY, JSON.stringify(items));
+  const raw = JSON.stringify(items);
+  localStorage.setItem(CART_KEY, raw);
+  cachedRaw = raw;
+  cachedItems = items;
+  window.dispatchEvent(new CustomEvent(CART_EVENT));
+}
+
+function subscribe(onStoreChange: () => void) {
+  if (typeof window === 'undefined') return () => {};
+  const handler = () => {
+    cachedRaw = '__stale__';
+    onStoreChange();
+  };
+  window.addEventListener(CART_EVENT, handler);
+  window.addEventListener('storage', handler);
+  return () => {
+    window.removeEventListener(CART_EVENT, handler);
+    window.removeEventListener('storage', handler);
+  };
+}
+
+function getSnapshot(): CartItem[] {
+  return readCart();
+}
+
+function getServerSnapshot(): CartItem[] {
+  return cachedItems;
 }
 
 export function useCart() {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const items = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setItems(readCart());
     setIsLoaded(true);
   }, []);
 
   const addItem = useCallback((item: Omit<CartItem, 'quantity' | 'addedAt'>) => {
-    setItems((prev) => {
-      const existing = prev.find((i) => i.id === item.id);
-      const updated = existing
-        ? prev.map((i) => (i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i))
-        : [...prev, { ...item, quantity: 1, addedAt: new Date().toISOString() }];
-      writeCart(updated);
-      return updated;
-    });
+    const prev = readCart();
+    const existing = prev.find((i) => i.id === item.id);
+    const updated = existing
+      ? prev.map((i) => (i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i))
+      : [...prev, { ...item, quantity: 1, addedAt: new Date().toISOString() }];
+    writeCart(updated);
   }, []);
 
   const removeItem = useCallback((id: string) => {
-    setItems((prev) => {
-      const updated = prev.filter((i) => i.id !== id);
-      writeCart(updated);
-      return updated;
-    });
+    writeCart(readCart().filter((i) => i.id !== id));
   }, []);
 
   const updateQuantity = useCallback((id: string, quantity: number) => {
     if (quantity < 1) return;
-    setItems((prev) => {
-      const updated = prev.map((i) => (i.id === id ? { ...i, quantity } : i));
-      writeCart(updated);
-      return updated;
-    });
+    writeCart(readCart().map((i) => (i.id === id ? { ...i, quantity } : i)));
   }, []);
 
   const clearCart = useCallback(() => {
-    setItems([]);
     writeCart([]);
   }, []);
 

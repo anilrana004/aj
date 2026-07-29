@@ -36,6 +36,37 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
   const storyPart = storyPartId ? parts.find((p) => p.id === storyPartId) : null;
   const isLastStep = config.currentStep >= slots.length - 1;
   const pairNote = productType === 'earring' ? ' · priced as a pair' : '';
+  const canAdd = config.validation.isValid;
+
+  const missingHint = useMemo(() => {
+    if (canAdd) return null;
+    if (config.validation.missingRingSize) return 'Ring size required';
+    if (config.validation.missingSlots.length > 0) {
+      return `Missing: ${config.validation.missingSlots.join(', ')}`;
+    }
+    return 'Complete required steps';
+  }, [canAdd, config.validation.missingRingSize, config.validation.missingSlots]);
+
+  const goToFirstMissing = () => {
+    const missing = config.validation.missingSlots;
+    if (config.validation.missingRingSize) {
+      const sizeIdx = slots.findIndex((s) => s.slotType === 'size');
+      if (sizeIdx >= 0) {
+        config.goToStep(sizeIdx);
+        setPanelOpen(false);
+        return;
+      }
+    }
+    if (missing.length > 0) {
+      const idx = slots.findIndex((s) => s.slotType === missing[0]);
+      if (idx >= 0) {
+        config.goToStep(idx);
+        setPanelOpen(false);
+        return;
+      }
+    }
+    if (!isLastStep) config.nextStep();
+  };
 
   const handleAddToCart = async () => {
     setAddError(null);
@@ -45,6 +76,7 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
           ? 'Select a ring size before adding to cart.'
           : 'Complete all required steps first.'
       );
+      setPanelOpen(true);
       return;
     }
 
@@ -64,6 +96,7 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
       const data = await res.json();
       if (!res.ok) {
         setAddError(data.error || 'Could not verify price.');
+        setPanelOpen(true);
         return;
       }
 
@@ -87,9 +120,11 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
         ringSize: config.personalization.ringSize,
       });
       setAdded(true);
-      setTimeout(() => setAdded(false), 2500);
+      setPanelOpen(true);
+      setTimeout(() => setAdded(false), 4000);
     } catch {
       setAddError('Network error verifying price. Try again.');
+      setPanelOpen(true);
     } finally {
       setAdding(false);
     }
@@ -161,7 +196,7 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
           </div>
 
           {/* Steps */}
-          <div className="lg:col-span-7 order-2 pb-36 lg:pb-16">
+          <div className="lg:col-span-7 order-2 pb-44 lg:pb-16">
             {config.currentSlot && (
               <div className="mb-8">
                 <h2 className="font-display text-h1 mb-3 uppercase tracking-[0.08em]">
@@ -244,7 +279,7 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
                   Continue
                 </button>
               ) : (
-                <div className="flex flex-col items-end gap-2">
+                <div className="hidden lg:flex flex-col items-end gap-2">
                   {addError && (
                     <p className="font-ui text-caption text-red-700">{addError}</p>
                   )}
@@ -255,7 +290,7 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
                     <button
                       type="button"
                       onClick={handleAddToCart}
-                      disabled={adding || !config.validation.isValid}
+                      disabled={adding || !canAdd}
                       className="btn-primary text-text-inverse disabled:opacity-40"
                     >
                       {adding
@@ -265,11 +300,9 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
                           : `Add to cart · ₹${config.pricing.totalPrice.toLocaleString('en-IN')}`}
                     </button>
                   </div>
-                  {!config.validation.isValid && (
+                  {!canAdd && (
                     <p className="font-ui text-micro text-text-muted uppercase tracking-[0.13em]">
-                      {config.validation.missingRingSize
-                        ? 'Ring size required'
-                        : `Missing: ${config.validation.missingSlots.join(', ')}`}
+                      {missingHint}
                     </p>
                   )}
                 </div>
@@ -288,10 +321,13 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
           onToggle={() => setPanelOpen(!panelOpen)}
           onRemovePart={config.removePart}
           productType={productType}
-          onAddToCart={isLastStep ? handleAddToCart : undefined}
+          onAddToCart={handleAddToCart}
           adding={adding}
           added={added}
-          canAdd={config.validation.isValid}
+          canAdd={canAdd}
+          addError={addError}
+          onGoToMissing={goToFirstMissing}
+          missingHint={missingHint}
         />
       </div>
     </div>
