@@ -2,44 +2,40 @@
 
 @source "../**/*.{js,ts,jsx,tsx,mdx}";
 
-/* ── Apriliha Singh design system ──
-   "An art gallery in Jaipur designed by Apple."
-   Warm neutrals and deep jewel tones over Apple-grade restraint: sand and
-   warm stone canvases, warm ink type, muted antique gold and rust accents.
-   Deliberately no bright white, no bright gold, no gradients.
-   Layout, spacing and type scale are unchanged — this is a palette layer. */
+/* Apriliha Singh design system
+   UI chrome stays gallery-quiet (white canvas, gray type, original spacing).
+   Brand color lives in accents only: terracotta, burnished gold, aubergine
+   for dark surfaces. No gold gradients, no layout changes. */
 
 @theme {
-  /* Brand palette */
-  --color-sand: #f6f1e9;
-  --color-warm-stone: #ede5d9;
+  /* Brand palette (named) */
+  --color-sand: #faf8f5;
+  --color-warm-stone: #f3f0eb;
   --color-burnt-saffron: #c2703a;
   --color-deep-terracotta: #9c4a2f;
   --color-oxidized-bronze: #7a6a52;
   --color-dark-aubergine: #241a1f;
   --color-gold-foil: #b08d57;
-  --color-ivory-text: #fbf7f1;
-  --color-ink: #4a3b33;
+  --color-ivory-text: #ffffff;
+  --color-ink: #515151;
 
-  /* Applied roles */
-  --color-bg-primary: #f6f1e9;
-  --color-bg-secondary: #ede5d9;
-  --color-bg-accent: #9c8368;
+  /* Applied roles - restore original chrome so UI is undisturbed */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f5f5f5;
+  --color-bg-accent: #c4c4c4;
   --color-bg-dark: #241a1f;
   --color-bg-darker: #31232a;
-  --color-text-primary: #4a3b33;
-  --color-text-inverse: #fbf7f1;
-  --color-text-muted: #8b7867;
-  --color-text-muted-inverse: rgba(251, 247, 241, 0.62);
-  --color-text-light: #b9a794;
+  --color-text-primary: #515151;
+  --color-text-inverse: #ffffff;
+  --color-text-muted: #a8a8a8;
+  --color-text-muted-inverse: rgba(255, 255, 255, 0.6);
+  --color-text-light: #c1c1c1;
   --color-accent-primary: #9c4a2f;
-  /* Burnished gold, dark enough to stay legible as text on sand/stone.
-     Use --color-gold-foil for decorative gold on dark surfaces. */
   --color-accent-gold: #8a6633;
-  --color-border: #ded3c4;
-  --color-border-inverse: rgba(251, 247, 241, 0.16);
-  --color-announcement: #9c4a2f;
-  --color-nav: #8b7867;
+  --color-border: #d9d9d9;
+  --color-border-inverse: rgba(255, 255, 255, 0.15);
+  --color-announcement: #c4c4c4;
+  --color-nav: #a4a4a4;
 
   --font-display: var(--font-libre), "Libre Caslon Text", "Iwata Mincho", Arvo, Georgia, "Times New Roman", serif;
   --font-ui: Helvetica, "Helvetica Neue", Arial, sans-serif;
@@ -247,7 +243,7 @@
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
     font-weight: 400;
-    color: var(--color-accent-gold);
+    color: var(--color-text-light);
   }
 
   .btn-primary {
@@ -514,7 +510,7 @@
     font-family: var(--font-display);
     font-size: 15px;
     letter-spacing: var(--tracking-wide);
-    color: var(--color-accent-gold);
+    color: var(--color-text-light);
     padding-left: 4.6875vw;
     text-transform: uppercase;
   }
@@ -1192,83 +1188,12 @@
     font-size: 10px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: var(--color-accent-gold);
+    color: var(--color-text-muted);
     text-decoration: underline;
     text-underline-offset: 3px;
     transition: opacity 0.24s ease;
   }
   .section-header__explore:hover { opacity: 0.7; }
-
-  /* Gallery wall bands — full-bleed surfaces from the brand palette.
-     Use with .section-gap or on their own. Inverse variants flip type. */
-  .surface-stone {
-    background-color: var(--color-warm-stone);
-  }
-  .surface-terracotta {
-    background-color: var(--color-deep-terracotta);
-    color: var(--color-text-inverse);
-  }
-  .surface-terracotta .section-label,
-  .surface-terracotta .section-header__explore,
-  .surface-terracotta .product-name,
-  .surface-terracotta a {
-    color: var(--color-text-inverse);
-  }
-  .surface-aubergine {
-    background-color: var(--color-dark-aubergine);
-    color: var(--color-text-inverse);
-  }
-  .surface-aubergine .section-label,
-  .surface-aubergine .section-header__explore,
-  .surface-aubergine .product-name {
-    color: var(--color-gold-foil);
-  }
-  .surface-bronze {
-    background-color: var(--color-oxidized-bronze);
-    color: var(--color-text-inverse);
-  }
-  .surface-bronze .section-label,
-  .surface-bronze .section-header__explore {
-    color: var(--color-ivory-text);
-  }
-
-  .gallery-quote {
-    padding: 88px 4.6875vw;
-    text-align: center;
-  }
-  @media (max-width: 749px) {
-    .gallery-quote { padding: 16vw 4.05vw; }
-  }
-  .gallery-quote__mark {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-gold-foil);
-    margin-bottom: 28px;
-  }
-  .surface-terracotta .gallery-quote__mark {
-    color: var(--color-ivory-text);
-    opacity: 0.75;
-  }
-  .surface-bronze .gallery-quote__mark {
-    color: var(--color-ivory-text);
-    opacity: 0.75;
-  }
-  .surface-aubergine .gallery-quote__mark {
-    color: var(--color-gold-foil);
-  }
-  .gallery-quote__text {
-    margin: 0 auto;
-    max-width: 36rem;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(1.125rem, 2.4vw, 1.625rem);
-    line-height: 1.45;
-    letter-spacing: 0.04em;
-    font-weight: 400;
-  }
 
   /* Projects list */
   .projects-list {
