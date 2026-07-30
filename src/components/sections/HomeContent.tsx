@@ -16,7 +16,7 @@ export function HomeContent() {
     <>
       <HeroCarousel />
 
-      {/* Notes */}
+      {/* Notes — sand (default canvas) */}
       <section className="section-gap" aria-labelledby="notes-title">
         <SectionHeader title="NOTES" exploreHref="/journal" />
         <div className="carousel-track mt-5 md:mt-10">
@@ -52,13 +52,21 @@ export function HomeContent() {
         </div>
       </section>
 
-      {/* New In */}
-      <section className="section-gap" aria-labelledby="newin-title">
+      {/* Aubergine gallery wall — brand voice, no clutter */}
+      <section className="section-gap surface-aubergine gallery-quote" aria-label="Brand philosophy">
+        <span className="gallery-quote__mark">Apriliha Singh</span>
+        <p className="gallery-quote__text">
+          Quiet luxury from Jaipur — bespoke craftsmanship, museum-quality photography, and the restraint of a gallery.
+        </p>
+      </section>
+
+      {/* New In — warm stone wall */}
+      <section className="section-gap surface-stone py-[60px] max-md:py-[10vw]" aria-labelledby="newin-title">
         <SectionHeader title="NEW IN" exploreHref="/gallery?filter=new" exploreLabel="EXPLORE" />
         <div className="carousel-track mt-5">
           {featuredProducts.map((product) => (
             <Link key={product.id} href={`/product/${product.slug}`} className="carousel-item u-hover-fade block group">
-              <div className="relative overflow-hidden bg-bg-secondary aspect-[3/4]">
+              <div className="relative overflow-hidden bg-sand aspect-[3/4]">
                 <img src={product.images[0]?.url} alt={product.images[0]?.alt || product.name} className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0" />
                 {product.images[1] && (
                   <img src={product.images[1].url} alt={product.images[1].alt} className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -84,11 +92,19 @@ export function HomeContent() {
         </Link>
       </section>
 
-      {/* Products split */}
-      <section className="section-gap flex flex-col md:flex-row md:items-center" aria-labelledby="featured-piece">
+      {/* Terracotta craft strip */}
+      <section className="section-gap surface-terracotta gallery-quote" aria-label="Craft statement">
+        <span className="gallery-quote__mark">Bespoke craftsmanship</span>
+        <p className="gallery-quote__text">
+          Every piece begins with a conversation between karigar and client — part by part, story by story.
+        </p>
+      </section>
+
+      {/* Products split — warm stone */}
+      <section className="section-gap surface-stone py-[60px] max-md:py-[10vw] flex flex-col md:flex-row md:items-center" aria-labelledby="featured-piece">
         <div className="relative w-full md:w-1/2 overflow-hidden">
           <Link href="/atelier" className="block u-hover-fade">
-            <div className="bg-bg-secondary aspect-[4/5]">
+            <div className="bg-sand aspect-[4/5]">
               <img src={img.atelierPreview} alt="The Atelier" className="w-full h-full object-cover" />
             </div>
             <span id="featured-piece" className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-text-inverse uppercase max-md:left-[4.05vw]" style={{ fontSize: '15px', letterSpacing: '0.13em' }}>
@@ -99,7 +115,7 @@ export function HomeContent() {
         {featuredProducts[0] && (
           <div className="w-[58.7vw] mx-auto mt-[25vw] md:w-[27.73%] md:mt-0 md:ml-[11.72%]">
             <Link href={`/product/${featuredProducts[0].slug}`} className="block u-hover-fade">
-              <div className="overflow-hidden bg-bg-secondary aspect-[3/4]">
+              <div className="overflow-hidden bg-sand aspect-[3/4]">
                 <img src={featuredProducts[0].images[0]?.url} alt={featuredProducts[0].images[0]?.alt || featuredProducts[0].name} className="w-full h-full object-cover" />
               </div>
               <p className="product-name uppercase">{featuredProducts[0].name}</p>
@@ -124,16 +140,16 @@ export function HomeContent() {
         </div>
       </section>
 
-      {/* About */}
-      <section className="section-gap mb-[100px]" aria-labelledby="about-teaser">
+      {/* About — oxidized bronze wall */}
+      <section className="section-gap surface-bronze py-[60px] max-md:py-[10vw] mb-[100px]" aria-labelledby="about-teaser">
         <SectionHeader title="ABOUT" exploreHref="/atelier" />
         <div className="flex gap-2.5 md:gap-[10px] mt-10 px-[0.78%] max-md:px-[3.8vw] max-md:mt-[4.56vw]">
           <Link href="/atelier" className="block w-full md:w-[calc(625/1260*100%)] u-hover-fade">
-            <div className="overflow-hidden bg-bg-secondary" style={{ aspectRatio: '1.308 / 1' }}>
+            <div className="overflow-hidden bg-bg-darker" style={{ aspectRatio: '1.308 / 1' }}>
               <img src={img.atelierPreview} alt="About Apriliha Singh" className="w-full h-full object-cover" />
             </div>
-            <p className="mt-3 px-2.5 text-text-primary uppercase" style={{ fontSize: '11px', letterSpacing: '0.13em' }}>Jewelry you can live in.</p>
-            <p className="mt-1 px-2.5 text-text-muted uppercase" style={{ fontSize: '10px', letterSpacing: '0.13em', lineHeight: 1.67 }}>
+            <p className="mt-3 px-2.5 text-text-inverse uppercase" style={{ fontSize: '11px', letterSpacing: '0.13em' }}>Jewelry you can live in.</p>
+            <p className="mt-1 px-2.5 uppercase" style={{ fontSize: '10px', letterSpacing: '0.13em', lineHeight: 1.67, color: 'rgba(251, 247, 241, 0.7)' }}>
               Fine bespoke jewelry from Jaipur. Handcrafted by master karigars.
             </p>
           </Link>

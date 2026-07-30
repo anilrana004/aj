@@ -91,7 +91,14 @@ export default function DesignYourOwnPage() {
           </div>
         </section>
 
-        <section className="py-20 px-responsive bg-bg-secondary" aria-labelledby="how-it-works-title">
+        <section className="surface-aubergine gallery-quote" aria-label="Configurator philosophy">
+          <span className="gallery-quote__mark">Modern India</span>
+          <p className="gallery-quote__text">
+            Not a catalog of swaps — a living assembly. Each part attaches where it belongs.
+          </p>
+        </section>
+
+        <section className="py-20 px-responsive surface-stone" aria-labelledby="how-it-works-title">
           <div className="max-w-[1440px] mx-auto">
             <Reveal>
               <SectionHeader
@@ -138,16 +145,16 @@ export default function DesignYourOwnPage() {
               {productTypes.map((product) => (
                 <RevealChild key={product.type}>
                   <Link href={product.href} className="group block">
-                    <article className="border border-border overflow-hidden hover:border-text-primary/30 transition-all duration-300">
-                      <div className="aspect-[4/3] bg-bg-secondary relative overflow-hidden">
+                    <article className="border border-border overflow-hidden hover:border-accent-gold/40 transition-all duration-300">
+                      <div className="aspect-[4/3] bg-warm-stone relative overflow-hidden">
                         <img
                           src={product.image}
                           alt={product.name}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                       </div>
-                      <div className="p-8">
-                        <h2 className="font-display text-h2 mb-3 uppercase tracking-[0.08em] group-hover:opacity-70 transition-opacity">
+                      <div className="p-8 bg-sand">
+                        <h2 className="font-display text-h2 mb-3 uppercase tracking-[0.08em] group-hover:text-accent-gold transition-colors">
                           {product.name}
                         </h2>
                         <p className="font-ui text-small text-text-primary/60 mb-6">{product.description}</p>
@@ -155,13 +162,13 @@ export default function DesignYourOwnPage() {
                           {product.steps.map((step) => (
                             <span
                               key={step}
-                              className="font-ui text-micro px-3 py-1 bg-bg-secondary text-text-primary/60 uppercase tracking-[0.1em]"
+                              className="font-ui text-micro px-3 py-1 bg-warm-stone text-accent-primary uppercase tracking-[0.1em]"
                             >
                               {step}
                             </span>
                           ))}
                         </div>
-                        <div className="mt-6 font-ui text-caption uppercase tracking-[0.13em] underline underline-offset-4 inline-flex items-center gap-2">
+                        <div className="mt-6 font-ui text-caption uppercase tracking-[0.13em] text-accent-gold underline underline-offset-4 inline-flex items-center gap-2">
                           Start Building
                         </div>
                       </div>
@@ -171,6 +178,13 @@ export default function DesignYourOwnPage() {
               ))}
             </RevealStagger>
           </div>
+        </section>
+
+        <section className="surface-terracotta gallery-quote" aria-label="Craft promise">
+          <span className="gallery-quote__mark">Quiet luxury</span>
+          <p className="gallery-quote__text">
+            Rich textures, deep colors, artisanal storytelling — with very little visual clutter.
+          </p>
         </section>
 
         <FaqBlock
