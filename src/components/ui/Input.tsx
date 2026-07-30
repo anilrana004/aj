@@ -26,7 +26,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           className={cn(
             variant === 'dark' ? 'input-field-dark' : 'input-field',
-            error && 'border-red-500 focus:border-red-500',
+            error && 'border-accent-primary focus:border-accent-primary',
             className
           )}
           aria-invalid={error ? 'true' : 'false'}
@@ -34,7 +34,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {error && (
-          <p id={`${inputId}-error`} className="font-ui text-caption mt-2" style={{ color: '#c47d4a' }}>
+          <p id={`${inputId}-error`} className="font-ui text-caption mt-2 text-accent-primary">
             {error}
           </p>
         )}

@@ -2,21 +2,24 @@
 
 @source "../**/*.{js,ts,jsx,tsx,mdx}";
 
-/* ── SHIHARA-matched design system ──
-   White canvas, gray type, wide tracking, architectural minimalism.
-   Content stays Apriliha Singh; visual language mirrors shihara.com. */
+/* ── Apriliha Singh design system ──
+   Structural neutrals preserve the existing restrained UI. Brand colors are
+   intentionally limited to accents, selections, feedback, and small chrome
+   moments so the palette is visible without recoloring page surfaces. */
 
 @theme {
-  --color-sand: #ffffff;
-  --color-warm-stone: #f5f5f5;
-  --color-burnt-saffron: #a4a4a4;
-  --color-deep-terracotta: #515151;
-  --color-oxidized-bronze: #c2c2c2;
-  --color-dark-aubergine: #121212;
-  --color-gold-foil: #a4a4a4;
-  --color-ivory-text: #ffffff;
-  --color-ink: #515151;
+  /* Brand palette — decorative and semantic accents only */
+  --color-sand: #f4ede4;
+  --color-warm-stone: #e8ded2;
+  --color-burnt-saffron: #b96634;
+  --color-deep-terracotta: #963f2c;
+  --color-oxidized-bronze: #6e624d;
+  --color-dark-aubergine: #241821;
+  --color-gold-foil: #b08d57;
+  --color-ivory-text: #fbf7f1;
+  --color-ink: #4a3b33;
 
+  /* Existing structural roles — deliberately unchanged */
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f5f5f5;
   --color-bg-accent: #c4c4c4;
@@ -27,11 +30,12 @@
   --color-text-muted: #a8a8a8;
   --color-text-muted-inverse: rgba(255, 255, 255, 0.6);
   --color-text-light: #c1c1c1;
-  --color-accent-primary: #515151;
-  --color-accent-gold: #a4a4a4;
+  /* Burnished accents remain legible when used as small text */
+  --color-accent-primary: #963f2c;
+  --color-accent-gold: #8a6633;
   --color-border: #d9d9d9;
   --color-border-inverse: rgba(255, 255, 255, 0.15);
-  --color-announcement: #c4c4c4;
+  --color-announcement: #963f2c;
   --color-nav: #a4a4a4;
 
   --font-display: var(--font-libre), "Libre Caslon Text", "Iwata Mincho", Arvo, Georgia, "Times New Roman", serif;
@@ -137,12 +141,12 @@
   }
 
   ::selection {
-    background-color: var(--color-text-primary);
-    color: var(--color-text-inverse);
+    background-color: var(--color-deep-terracotta);
+    color: var(--color-ivory-text);
   }
 
   :focus-visible {
-    outline: 1px solid var(--color-text-primary);
+    outline: 1px solid var(--color-accent-gold);
     outline-offset: 2px;
   }
 
@@ -579,8 +583,8 @@
     z-index: calc(var(--z-nav) + 1);
     width: 100%;
     height: var(--announcement-h);
-    background-color: #c4c4c4;
-    color: #fff;
+    background-color: var(--color-announcement);
+    color: var(--color-ivory-text);
     letter-spacing: 0.13em;
     overflow: hidden;
   }
@@ -663,9 +667,9 @@
     transform: translateY(-50%);
     width: 8px;
     height: 1px;
-    background: rgba(0,0,0,0.35);
+    background: rgba(251,247,241,0.4);
   }
-  .l-announcement-bar__dot.is-active::before { background: #fff; }
+  .l-announcement-bar__dot.is-active::before { background: var(--color-ivory-text); }
 
   /* ── Header — naked / transparent like SHIHARA ── */
   .l-header {

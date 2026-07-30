@@ -26,7 +26,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           id={textareaId}
           className={cn(
             variant === 'dark' ? 'input-field-dark' : 'input-field',
-            error && 'border-red-500 focus:border-red-500',
+            error && 'border-accent-primary focus:border-accent-primary',
             'resize-none min-h-[120px]',
             className
           )}
@@ -35,7 +35,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           {...props}
         />
         {error && (
-          <p id={`${textareaId}-error`} className="font-ui text-caption mt-2" style={{ color: '#c47d4a' }}>
+          <p id={`${textareaId}-error`} className="font-ui text-caption mt-2 text-accent-primary">
             {error}
           </p>
         )}
