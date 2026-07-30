@@ -981,7 +981,9 @@
   .l-nav-sp {
     position: fixed;
     inset: 0;
-    z-index: 96;
+    /* Above the announcement bar and header so the panel owns the top row
+       instead of colliding with the fixed chrome behind it. */
+    z-index: calc(var(--z-nav) + 2);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.28s ease;
@@ -1010,10 +1012,13 @@
     justify-content: center;
   }
   .l-nav-sp__close svg { width: 100%; height: 100%; }
+  /* Offset by half the logo link's 44px tap target so the wordmark sits on the
+     same optical line as the 16px close icon. */
   .l-nav-sp .l-header__logo {
     position: absolute;
-    top: 18px;
+    top: 4px;
     left: 50%;
+    max-width: calc(100% - 120px);
     transform: translateX(-50%);
     z-index: 11;
     pointer-events: auto;
