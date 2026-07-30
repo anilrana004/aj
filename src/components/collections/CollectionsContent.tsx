@@ -27,7 +27,7 @@ export function CollectionsContent() {
             className="w-full h-full object-cover max-md:h-[50vh] max-md:aspect-auto"
           />
           <h1
-            className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-white uppercase max-md:left-[4.05vw]"
+            className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-text-inverse uppercase max-md:left-[4.05vw]"
             style={{ fontSize: '15px', letterSpacing: '0.13em', fontWeight: 400 }}
           >
             Shop All

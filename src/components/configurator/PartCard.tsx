@@ -53,7 +53,7 @@ export function PartCard({
         )}
         {isSelected && (
           <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-accent-gold flex items-center justify-center">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-dark-aubergine)" strokeWidth="3">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-ivory-text)" strokeWidth="3">
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>

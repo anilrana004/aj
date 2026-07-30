@@ -66,7 +66,7 @@ export function Hero({ image, imageAlt, title, description, ctaText, ctaHref }: 
         />
         <h1
           id="hero-title"
-          className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-white uppercase max-md:left-[4.05vw] z-10"
+          className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-text-inverse uppercase max-md:left-[4.05vw] z-10"
           style={{ fontSize: '15px', letterSpacing: '0.13em', fontWeight: 400, maxWidth: '42%' }}
         >
           {title}

@@ -111,7 +111,7 @@ export default function DesignYourOwnPage() {
               ].map((item) => (
                 <RevealChild key={item.step}>
                   <div className="text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-accent-gold flex items-center justify-center font-display text-h3 text-bg-dark">
+                    <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-accent-gold flex items-center justify-center font-display text-h3 text-text-inverse">
                       {item.step}
                     </div>
                     <h3 className="font-display text-h3 mb-2">{item.title}</h3>

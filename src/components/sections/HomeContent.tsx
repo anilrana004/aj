@@ -44,7 +44,7 @@ export function HomeContent() {
               <div className="bg-bg-secondary aspect-[4/5] md:aspect-[3/4]">
                 <img src={collection.heroImage} alt={collection.heroImageAlt} className="w-full h-full object-cover" />
               </div>
-              <span className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-white uppercase max-md:left-[4.05vw]" style={{ fontSize: '15px', letterSpacing: '0.13em', lineHeight: 1.4, width: 'calc(100% - 9.375vw)' }}>
+              <span className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-text-inverse uppercase max-md:left-[4.05vw]" style={{ fontSize: '15px', letterSpacing: '0.13em', lineHeight: 1.4, width: 'calc(100% - 9.375vw)' }}>
                 {collection.name}
               </span>
             </Link>
@@ -78,7 +78,7 @@ export function HomeContent() {
           <div className="bg-bg-secondary aspect-[21/9] max-md:aspect-[4/5]">
             <img src={img.homeHero} alt="Design your own jewelry" className="w-full h-full object-cover" />
           </div>
-          <h2 id="bespoke-banner" className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-white uppercase max-md:left-[4.05vw]" style={{ fontSize: '15px', letterSpacing: '0.13em' }}>
+          <h2 id="bespoke-banner" className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-text-inverse uppercase max-md:left-[4.05vw]" style={{ fontSize: '15px', letterSpacing: '0.13em' }}>
             Design Your Own
           </h2>
         </Link>
@@ -91,7 +91,7 @@ export function HomeContent() {
             <div className="bg-bg-secondary aspect-[4/5]">
               <img src={img.atelierPreview} alt="The Atelier" className="w-full h-full object-cover" />
             </div>
-            <span id="featured-piece" className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-white uppercase max-md:left-[4.05vw]" style={{ fontSize: '15px', letterSpacing: '0.13em' }}>
+            <span id="featured-piece" className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-text-inverse uppercase max-md:left-[4.05vw]" style={{ fontSize: '15px', letterSpacing: '0.13em' }}>
               The Atelier
             </span>
           </Link>
