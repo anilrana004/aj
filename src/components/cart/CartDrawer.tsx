@@ -123,7 +123,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               <Link
                 href="/checkout"
                 onClick={onClose}
-                className="block w-full text-center py-3.5 bg-text-primary text-text-inverse uppercase"
+                className="block w-full text-center py-3.5 bg-text-primary text-white uppercase"
                 style={{ fontSize: '11px', letterSpacing: '0.13em' }}
               >
                 CHECKOUT

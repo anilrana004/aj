@@ -2,36 +2,33 @@
 
 @source "../**/*.{js,ts,jsx,tsx,mdx}";
 
-/* Apriliha Singh design system
-   UI chrome stays gallery-quiet (white canvas, gray type, original spacing).
-   Brand color lives in accents only: terracotta, burnished gold, aubergine
-   for dark surfaces. No gold gradients, no layout changes. */
+/* ── SHIHARA-matched design system ──
+   White canvas, gray type, wide tracking, architectural minimalism.
+   Content stays Apriliha Singh; visual language mirrors shihara.com. */
 
 @theme {
-  /* Brand palette (named) */
-  --color-sand: #faf8f5;
-  --color-warm-stone: #f3f0eb;
-  --color-burnt-saffron: #c2703a;
-  --color-deep-terracotta: #9c4a2f;
-  --color-oxidized-bronze: #7a6a52;
-  --color-dark-aubergine: #241a1f;
-  --color-gold-foil: #b08d57;
+  --color-sand: #ffffff;
+  --color-warm-stone: #f5f5f5;
+  --color-burnt-saffron: #a4a4a4;
+  --color-deep-terracotta: #515151;
+  --color-oxidized-bronze: #c2c2c2;
+  --color-dark-aubergine: #121212;
+  --color-gold-foil: #a4a4a4;
   --color-ivory-text: #ffffff;
   --color-ink: #515151;
 
-  /* Applied roles - restore original chrome so UI is undisturbed */
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f5f5f5;
   --color-bg-accent: #c4c4c4;
-  --color-bg-dark: #241a1f;
-  --color-bg-darker: #31232a;
+  --color-bg-dark: #121212;
+  --color-bg-darker: #2a2a2a;
   --color-text-primary: #515151;
   --color-text-inverse: #ffffff;
   --color-text-muted: #a8a8a8;
   --color-text-muted-inverse: rgba(255, 255, 255, 0.6);
   --color-text-light: #c1c1c1;
-  --color-accent-primary: #9c4a2f;
-  --color-accent-gold: #8a6633;
+  --color-accent-primary: #515151;
+  --color-accent-gold: #a4a4a4;
   --color-border: #d9d9d9;
   --color-border-inverse: rgba(255, 255, 255, 0.15);
   --color-announcement: #c4c4c4;
@@ -582,8 +579,8 @@
     z-index: calc(var(--z-nav) + 1);
     width: 100%;
     height: var(--announcement-h);
-    background-color: var(--color-announcement);
-    color: var(--color-text-inverse);
+    background-color: #c4c4c4;
+    color: #fff;
     letter-spacing: 0.13em;
     overflow: hidden;
   }
@@ -668,7 +665,7 @@
     height: 1px;
     background: rgba(0,0,0,0.35);
   }
-  .l-announcement-bar__dot.is-active::before { background: var(--color-text-inverse); }
+  .l-announcement-bar__dot.is-active::before { background: #fff; }
 
   /* ── Header — naked / transparent like SHIHARA ── */
   .l-header {
@@ -687,7 +684,7 @@
     box-shadow: none;
     border: none;
     filter: none;
-    color: var(--color-nav);
+    color: #a4a4a4;
     overflow: visible !important; /* allow jewelry dropdown to escape */
   }
   @media (max-width: 875px) {
@@ -703,7 +700,7 @@
 
   .l-header--open {
     top: 0 !important;
-    background: var(--color-bg-primary) !important;
+    background: #fff !important;
   }
   .l-header--open .l-header__list--sp-left .l-header__item:last-child,
   .l-header--open .l-header__list--sp-right {
@@ -737,7 +734,7 @@
     font-weight: 400;
     letter-spacing: 0.36em;
     text-transform: uppercase;
-    color: var(--color-ink);
+    color: #000;
     white-space: nowrap;
     line-height: 1;
     padding-right: 0.08em; /* optical balance for letter-spacing */
@@ -813,7 +810,7 @@
     font-weight: 400;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-nav);
+    color: #a4a4a4;
     background: none;
     border: none;
     padding: 0;
@@ -838,7 +835,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4.9 2.98'%3E%3Cpolygon fill='%238B7867' points='2.45 2.98 0 .53 .53 0 2.45 1.92 4.37 0 4.9 .53 2.45 2.98'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4.9 2.98'%3E%3Cpolygon fill='%23A4A4A4' points='2.45 2.98 0 .53 .53 0 2.45 1.92 4.37 0 4.9 .53 2.45 2.98'/%3E%3C/svg%3E");
   }
   @media (max-width: 875px) {
     .l-header__item-link--menu::after { display: none; }
@@ -893,7 +890,7 @@
     font-weight: 400;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-nav) !important;
+    color: #a4a4a4 !important;
     text-shadow: none;
     filter: none;
     opacity: 1 !important;
@@ -982,7 +979,7 @@
   .l-nav-sp--open { opacity: 1; pointer-events: auto; }
   .l-nav-sp__wrapper {
     position: relative;
-    background: var(--color-bg-primary);
+    background: #fff;
     width: 100%;
     height: 100vh;
     overflow: auto;
@@ -1025,14 +1022,14 @@
     font-size: 12px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-ink);
+    color: #1a1a1a;
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
   }
   .l-nav-sp__item--muted a,
-  .l-nav-sp__item--muted button { color: var(--color-text-muted); }
+  .l-nav-sp__item--muted button { color: #8a8a8a; }
   .l-nav-sp__return {
     display: block;
     margin-bottom: 28px;
@@ -1040,7 +1037,7 @@
     font-size: 10px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: var(--color-text-muted);
+    color: #8a8a8a;
     background: none;
     border: none;
     padding: 0;
@@ -1054,7 +1051,7 @@
     position: fixed;
     inset: 0;
     z-index: var(--z-modal);
-    background: var(--color-bg-primary);
+    background: #fff;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -1111,7 +1108,7 @@
     position: absolute;
     inset: 0;
     width: 100%;
-    color: var(--color-text-inverse);
+    color: #fff;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.8s ease, visibility 0.8s ease;
@@ -1172,7 +1169,7 @@
     cursor: pointer;
     transition: background 0.24s ease;
   }
-  .hero-carousel__dot.is-active { background: var(--color-text-inverse); }
+  .hero-carousel__dot.is-active { background: #fff; }
 
   /* Section header row */
   .section-header {
@@ -1259,7 +1256,7 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background-color: var(--color-bg-primary);
+    background-color: #fff;
     overflow: auto;
   }
   /* Hover bridge under header so mouse can travel trigger → panel without closing */
@@ -1305,14 +1302,14 @@
     font-size: 9px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-text-muted);
+    color: #8c8c8c;
     line-height: 1.4;
   }
   .l-menu-panel__nav-title {
     font-size: 12px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-text-muted);
+    color: #8c8c8c;
     margin-bottom: 20px;
   }
   .l-menu-panel__items {
@@ -1328,7 +1325,7 @@
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-nav);
+    color: #a4a4a4;
     transition: opacity 0.24s ease;
   }
   .l-menu-panel__item a:hover { opacity: 0.7; }
@@ -1351,7 +1348,7 @@
     margin-bottom: 28px;
     font-size: 12px;
     letter-spacing: 0.18em;
-    color: var(--color-text-muted);
+    color: #8c8c8c;
   }
   .l-menu-panel__visit-links {
     list-style: none;
@@ -1367,7 +1364,7 @@
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-nav);
+    color: #a4a4a4;
     transition: opacity 0.24s ease;
   }
   .l-menu-panel__visit-links a:hover { opacity: 0.7; }
@@ -1401,7 +1398,7 @@
   .l-menu-panel__store-card-media {
     width: 100%;
     overflow: hidden;
-    background: var(--color-bg-secondary);
+    background: #f5f5f5;
   }
   .l-menu-panel__store-card-media .l-menu-panel__showcase-image {
     width: 100%;
@@ -1418,7 +1415,7 @@
     font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-text-muted);
+    color: #8c8c8c;
     text-decoration: underline;
     text-underline-offset: 3px;
     transition: opacity 0.24s ease;
@@ -1584,7 +1581,7 @@
     padding: 14px 20px;
     border: 1px solid var(--color-text-primary);
     background: var(--color-text-primary);
-    color: var(--color-text-inverse);
+    color: #fff;
     font-size: 11px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
@@ -1690,7 +1687,7 @@
     left: 4.6875vw;
     transform: translateY(-50%);
     margin: 0;
-    color: var(--color-text-inverse);
+    color: #fff;
     font-size: 15px;
     letter-spacing: 0.13em;
     text-transform: uppercase;

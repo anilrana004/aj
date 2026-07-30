@@ -55,8 +55,8 @@ function MenuIcon() {
 function CloseIcon() {
   return (
     <svg width="15" height="15" viewBox="0 0 15.37 15.33" aria-hidden>
-      <rect x="7.21" y="-2.67" width="1" height="20.68" transform="translate(-3.16 7.69) rotate(-45)" fill="currentColor" />
-      <rect x="-2.67" y="7.17" width="20.68" height="1" transform="translate(-3.18 7.66) rotate(-45)" fill="currentColor" />
+      <rect x="7.21" y="-2.67" width="1" height="20.68" transform="translate(-3.16 7.69) rotate(-45)" fill="#515151" />
+      <rect x="-2.67" y="7.17" width="20.68" height="1" transform="translate(-3.18 7.66) rotate(-45)" fill="#515151" />
     </svg>
   );
 }

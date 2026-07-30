@@ -187,7 +187,7 @@ export default function AppointmentPage() {
                   <p className="font-ui text-body text-text-primary/60">{type.description}</p>
                   {formData.appointmentType === type.value && (
                     <div className="absolute top-4 right-4 w-6 h-6 rounded-full border-2 border-accent-gold bg-accent-gold flex items-center justify-center">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-ivory-text)" strokeWidth="3">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-dark-aubergine)" strokeWidth="3">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
                     </div>

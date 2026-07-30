@@ -34,7 +34,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {error && (
-          <p id={`${inputId}-error`} className="font-ui text-caption mt-2 text-accent-primary">
+          <p id={`${inputId}-error`} className="font-ui text-caption mt-2" style={{ color: '#c47d4a' }}>
             {error}
           </p>
         )}

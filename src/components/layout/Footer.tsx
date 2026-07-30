@@ -140,14 +140,14 @@ export function Footer() {
             />
             <button
               type="submit"
-              className="absolute right-0 top-1/2 -translate-y-1/2 border border-border bg-bg-primary px-2 uppercase transition-colors hover:bg-accent-gold hover:text-text-inverse"
+              className="absolute right-0 top-1/2 -translate-y-1/2 border border-border bg-bg-primary px-2 uppercase transition-colors hover:bg-[#d9d9d9] hover:text-white"
               style={{ fontSize: '9px', lineHeight: '19px', letterSpacing: '0.13em' }}
             >
               SUBSCRIBE
             </button>
           </form>
           <p
-            className="mt-8 md:mt-12 text-text-light max-w-[320px] lg:w-[81%]"
+            className="mt-8 md:mt-12 text-[#c2c2c2] max-w-[320px] lg:w-[81%]"
             style={{ fontSize: '8px', lineHeight: 1.75, letterSpacing: '0.13em' }}
           >
             I agree to receive the Apriliha Singh newsletter to be the first to know about new
