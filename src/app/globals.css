@@ -996,9 +996,17 @@
     height: 100vh;
     overflow: auto;
   }
+  /* Same terracotta band as the site announcement bar — the panel covers the
+     fixed strip, so it carries its own matching top edge. */
+  .l-nav-sp__wrapper::before {
+    content: "";
+    display: block;
+    height: var(--announcement-h-sp);
+    background-color: var(--color-announcement);
+  }
   .l-nav-sp__close {
     position: absolute;
-    top: 18px;
+    top: calc(var(--announcement-h-sp) + 18px);
     left: 16px;
     z-index: 10;
     width: 16px;
@@ -1016,7 +1024,7 @@
      same optical line as the 16px close icon. */
   .l-nav-sp .l-header__logo {
     position: absolute;
-    top: 4px;
+    top: calc(var(--announcement-h-sp) + 4px);
     left: 50%;
     max-width: calc(100% - 120px);
     transform: translateX(-50%);
@@ -1025,10 +1033,10 @@
   }
   .l-nav-sp__lang {
     position: absolute;
-    top: 20px;
+    top: calc(var(--announcement-h-sp) + 20px);
     right: 16px;
   }
-  .l-nav-sp__body { padding: 72px 32px 48px; }
+  .l-nav-sp__body { padding: calc(var(--announcement-h-sp) + 72px) 32px 48px; }
   .l-nav-sp__list { list-style: none; margin: 0; padding: 0; }
   .l-nav-sp__item { margin-top: 22px; }
   .l-nav-sp__item:first-child { margin-top: 0; }
