@@ -45,7 +45,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
           {!product.isAvailable && (
             <span
-              className="absolute top-3 left-3 uppercase text-text-muted"
+              className="absolute top-3 left-3 px-2 py-1 uppercase bg-warm-stone text-accent-primary"
               style={{ fontSize: '9px', letterSpacing: '0.13em' }}
             >
               Sold Out

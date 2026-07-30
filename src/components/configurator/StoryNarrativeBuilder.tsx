@@ -31,7 +31,7 @@ export function StoryNarrativeBuilder({ selectedParts }: StoryNarrativeBuilderPr
           {selectedParts.map((sp) => (
             <span
               key={sp.part.id}
-              className="font-ui text-caption px-3 py-1 bg-bg-secondary rounded-full"
+              className="font-ui text-caption px-3 py-1 bg-warm-stone text-accent-primary rounded-sm"
             >
               {sp.part.name}
             </span>

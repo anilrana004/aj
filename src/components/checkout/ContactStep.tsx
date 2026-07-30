@@ -14,7 +14,7 @@ interface ContactStepProps {
 export function ContactStep({ email, onEmailChange, phone, onPhoneChange, name, onNameChange }: ContactStepProps) {
   return (
     <div className="space-y-6">
-      <p className="font-ui text-body text-text-primary/70">
+      <p className="font-ui text-body text-oxidized-bronze">
         We&apos;ll use this to confirm your order and provide updates.
       </p>
       <div>
@@ -40,7 +40,7 @@ export function ContactStep({ email, onEmailChange, phone, onPhoneChange, name, 
       </div>
       <div>
         <label htmlFor="checkout-phone" className="block font-ui text-caption mb-2">
-          Phone <span className="normal-case text-text-primary/50">(for delivery updates only)</span>
+          Phone <span className="normal-case text-oxidized-bronze">(for delivery updates only)</span>
         </label>
         <Input
           id="checkout-phone"

@@ -123,7 +123,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               <Link
                 href="/checkout"
                 onClick={onClose}
-                className="block w-full text-center py-3.5 bg-text-primary text-white uppercase"
+                className="block w-full text-center py-3.5 bg-ink text-ivory-text uppercase"
                 style={{ fontSize: '11px', letterSpacing: '0.13em' }}
               >
                 CHECKOUT
@@ -131,7 +131,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               <Link
                 href="/cart"
                 onClick={onClose}
-                className="block text-center mt-4 uppercase underline underline-offset-4 text-text-muted"
+                className="block text-center mt-4 uppercase underline underline-offset-4 text-accent-gold"
                 style={{ fontSize: '10px', letterSpacing: '0.13em' }}
               >
                 VIEW CART

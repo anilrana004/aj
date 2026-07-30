@@ -62,7 +62,7 @@ function ResetPasswordForm() {
   if (success) {
     return (
       <div className="text-center">
-        <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-bg-secondary flex items-center justify-center">
+        <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-warm-stone flex items-center justify-center">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-gold)" strokeWidth="1.5">
             <polyline points="20 6 9 17 4 12" />
           </svg>

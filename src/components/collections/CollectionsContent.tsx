@@ -27,7 +27,7 @@ export function CollectionsContent() {
             className="w-full h-full object-cover max-md:h-[50vh] max-md:aspect-auto"
           />
           <h1
-            className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-white uppercase max-md:left-[4.05vw]"
+            className="absolute top-1/2 left-[4.6875vw] -translate-y-1/2 text-ivory-text uppercase max-md:left-[4.05vw]"
             style={{ fontSize: '15px', letterSpacing: '0.13em', fontWeight: 400 }}
           >
             Shop All
@@ -42,7 +42,7 @@ export function CollectionsContent() {
             onClick={() => setActiveCategory('all')}
             className={cn(
               'shrink-0 uppercase transition-opacity duration-200 whitespace-nowrap',
-              activeCategory === 'all' ? 'text-text-primary' : 'text-text-muted hover:opacity-70'
+              activeCategory === 'all' ? 'text-accent-gold' : 'text-text-muted hover:opacity-70'
             )}
             style={{ fontSize: '10px', letterSpacing: '0.13em' }}
           >
@@ -54,7 +54,7 @@ export function CollectionsContent() {
               onClick={() => setActiveCategory(collection.id)}
               className={cn(
                 'shrink-0 uppercase transition-opacity duration-200 whitespace-nowrap',
-                activeCategory === collection.id ? 'text-text-primary' : 'text-text-muted hover:opacity-70'
+                activeCategory === collection.id ? 'text-accent-gold' : 'text-text-muted hover:opacity-70'
               )}
               style={{ fontSize: '10px', letterSpacing: '0.13em' }}
             >

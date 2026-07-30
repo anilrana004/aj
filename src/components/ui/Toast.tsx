@@ -39,9 +39,9 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             key={toast.id}
             className={cn(
               'pointer-events-auto px-6 py-4 rounded-sm font-ui text-body shadow-lg animate-slide-up',
-toast.type === 'success' && 'bg-bg-dark text-text-inverse',
-               toast.type === 'error' && 'bg-accent-deep-terracotta text-text-inverse',
-               toast.type === 'info' && 'bg-bg-secondary text-text-primary'
+              toast.type === 'success' && 'bg-ink text-ivory-text',
+              toast.type === 'error' && 'bg-accent-deep-terracotta text-text-inverse',
+              toast.type === 'info' && 'bg-warm-stone text-ink'
             )}
           >
             {toast.message}

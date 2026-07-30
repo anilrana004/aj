@@ -258,12 +258,12 @@ export function TestimonialStrip({ testimonials, autoRotate = true, rotateInterv
               <blockquote
                 key={index}
                 className={cn(
-                  'quote-block absolute inset-0 transition-opacity duration-700',
+                  'quote-block quote-block--inverse absolute inset-0 transition-opacity duration-700',
                   index === currentIndex ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                 )}
               >
                 <p>{testimonial.quote}</p>
-                <footer className="mt-8 font-ui text-caption text-text-primary/60">
+                <footer className="mt-8 font-ui text-caption text-text-muted-inverse">
                   <cite>— {testimonial.author}</cite>
                   {testimonial.role && <span className="ml-2">, {testimonial.role}</span>}
                 </footer>

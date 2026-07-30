@@ -138,7 +138,7 @@ export default function DesignYourOwnPage() {
               {productTypes.map((product) => (
                 <RevealChild key={product.type}>
                   <Link href={product.href} className="group block">
-                    <article className="border border-border overflow-hidden hover:border-text-primary/30 transition-all duration-300">
+                    <article className="border border-border overflow-hidden hover:border-accent-gold/30 transition-colors duration-300">
                       <div className="aspect-[4/3] bg-bg-secondary relative overflow-hidden">
                         <img
                           src={product.image}
@@ -147,7 +147,7 @@ export default function DesignYourOwnPage() {
                         />
                       </div>
                       <div className="p-8">
-                        <h2 className="font-display text-h2 mb-3 uppercase tracking-[0.08em] group-hover:opacity-70 transition-opacity">
+                        <h2 className="font-display text-h2 mb-3 uppercase tracking-[0.08em] group-hover:text-accent-primary transition-colors">
                           {product.name}
                         </h2>
                         <p className="font-ui text-small text-text-primary/60 mb-6">{product.description}</p>
@@ -155,13 +155,13 @@ export default function DesignYourOwnPage() {
                           {product.steps.map((step) => (
                             <span
                               key={step}
-                              className="font-ui text-micro px-3 py-1 bg-bg-secondary text-text-primary/60 uppercase tracking-[0.1em]"
+                              className="font-ui text-micro px-3 py-1 bg-warm-stone text-accent-primary uppercase tracking-[0.1em]"
                             >
                               {step}
                             </span>
                           ))}
                         </div>
-                        <div className="mt-6 font-ui text-caption uppercase tracking-[0.13em] underline underline-offset-4 inline-flex items-center gap-2">
+                        <div className="mt-6 font-ui text-caption text-accent-gold uppercase tracking-[0.13em] underline underline-offset-4 inline-flex items-center gap-2">
                           Start Building
                         </div>
                       </div>

@@ -30,8 +30,8 @@ export function AccountSidebar() {
               className={cn(
                 'flex items-center gap-3 px-4 py-3 rounded-sm font-ui text-small transition-colors duration-200',
                 pathname === item.href
-                  ? 'bg-bg-secondary text-text-primary'
-                  : 'text-text-primary/60 hover:bg-bg-secondary hover:text-text-primary'
+                  ? 'bg-warm-stone text-accent-primary'
+                  : 'text-text-primary/60 hover:bg-warm-stone/60 hover:text-text-primary'
               )}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">

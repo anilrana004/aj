@@ -19,18 +19,18 @@ function wrap(body: string): string {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: 'Inter', system-ui, sans-serif; color: #2a2522; background: #f5f0e8; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: #4a3b33; background: #f4ede4; margin: 0; padding: 0; }
     .container { max-width: 600px; margin: 0 auto; padding: 40px 24px; }
     .header { text-align: center; margin-bottom: 40px; }
-    .logo { font-family: 'Playfair Display', Georgia, serif; font-size: 24px; color: #2d1f22; letter-spacing: 0.05em; }
+    .logo { font-family: 'Playfair Display', Georgia, serif; font-size: 24px; color: #4a3b33; letter-spacing: 0.05em; }
     .content { line-height: 1.6; }
-    .footer { margin-top: 40px; padding-top: 24px; border-top: 1px solid #e8e0d4; text-align: center; font-size: 13px; color: #6b5b4f; }
-    .btn { display: inline-block; padding: 14px 32px; background: #2d1f22; color: #faf7f3; text-decoration: none; border-radius: 2px; font-size: 14px; }
-    .divider { border-top: 1px solid #e8e0d4; margin: 24px 0; }
-    h1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 28px; color: #2d1f22; }
-    h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 20px; color: #2d1f22; }
-    .gold { color: #b8965c; }
-    .story { font-style: italic; color: #6b5b4f; border-left: 2px solid #b8965c; padding-left: 16px; margin: 16px 0; }
+    .footer { margin-top: 40px; padding-top: 24px; border-top: 1px solid #ded3c4; text-align: center; font-size: 13px; color: #6e624d; }
+    .btn { display: inline-block; padding: 14px 32px; background: #4a3b33; color: #fbf7f1; text-decoration: none; border-radius: 2px; font-size: 14px; }
+    .divider { border-top: 1px solid #ded3c4; margin: 24px 0; }
+    h1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 28px; color: #4a3b33; }
+    h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 20px; color: #4a3b33; }
+    .gold { color: #896532; }
+    .story { font-style: italic; color: #6e624d; border-left: 2px solid #896532; padding-left: 16px; margin: 16px 0; }
   </style>
 </head>
 <body>
@@ -43,7 +43,7 @@ function wrap(body: string): string {
     </div>
     <div class="footer">
       <p>Apriliha Singh · Fine Bespoke Jewelry · Jaipur, India</p>
-      <p><a href="https://aprilihasingh.com/care-guide" style="color: #b8965c;">Care Guide</a> · <a href="https://aprilihasingh.com/contact" style="color: #b8965c;">Contact</a></p>
+      <p><a href="https://aprilihasingh.com/care-guide" style="color: #896532;">Care Guide</a> · <a href="https://aprilihasingh.com/contact" style="color: #896532;">Contact</a></p>
     </div>
   </div>
 </body>
@@ -66,7 +66,7 @@ export function orderConfirmationEmail(orderId: string, items: OrderItem[], stor
   const itemList = items.map((i) => `
     <div style="margin-bottom: 16px;">
       <h2>${i.name}</h2>
-      <p style="text-transform: uppercase; font-size: 12px; letter-spacing: 0.1em; color: #6b5b4f;">${i.productType}</p>
+      <p style="text-transform: uppercase; font-size: 12px; letter-spacing: 0.1em; color: #6e624d;">${i.productType}</p>
       ${i.storyNarrative ? `<div class="story">"${i.storyNarrative}"</div>` : ''}
     </div>
   `).join('');
@@ -113,7 +113,7 @@ export function forgotPasswordEmail(resetLink: string): EmailTemplate {
       <h1>Password Reset</h1>
       <p>You requested a password reset. Click the button below to choose a new password.</p>
       <p><a href="${resetLink}" class="btn">Reset Password</a></p>
-      <p style="font-size: 13px; color: #6b5b4f;">This link expires in 1 hour. If you did not request this, you can safely ignore this email.</p>
+      <p style="font-size: 13px; color: #6e624d;">This link expires in 1 hour. If you did not request this, you can safely ignore this email.</p>
     `),
   };
 }
@@ -125,7 +125,7 @@ export function verifyEmailEmail(verifyLink: string): EmailTemplate {
       <h1>Verify Your Email</h1>
       <p>Please verify your email address to receive order updates and shipping notifications.</p>
       <p><a href="${verifyLink}" class="btn">Verify Email</a></p>
-      <p style="font-size: 13px; color: #6b5b4f;">This link expires in 24 hours.</p>
+      <p style="font-size: 13px; color: #6e624d;">This link expires in 24 hours.</p>
     `),
   };
 }

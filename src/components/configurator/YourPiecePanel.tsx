@@ -50,7 +50,7 @@ export function YourPiecePanel({
   const handleAdd = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!onAddToCart || adding || !canAdd) return;
+    if (!onAddToCart || adding || added || !canAdd) return;
     await onAddToCart();
   };
 
@@ -58,7 +58,7 @@ export function YourPiecePanel({
     <>
       {/* Mobile sticky action bar — primary cart path on phone */}
       <div
-        className="lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-bg-dark text-text-inverse"
+        className="lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-border-inverse bg-bg-dark text-text-inverse"
         style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
       >
         <button
@@ -70,7 +70,7 @@ export function YourPiecePanel({
           <span className="font-ui text-caption uppercase tracking-[0.13em]">
             {selectedParts.length} parts
             {productType === 'earring' ? ' · pair' : ''}
-            <span className="ml-2 text-white/50 normal-case tracking-normal">
+            <span className="ml-2 text-text-muted-inverse normal-case tracking-normal">
               {isOpen ? 'Hide' : 'Details'}
             </span>
           </span>
@@ -78,7 +78,7 @@ export function YourPiecePanel({
         </button>
 
         {isOpen && (
-          <div className="border-t border-white/10 max-h-[45vh] overflow-y-auto px-5 py-4 overscroll-contain">
+          <div className="border-t border-border-inverse max-h-[45vh] overflow-y-auto px-5 py-4 overscroll-contain">
             <SelectedPartsList
               selectedParts={selectedParts}
               onRemove={onRemovePart}
@@ -86,7 +86,7 @@ export function YourPiecePanel({
               inverse
             />
             {storyNarrative && (
-              <p className="font-display italic text-body mt-4 border-t border-white/10 pt-4 text-white/70">
+              <p className="font-display italic text-body mt-4 border-t border-border-inverse pt-4 text-text-muted-inverse">
                 “{storyNarrative}”
               </p>
             )}
@@ -100,7 +100,7 @@ export function YourPiecePanel({
             </p>
           )}
           {!canAdd && missingHint && (
-            <p className="font-ui text-micro uppercase tracking-[0.13em] text-white/55">
+            <p className="font-ui text-micro uppercase tracking-[0.13em] text-text-muted-inverse">
               {missingHint}
             </p>
           )}
@@ -110,10 +110,11 @@ export function YourPiecePanel({
               <button
                 type="button"
                 onClick={handleAdd}
-                disabled={adding}
+                disabled={adding || added}
+                aria-live="polite"
                 className={cn(
                   'flex-1 min-h-[48px] px-4 font-ui text-caption uppercase tracking-[0.13em]',
-                  'bg-text-inverse text-bg-dark border border-text-inverse',
+                  'bg-ivory-text text-ink border border-ivory-text',
                   'active:opacity-80 disabled:opacity-40 touch-manipulation'
                 )}
               >
@@ -126,7 +127,7 @@ export function YourPiecePanel({
               {added && (
                 <Link
                   href="/cart"
-                  className="shrink-0 min-h-[48px] px-4 flex items-center justify-center font-ui text-caption uppercase tracking-[0.13em] border border-white/40 text-text-inverse"
+                  className="shrink-0 min-h-[48px] px-4 flex items-center justify-center font-ui text-caption uppercase tracking-[0.13em] border border-text-inverse/40 text-text-inverse"
                 >
                   View
                 </Link>
@@ -140,7 +141,7 @@ export function YourPiecePanel({
                 e.stopPropagation();
                 onGoToMissing?.();
               }}
-              className="w-full min-h-[48px] px-4 font-ui text-caption uppercase tracking-[0.13em] border border-white/35 text-text-inverse active:opacity-80 touch-manipulation"
+              className="w-full min-h-[48px] px-4 font-ui text-caption uppercase tracking-[0.13em] border border-text-inverse/35 text-text-inverse active:opacity-80 touch-manipulation"
             >
               {missingHint ? 'Complete required steps' : 'Continue building'}
             </button>
@@ -202,7 +203,7 @@ function SelectedPartsList({
       <p
         className={cn(
           'font-ui text-body text-center py-6',
-          inverse ? 'text-white/50' : 'text-text-muted'
+          inverse ? 'text-text-muted-inverse' : 'text-text-muted'
         )}
       >
         Select parts to build your piece
@@ -224,12 +225,12 @@ function SelectedPartsList({
             key={`${sp.part.slotType}-${sp.part.id}`}
             className={cn(
               'flex items-center justify-between gap-3 py-2 border-b last:border-b-0',
-              inverse ? 'border-white/10' : 'border-border'
+              inverse ? 'border-border-inverse' : 'border-border'
             )}
           >
             <div className="min-w-0">
               <p className="font-ui text-body truncate uppercase tracking-[0.06em]">{sp.part.name}</p>
-              <p className={cn('font-ui text-caption', inverse ? 'text-white/50' : 'text-text-muted')}>
+              <p className={cn('font-ui text-caption', inverse ? 'text-text-muted-inverse' : 'text-text-muted')}>
                 {sp.part.slotType.replace(/_/g, ' ')}
                 {sp.part.isFitOnly ? ' · fit' : ''}
                 {pairMultiplier > 1 && !sp.part.isFitOnly && sp.part.price > 0 ? ' · pair' : ''}

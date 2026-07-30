@@ -3,12 +3,13 @@
 @source "../**/*.{js,ts,jsx,tsx,mdx}";
 
 /* ── Apriliha Singh design system ──
-   Structural neutrals preserve the existing restrained UI. Brand colors are
-   intentionally limited to accents, selections, feedback, and small chrome
-   moments so the palette is visible without recoloring page surfaces. */
+   "An art gallery in Jaipur designed by Apple."
+   White canvas stays for layout calm. Brand warmth enters through secondary
+   surfaces, borders, accents, and chrome — never gold gradients or ornate
+   takeover of the page structure. */
 
 @theme {
-  /* Brand palette — decorative and semantic accents only */
+  /* Brand palette */
   --color-sand: #f4ede4;
   --color-warm-stone: #e8ded2;
   --color-burnt-saffron: #b96634;
@@ -19,24 +20,25 @@
   --color-ivory-text: #fbf7f1;
   --color-ink: #4a3b33;
 
-  /* Existing structural roles — deliberately unchanged */
+  /* Structural roles — white primary canvas preserved */
   --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f5f5f5;
-  --color-bg-accent: #c4c4c4;
-  --color-bg-dark: #121212;
-  --color-bg-darker: #2a2a2a;
+  /* Warm stone under media frames and secondary panels */
+  --color-bg-secondary: #ebe4da;
+  --color-bg-accent: #9c8368;
+  --color-bg-dark: #241821;
+  --color-bg-darker: #31232a;
   --color-text-primary: #515151;
-  --color-text-inverse: #ffffff;
-  --color-text-muted: #a8a8a8;
-  --color-text-muted-inverse: rgba(255, 255, 255, 0.6);
-  --color-text-light: #c1c1c1;
-  /* Burnished accents remain legible when used as small text */
+  --color-text-inverse: #fbf7f1;
+  --color-text-muted: #8b7867;
+  --color-text-muted-inverse: rgba(251, 247, 241, 0.62);
+  --color-text-light: #b9a794;
+  /* Burnished accents for selections, prices, labels */
   --color-accent-primary: #963f2c;
   --color-accent-gold: #8a6633;
-  --color-border: #d9d9d9;
-  --color-border-inverse: rgba(255, 255, 255, 0.15);
+  --color-border: #ded3c4;
+  --color-border-inverse: rgba(251, 247, 241, 0.16);
   --color-announcement: #963f2c;
-  --color-nav: #a4a4a4;
+  --color-nav: #8b7867;
 
   --font-display: var(--font-libre), "Libre Caslon Text", "Iwata Mincho", Arvo, Georgia, "Times New Roman", serif;
   --font-ui: Helvetica, "Helvetica Neue", Arial, sans-serif;
@@ -244,7 +246,7 @@
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
     font-weight: 400;
-    color: var(--color-text-light);
+    color: var(--color-accent-gold);
   }
 
   .btn-primary {
@@ -259,15 +261,15 @@
     text-transform: uppercase;
     padding: 0.5rem 1rem;
     transition: background var(--transition-spring), color var(--transition-spring);
-    background-color: var(--color-text-primary);
+    background-color: var(--color-ink);
     color: var(--color-text-inverse);
     border-radius: 0;
-    border: 1px solid var(--color-text-primary);
+    border: 1px solid var(--color-ink);
     cursor: pointer;
     text-decoration: none;
     line-height: 1.2;
   }
-  .btn-primary:hover { background: transparent; color: var(--color-text-primary); }
+  .btn-primary:hover { background: transparent; color: var(--color-ink); }
   .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
   .btn-outline,
@@ -347,7 +349,7 @@
     border-radius: 0;
   }
   .input-field::placeholder { color: var(--color-text-muted); }
-  .input-field:focus { border-color: var(--color-text-primary); }
+  .input-field:focus { border-color: var(--color-accent-gold); }
 
   .input-box {
     display: block;
@@ -366,12 +368,12 @@
   }
   .input-box::placeholder { color: var(--color-text-muted); }
   .input-box:focus {
-    border-color: var(--color-text-primary);
+    border-color: var(--color-accent-gold);
     background: var(--color-bg-primary);
   }
 
   .divider { height: 1px; background-color: var(--color-border); }
-  .divider-gold { height: 1px; background-color: var(--color-border); }
+  .divider-gold { height: 1px; background-color: color-mix(in srgb, var(--color-accent-gold) 32%, transparent); }
   .divider-inverse { height: 1px; background-color: var(--color-border-inverse); }
 
   .quote-block {
@@ -381,8 +383,10 @@
     font-size: 15px;
     line-height: var(--leading-snug);
     letter-spacing: var(--tracking-wide);
-    color: var(--color-text-inverse);
+    color: var(--color-ink);
   }
+  /* Only for quotes sitting on a dark surface */
+  .quote-block--inverse { color: var(--color-text-inverse); }
 
   .nav-container {
     display: flex;
@@ -511,7 +515,7 @@
     font-family: var(--font-display);
     font-size: 15px;
     letter-spacing: var(--tracking-wide);
-    color: var(--color-text-light);
+    color: var(--color-accent-gold);
     padding-left: 4.6875vw;
     text-transform: uppercase;
   }
@@ -688,7 +692,7 @@
     box-shadow: none;
     border: none;
     filter: none;
-    color: #a4a4a4;
+    color: var(--color-oxidized-bronze);
     overflow: visible !important; /* allow jewelry dropdown to escape */
   }
   @media (max-width: 875px) {
@@ -704,7 +708,7 @@
 
   .l-header--open {
     top: 0 !important;
-    background: #fff !important;
+    background: var(--color-bg-primary) !important;
   }
   .l-header--open .l-header__list--sp-left .l-header__item:last-child,
   .l-header--open .l-header__list--sp-right {
@@ -737,6 +741,17 @@
     cursor: pointer;
   }
 
+  /* Production-intent mark: AS centered, brand name on a quiet semicircle */
+  .l-header__logo-mark {
+    display: block;
+    width: auto;
+    height: 40px;
+    max-width: min(46vw, 11.5rem);
+  }
+  @media (max-width: 875px) {
+    .l-header__logo-mark { height: 32px; }
+  }
+
   .l-header__logo-text {
     display: block;
     font-family: var(--font-display), Georgia, "Times New Roman", serif;
@@ -744,7 +759,7 @@
     font-weight: 400;
     letter-spacing: 0.36em;
     text-transform: uppercase;
-    color: #000;
+    color: var(--color-ink);
     white-space: nowrap;
     line-height: 1;
     padding-right: 0.08em; /* optical balance for letter-spacing */
@@ -820,7 +835,7 @@
     font-weight: 400;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #a4a4a4;
+    color: var(--color-oxidized-bronze);
     background: none;
     border: none;
     padding: 0;
@@ -845,7 +860,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4.9 2.98'%3E%3Cpolygon fill='%23A4A4A4' points='2.45 2.98 0 .53 .53 0 2.45 1.92 4.37 0 4.9 .53 2.45 2.98'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4.9 2.98'%3E%3Cpolygon fill='%236E624D' points='2.45 2.98 0 .53 .53 0 2.45 1.92 4.37 0 4.9 .53 2.45 2.98'/%3E%3C/svg%3E");
   }
   @media (max-width: 875px) {
     .l-header__item-link--menu::after { display: none; }
@@ -900,7 +915,7 @@
     font-weight: 400;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #a4a4a4 !important;
+    color: var(--color-oxidized-bronze) !important;
     text-shadow: none;
     filter: none;
     opacity: 1 !important;
@@ -991,18 +1006,73 @@
   .l-nav-sp--open { opacity: 1; pointer-events: auto; }
   .l-nav-sp__wrapper {
     position: relative;
-    background: #fff;
+    background: var(--color-bg-primary);
     width: 100%;
     height: 100vh;
     overflow: auto;
   }
-  /* Same terracotta band as the site announcement bar — the panel covers the
-     fixed strip, so it carries its own matching top edge. */
-  .l-nav-sp__wrapper::before {
-    content: "";
-    display: block;
+  /* The mobile panel covers the fixed announcement, so it renders the same
+     live message and controls inside its own stacking context. */
+  .l-nav-sp__announcement {
+    position: relative;
     height: var(--announcement-h-sp);
     background-color: var(--color-announcement);
+    color: var(--color-ivory-text);
+    overflow: hidden;
+  }
+  .l-nav-sp__announcement-link {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 58px 0 14px;
+    font-family: var(--font-display);
+    font-size: 8px;
+    line-height: 1;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 1px;
+    color: inherit;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+  }
+  .l-nav-sp__announcement-link.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .l-nav-sp__announcement-dots {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+  }
+  .l-nav-sp__announcement-dot {
+    position: relative;
+    width: 6px;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+  .l-nav-sp__announcement-dot::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 6px;
+    height: 1px;
+    transform: translateY(-50%);
+    background: rgba(251,247,241,0.4);
+  }
+  .l-nav-sp__announcement-dot.is-active::before {
+    background: var(--color-ivory-text);
   }
   .l-nav-sp__close {
     position: absolute;
@@ -1047,14 +1117,14 @@
     font-size: 12px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #1a1a1a;
+    color: var(--color-ink);
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
   }
   .l-nav-sp__item--muted a,
-  .l-nav-sp__item--muted button { color: #8a8a8a; }
+  .l-nav-sp__item--muted button { color: var(--color-oxidized-bronze); }
   .l-nav-sp__return {
     display: block;
     margin-bottom: 28px;
@@ -1062,7 +1132,7 @@
     font-size: 10px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: #8a8a8a;
+    color: var(--color-oxidized-bronze);
     background: none;
     border: none;
     padding: 0;
@@ -1076,7 +1146,7 @@
     position: fixed;
     inset: 0;
     z-index: var(--z-modal);
-    background: #fff;
+    background: var(--color-bg-primary);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -1116,6 +1186,7 @@
     color: var(--color-text-primary);
     outline: none;
   }
+  .l-search__input:focus { border-color: var(--color-accent-gold); }
 
   .l-overlay__body,
   .l-overlay__list,
@@ -1133,7 +1204,7 @@
     position: absolute;
     inset: 0;
     width: 100%;
-    color: #fff;
+    color: var(--color-ivory-text);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.8s ease, visibility 0.8s ease;
@@ -1194,7 +1265,7 @@
     cursor: pointer;
     transition: background 0.24s ease;
   }
-  .hero-carousel__dot.is-active { background: #fff; }
+  .hero-carousel__dot.is-active { background: var(--color-ivory-text); }
 
   /* Section header row */
   .section-header {
@@ -1210,12 +1281,42 @@
     font-size: 10px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: var(--color-text-muted);
+    color: var(--color-accent-gold);
     text-decoration: underline;
     text-underline-offset: 3px;
     transition: opacity 0.24s ease;
   }
   .section-header__explore:hover { opacity: 0.7; }
+
+  /* Single craft quote wall — one homepage moment, not a section rhythm */
+  .craft-quote {
+    background-color: var(--color-dark-aubergine);
+    color: var(--color-ivory-text);
+    text-align: center;
+    padding: 72px 4.6875vw;
+  }
+  @media (max-width: 749px) {
+    .craft-quote { padding: 14vw 4.05vw; }
+  }
+  .craft-quote__mark {
+    display: block;
+    margin: 0 0 24px;
+    font-family: var(--font-display);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-gold-foil);
+  }
+  .craft-quote__text {
+    margin: 0 auto;
+    max-width: 34rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.0625rem, 2.2vw, 1.5rem);
+    line-height: 1.45;
+    letter-spacing: 0.04em;
+    font-weight: 400;
+  }
 
   /* Projects list */
   .projects-list {
@@ -1281,7 +1382,7 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background-color: #fff;
+    background-color: var(--color-bg-primary);
     overflow: auto;
   }
   /* Hover bridge under header so mouse can travel trigger → panel without closing */
@@ -1327,14 +1428,14 @@
     font-size: 9px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #8c8c8c;
+    color: var(--color-oxidized-bronze);
     line-height: 1.4;
   }
   .l-menu-panel__nav-title {
     font-size: 12px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #8c8c8c;
+    color: var(--color-accent-gold);
     margin-bottom: 20px;
   }
   .l-menu-panel__items {
@@ -1350,7 +1451,7 @@
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #a4a4a4;
+    color: var(--color-oxidized-bronze);
     transition: opacity 0.24s ease;
   }
   .l-menu-panel__item a:hover { opacity: 0.7; }
@@ -1373,7 +1474,7 @@
     margin-bottom: 28px;
     font-size: 12px;
     letter-spacing: 0.18em;
-    color: #8c8c8c;
+    color: var(--color-accent-gold);
   }
   .l-menu-panel__visit-links {
     list-style: none;
@@ -1389,7 +1490,7 @@
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #a4a4a4;
+    color: var(--color-oxidized-bronze);
     transition: opacity 0.24s ease;
   }
   .l-menu-panel__visit-links a:hover { opacity: 0.7; }
@@ -1423,7 +1524,7 @@
   .l-menu-panel__store-card-media {
     width: 100%;
     overflow: hidden;
-    background: #f5f5f5;
+    background: var(--color-bg-secondary);
   }
   .l-menu-panel__store-card-media .l-menu-panel__showcase-image {
     width: 100%;
@@ -1440,7 +1541,7 @@
     font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #8c8c8c;
+    color: var(--color-accent-gold);
     text-decoration: underline;
     text-underline-offset: 3px;
     transition: opacity 0.24s ease;
@@ -1479,7 +1580,7 @@
     transition: color 0.24s ease;
   }
   .gallery-filters__link:hover,
-  .gallery-filters__link.is-active { color: var(--color-text-primary); }
+  .gallery-filters__link.is-active { color: var(--color-accent-gold); }
 
   .gallery-grid {
     display: grid;
@@ -1557,6 +1658,11 @@
   }
   .pdp__thumb.is-active,
   .pdp__thumb:hover { opacity: 1; }
+  /* Outline rather than border so the selected thumb never shifts the row */
+  .pdp__thumb.is-active {
+    outline: 1px solid var(--color-accent-gold);
+    outline-offset: -1px;
+  }
   .pdp__info {
     padding-top: 20px;
     max-width: 420px;
@@ -1573,7 +1679,7 @@
     font-size: 10px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: var(--color-text-muted);
+    color: var(--color-accent-gold);
   }
   .pdp__title {
     font-size: 15px;
@@ -1583,10 +1689,12 @@
     line-height: 1.5;
     margin: 0 0 16px;
   }
+  /* Matches the burnished gold used for prices in the configurator */
   .pdp__price {
     font-size: 12px;
     letter-spacing: 0.1em;
     margin: 0 0 24px;
+    color: var(--color-accent-gold);
   }
   .pdp__desc {
     font-size: 11px;
@@ -1604,9 +1712,9 @@
   .pdp__atc {
     width: 100%;
     padding: 14px 20px;
-    border: 1px solid var(--color-text-primary);
-    background: var(--color-text-primary);
-    color: #fff;
+    border: 1px solid var(--color-ink);
+    background: var(--color-ink);
+    color: var(--color-ivory-text);
     font-size: 11px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
@@ -1668,7 +1776,7 @@
     text-transform: uppercase;
     text-decoration: underline;
     text-underline-offset: 3px;
-    color: var(--color-text-primary);
+    color: var(--color-accent-gold);
   }
   .pdp__related {
     display: grid;
@@ -1712,7 +1820,7 @@
     left: 4.6875vw;
     transform: translateY(-50%);
     margin: 0;
-    color: #fff;
+    color: var(--color-ivory-text);
     font-size: 15px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
@@ -1784,6 +1892,7 @@
     text-transform: uppercase;
     text-decoration: underline;
     text-underline-offset: 3px;
+    color: var(--color-accent-gold);
   }
 
   /* Cart drawer — austere */
@@ -1841,6 +1950,7 @@
     text-transform: uppercase;
     text-decoration: underline;
     text-underline-offset: 3px;
+    color: var(--color-accent-gold);
   }
 
   /* Search results */

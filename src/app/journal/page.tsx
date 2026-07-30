@@ -21,7 +21,7 @@ export default function JournalPage() {
             <Link
               key={article.slug}
               href={`/journal/${article.slug}`}
-              className="block w-[calc(50%-5px)] max-md:w-full u-hover-fade mb-10"
+              className="group block w-[calc(50%-5px)] max-md:w-full u-hover-fade mb-10"
             >
               <div className="overflow-hidden bg-bg-secondary" style={{ aspectRatio: '1.308 / 1' }}>
                 <img
@@ -31,7 +31,7 @@ export default function JournalPage() {
                 />
               </div>
               <p
-                className="mt-3 px-2.5 text-text-primary uppercase"
+                className="mt-3 px-2.5 text-text-primary uppercase group-hover:text-accent-primary transition-colors duration-300"
                 style={{ fontSize: '11px', letterSpacing: '0.13em', lineHeight: 1.73 }}
               >
                 {article.title}

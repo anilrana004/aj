@@ -43,7 +43,7 @@ export default function SelectionPage() {
             </p>
             <Link
               href="/gallery"
-              className="uppercase underline underline-offset-4"
+              className="uppercase underline underline-offset-4 text-accent-gold"
               style={{ fontSize: '10px', letterSpacing: '0.13em' }}
             >
               BROWSE GALLERY
@@ -55,7 +55,7 @@ export default function SelectionPage() {
               <button
                 type="button"
                 onClick={clear}
-                className="uppercase text-text-muted hover:text-text-primary"
+                className="uppercase text-text-muted hover:text-accent-gold transition-colors duration-200"
                 style={{ fontSize: '10px', letterSpacing: '0.13em' }}
               >
                 CLEAR ALL

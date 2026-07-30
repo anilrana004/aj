@@ -43,7 +43,7 @@ export function PartCard({
             loading="lazy"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-accent-oxidized-bronze">
+          <div className="w-full h-full flex items-center justify-center text-oxidized-bronze">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
               <circle cx="8.5" cy="8.5" r="1.5" />
@@ -53,7 +53,7 @@ export function PartCard({
         )}
         {isSelected && (
           <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-accent-gold flex items-center justify-center">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-dark-aubergine)" strokeWidth="3">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-ivory-text)" strokeWidth="3">
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>

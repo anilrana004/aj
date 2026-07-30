@@ -57,9 +57,15 @@ function Logo({ onNavigate }: { onNavigate?: () => void }) {
         title="Apriliha Singh"
         onClick={handleClick}
       >
-        <span className="l-header__logo-text" aria-hidden="true">
-          APRILIHA SINGH
-        </span>
+        <img
+          src="/images/brand/logo-mark.svg"
+          alt=""
+          width={160}
+          height={48}
+          className="l-header__logo-mark"
+          decoding="async"
+        />
+        <span className="sr-only">Apriliha Singh</span>
       </Link>
     </div>
   );
@@ -77,8 +83,8 @@ function MenuIcon() {
 function CloseIcon() {
   return (
     <svg width="15" height="15" viewBox="0 0 15.37 15.33" aria-hidden>
-      <rect x="7.21" y="-2.67" width="1" height="20.68" transform="translate(-3.16 7.69) rotate(-45)" fill="#515151" />
-      <rect x="-2.67" y="7.17" width="20.68" height="1" transform="translate(-3.18 7.66) rotate(-45)" fill="#515151" />
+      <rect x="7.21" y="-2.67" width="1" height="20.68" transform="translate(-3.16 7.69) rotate(-45)" fill="currentColor" />
+      <rect x="-2.67" y="7.17" width="20.68" height="1" transform="translate(-3.18 7.66) rotate(-45)" fill="currentColor" />
     </svg>
   );
 }
@@ -522,6 +528,36 @@ export function Header() {
         aria-hidden={!isMobileMenuOpen}
       >
         <div className="l-nav-sp__wrapper">
+          <div className="l-nav-sp__announcement" aria-label="Menu announcements">
+            {announcements.map((item, i) => (
+              <Link
+                key={item.text}
+                href={item.href}
+                className={cn(
+                  'l-nav-sp__announcement-link',
+                  i === announceIndex && 'is-active'
+                )}
+                aria-hidden={i !== announceIndex}
+                tabIndex={i === announceIndex ? 0 : -1}
+                onClick={closeMobile}
+              >
+                {item.text}
+              </Link>
+            ))}
+            <div className="l-nav-sp__announcement-dots" role="tablist" aria-label="Menu announcement slides">
+              {announcements.map((item, i) => (
+                <button
+                  key={item.text}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === announceIndex}
+                  aria-label={`Announcement ${i + 1}`}
+                  className={cn('l-nav-sp__announcement-dot', i === announceIndex && 'is-active')}
+                  onClick={() => setAnnounceIndex(i)}
+                />
+              ))}
+            </div>
+          </div>
           <button type="button" className="l-nav-sp__close" onClick={closeMobile} aria-label="Close menu">
             <CloseIcon />
           </button>

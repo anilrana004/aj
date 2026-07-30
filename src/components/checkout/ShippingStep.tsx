@@ -26,7 +26,9 @@ export function ShippingStep({ line1, line2, city, state, postalCode, country, o
         />
       </div>
       <div>
-        <label htmlFor="ship-line2" className="block font-ui text-caption mb-2">Address Line 2 (optional)</label>
+        <label htmlFor="ship-line2" className="block font-ui text-caption mb-2">
+          Address Line 2 <span className="normal-case text-oxidized-bronze">(optional)</span>
+        </label>
         <Input
           id="ship-line2"
           value={line2}

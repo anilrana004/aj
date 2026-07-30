@@ -62,7 +62,7 @@ export default function OrdersPage() {
                 <p className="font-ui text-caption text-text-primary/50">{order.id}</p>
                 <h3 className="font-display text-h3 mt-1">{order.items[0]}</h3>
               </div>
-              <span className="font-ui text-caption px-3 py-1 bg-bg-secondary rounded-sm">
+              <span className="font-ui text-caption px-3 py-1 bg-warm-stone text-accent-primary rounded-sm">
                 {statusLabels[order.status] || order.status}
               </span>
             </div>

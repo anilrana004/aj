@@ -28,9 +28,9 @@ export function AccordionSection({ number, title, summary, isActive, isCompleted
           className={cn(
             'w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-ui text-caption font-medium',
             isCompleted
-              ? 'bg-accent-gold text-bg-dark'
+              ? 'bg-accent-gold text-ivory-text'
               : isActive
-              ? 'bg-text-primary text-text-inverse'
+              ? 'bg-ink text-text-inverse'
               : 'bg-text-primary/10 text-text-primary'
           )}
         >

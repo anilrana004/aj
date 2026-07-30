@@ -118,7 +118,7 @@ export default function CartPage() {
                           {item.partsSummary.length > 0 && (
                             <div className="flex flex-wrap gap-2 mt-3">
                               {item.partsSummary.map((part, i) => (
-                                <span key={i} className="font-ui text-micro px-2 py-0.5 bg-bg-secondary rounded-sm text-text-primary/60">
+                                <span key={i} className="font-ui text-micro px-2 py-0.5 bg-warm-stone rounded-sm text-accent-primary">
                                   {part}
                                 </span>
                               ))}

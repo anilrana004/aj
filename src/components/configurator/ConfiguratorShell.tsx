@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ProductSlot, ConfiguratorPart } from '@/types/part';
 import { ProductType } from '@/types/configuration';
 import { cn } from '@/lib/utils';
@@ -25,6 +25,14 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
   const [adding, setAdding] = useState(false);
   const [addError, setAddError] = useState<string | null>(null);
   const [added, setAdded] = useState(false);
+  const addedFeedbackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(
+    () => () => {
+      if (addedFeedbackTimer.current) clearTimeout(addedFeedbackTimer.current);
+    },
+    []
+  );
 
   const partsForCurrentSlot = useMemo(() => {
     if (!config.currentSlot) return [];
@@ -120,8 +128,14 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
         ringSize: config.personalization.ringSize,
       });
       setAdded(true);
-      setPanelOpen(true);
-      setTimeout(() => setAdded(false), 4000);
+      // Standard storefront behavior: collapse the expanded mobile summary
+      // after a successful add while keeping a brief confirmation in the bar.
+      setPanelOpen(false);
+      if (addedFeedbackTimer.current) clearTimeout(addedFeedbackTimer.current);
+      addedFeedbackTimer.current = setTimeout(() => {
+        setAdded(false);
+        addedFeedbackTimer.current = null;
+      }, 3000);
     } catch {
       setAddError('Network error verifying price. Try again.');
       setPanelOpen(true);
@@ -148,10 +162,10 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
                   className={cn(
                     'h-1.5 flex-1 transition-all duration-300',
                     isCurrent
-                      ? 'bg-text-primary'
+                      ? 'bg-accent-gold'
                       : isSelected
-                        ? 'bg-text-primary/35'
-                        : 'bg-text-primary/10'
+                        ? 'bg-accent-gold/40'
+                        : 'bg-warm-stone'
                   )}
                   aria-label={`${slot.label}${isSelected ? ' (selected)' : ''}`}
                   aria-current={isCurrent ? 'step' : undefined}
@@ -163,7 +177,7 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
             <span className="text-text-muted">
               Step {config.currentStep + 1} of {slots.length}
             </span>
-            <span className="text-text-primary">{slots[config.currentStep]?.label}</span>
+            <span className="text-accent-gold">{slots[config.currentStep]?.label}</span>
           </div>
         </nav>
       </div>
@@ -232,7 +246,7 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
                     />
                     <button
                       type="button"
-                      className="mt-2 font-ui text-micro uppercase tracking-[0.13em] text-text-muted underline underline-offset-2 hover:text-text-primary"
+                      className="mt-2 font-ui text-micro uppercase tracking-[0.13em] text-text-muted underline underline-offset-2 hover:text-accent-gold"
                       onClick={() =>
                         setStoryPartId((id) => (id === part.id ? null : part.id))
                       }
@@ -290,7 +304,8 @@ export function ConfiguratorShell({ productType, slots, parts }: ConfiguratorShe
                     <button
                       type="button"
                       onClick={handleAddToCart}
-                      disabled={adding || !canAdd}
+                      disabled={adding || added || !canAdd}
+                      aria-live="polite"
                       className="btn-primary text-text-inverse disabled:opacity-40"
                     >
                       {adding

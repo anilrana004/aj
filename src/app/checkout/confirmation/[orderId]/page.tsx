@@ -27,7 +27,7 @@ export default async function OrderConfirmationPage({ params }: ConfirmationPage
       <Header />
       <main id="main-content" className="site-main min-h-screen flex items-center justify-center px-responsive">
         <div className="w-full max-w-[600px] py-20 text-center">
-          <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-bg-secondary flex items-center justify-center">
+          <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-warm-stone flex items-center justify-center">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-gold)" strokeWidth="1.5">
               <polyline points="20 6 9 17 4 12" />
             </svg>

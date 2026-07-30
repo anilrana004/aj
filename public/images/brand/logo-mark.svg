@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 72" role="img" aria-labelledby="logoTitle">
+  <title id="logoTitle">Apriliha Singh</title>
+  <defs>
+    <!-- Upper semicircle path for the wordmark -->
+    <path id="as-arc" d="M 28 58 A 92 92 0 0 1 212 58" fill="none" />
+  </defs>
+
+  <!-- Quiet framing arc  hairline, no ornament -->
+  <path
+    d="M 36 56 A 84 84 0 0 1 204 56"
+    fill="none"
+    stroke="#8a6633"
+    stroke-width="0.75"
+    opacity="0.55"
+  />
+
+  <text
+    fill="#4a3b33"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="9.5"
+    letter-spacing="0.22em"
+  >
+    <textPath href="#as-arc" startOffset="50%" text-anchor="middle">
+      APRILIHA SINGH
+    </textPath>
+  </text>
+
+  <text
+    x="120"
+    y="54"
+    fill="#4a3b33"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="22"
+    font-weight="400"
+    letter-spacing="0.08em"
+    text-anchor="middle"
+  >
+    AS
+  </text>
+</svg>
