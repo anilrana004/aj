@@ -712,23 +712,29 @@
     pointer-events: none;
   }
 
-  /* Absolute-centered logo — below nav lists so it never steals clicks */
+  /* Absolute-centered logo — above nav lists so the wordmark is always clickable.
+     Width stays content-sized so side nav labels remain reachable. */
   .l-header__logo {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     width: auto;
+    max-width: min(52vw, 22rem);
     text-align: center;
-    z-index: 1;
-    pointer-events: none;
+    z-index: 5;
+    pointer-events: auto;
   }
 
   .l-header__logo-link {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 8px;
     text-decoration: none;
     color: inherit;
-    pointer-events: auto;
+    cursor: pointer;
   }
 
   .l-header__logo-text {
@@ -759,7 +765,7 @@
     width: 44%;
     height: 100%;
     position: relative;
-    z-index: 3; /* above logo so nav is always clickable */
+    z-index: 3;
     overflow: visible !important;
   }
   .l-header__list--left { justify-content: flex-start; }
@@ -1009,6 +1015,8 @@
     top: 18px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 11;
+    pointer-events: auto;
   }
   .l-nav-sp__lang {
     position: absolute;

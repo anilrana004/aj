@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef, type MouseEvent } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { collections, storeLocations, products } from '@/lib/data';
 import { CartDrawer } from '@/components/cart/CartDrawer';
@@ -33,11 +34,32 @@ const collectionLinks = collections.filter((c) => c.isActive);
 type MobilePanel = 'root' | 'jewelry' | 'collections' | 'stores';
 type DesktopModal = 'collections' | 'stores' | null;
 
-function Logo({ onClick }: { onClick?: () => void }) {
+function Logo({ onNavigate }: { onNavigate?: () => void }) {
+  const pathname = usePathname();
+
+  const handleClick = useCallback(
+    (event: MouseEvent<HTMLAnchorElement>) => {
+      onNavigate?.();
+      if (pathname === '/') {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    },
+    [onNavigate, pathname]
+  );
+
   return (
     <div className="l-header__logo">
-      <Link href="/" className="l-header__logo-link" aria-label="Apriliha Singh — Home" onClick={onClick}>
-        <span className="l-header__logo-text">APRILIHA SINGH</span>
+      <Link
+        href="/"
+        className="l-header__logo-link"
+        aria-label="Apriliha Singh home"
+        title="Apriliha Singh"
+        onClick={handleClick}
+      >
+        <span className="l-header__logo-text" aria-hidden="true">
+          APRILIHA SINGH
+        </span>
       </Link>
     </div>
   );
@@ -185,6 +207,13 @@ export function Header() {
     setIsMobileMenuOpen(false);
     setMobilePanel('root');
   }, []);
+
+  const goHomeFromLogo = useCallback(() => {
+    closeDesktopModal();
+    closeJewelry();
+    closeMobile();
+    setIsSearchOpen(false);
+  }, [closeDesktopModal, closeJewelry, closeMobile]);
 
   const searchResults = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -366,7 +395,7 @@ export function Header() {
           </li>
         </ul>
 
-        <Logo />
+        <Logo onNavigate={goHomeFromLogo} />
 
         <ul
           className="l-header__list l-header__list--right"
@@ -466,7 +495,7 @@ export function Header() {
           </li>
         </ul>
 
-        <Logo />
+        <Logo onNavigate={goHomeFromLogo} />
 
         <ul className="l-header__list l-header__list--sp-right">
           <li className="l-header__item">
@@ -496,7 +525,7 @@ export function Header() {
           <button type="button" className="l-nav-sp__close" onClick={closeMobile} aria-label="Close menu">
             <CloseIcon />
           </button>
-          <Logo onClick={closeMobile} />
+          <Logo onNavigate={goHomeFromLogo} />
 
           <div className="l-nav-sp__lang">
             <LanguageToggle />
@@ -588,7 +617,7 @@ export function Header() {
         aria-hidden={!isSearchOpen}
       >
         <div className="l-search__top">
-          <Logo onClick={() => setIsSearchOpen(false)} />
+          <Logo onNavigate={goHomeFromLogo} />
           <button type="button" onClick={() => setIsSearchOpen(false)} className="l-nav-sp__close" aria-label="Close search">
             <CloseIcon />
           </button>
